@@ -221,10 +221,17 @@ scope{
 }
     :  ID 
        {
-          
+          if(names.isExistVariable($programm::curBlock+"."+$ID.text)){
+            $assignmentOperation::idType = names.getVariable($programm::curBlock+"."+$ID.text).getType();
+          }
        } 
        assignmentOperator 
        mathExpression
+       {
+          if(!typeCheker.checkAssignOperation($assignmentOperator.text,  $assignmentOperation::idType, $mathExpression.mathExpressionType, $ID.line)){
+              typeCheker.getAllErrors(errors);
+          }
+       }
     ;
 
 setGraphOperation
@@ -404,7 +411,7 @@ literal returns [String literalType, String literalValue]
     |   floatLiteral {$literalType = "Float"; $literalValue=$floatLiteral.text;}
     |   idLiteral {$literalType = $idLiteral.idType; $literalValue=$idLiteral.text;}
     |   stringLiteral {$literalType = "Text"; $literalValue=$stringLiteral.text;}
-    |   booleanLiteral {$literalType = "Bool"; $literalValue=$booleanLiteral.text;}
+    |   booleanLiteral {$literalType = "Bool"; $literalValue=$booleanLiteral.text; }
     |   callClassMethod {$literalType = $callClassMethod.methodType;}
     |   callInlineFunction {$literalType = $callInlineFunction.functionType;}
     ;
