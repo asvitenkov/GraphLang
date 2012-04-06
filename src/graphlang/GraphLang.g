@@ -18,6 +18,7 @@ options {
   // list of programs variable
   protected NamesTable names = new NamesTable();
   protected ArrayList<String> errors = new ArrayList<String>();
+  protected ExpressionTypeChecker typeCheker = new ExpressionTypeChecker();
   ArrayList<String> tmpVarNamesList = new ArrayList<String>(); 
 }
 
@@ -127,7 +128,7 @@ statement
     |   'for' '(' forControl ')' block
     |   'foreach' '(' foreachControl ')' block
     |   'while' '(' logicalExpression ')' block
-    |   'do'  '{' statement '}' 'while' '(' logicalExpression ')' ';' 
+    |   'do'  block 'while' '(' logicalExpression ')' ';' 
     |   assignmentOperation ';'
     |   setArcOperation ';'
     |   setGraphOperation ';'
@@ -145,12 +146,19 @@ foreachType
     ;
 
 forControl
-    :   forInit? ';' logicalExpression ';' forUpdate?
+    :   forInit ';' forBegin ';' forEnd
     ;
 
-forUpdate
+forBegin
     :   intLiteral
     |   idLiteral
+    ;
+    
+forEnd
+    :   intLiteral
+    |   idLiteral
+    |   callClassMethod
+    |   callInlineFunction
     ;
 
 forInit
@@ -158,13 +166,25 @@ forInit
     |   idLiteral
     ;
 
-callInlineFunction
+callInlineFunction returns [String functionType]
     :  ID '(' argumentList? ')'
+    {
+          functionType = "?";
+          ArrayList list = null;
+          if($argumentList.argumentTypeList==null) list = new ArrayList<String>();
+          else list =  $argumentList.argumentTypeList;
+          if(!names.checkCallFunction($programm::curBlock, $ID.text, list, $ID.line)){
+              names.getAllErrors(errors);
+          }
+          else{
+              functionType = names.getFunction($ID.text).getReturnType();
+          }
+    }
     ;
 
 
 
-callClassMethod
+callClassMethod returns[String methodType]
 scope{
   String variableId;
   String methodName;
@@ -177,11 +197,34 @@ scope{
 }
     :   varId=ID '.' {$callClassMethod::variableId=$varId.text;} 
         mName=ID   {$callClassMethod::methodName=$mName.text;}
-        '(' argumentList? ')' {System.out.println($argumentList.argumentTypeList);}
+        '(' argumentList? ')' //{System.out.println($argumentList.argumentTypeList);} //add check type in class method
+        {
+          methodType="?";
+          ArrayList list = null;
+          if($argumentList.argumentTypeList==null) list = new ArrayList<String>();
+          else list =  $argumentList.argumentTypeList;
+          if(!names.checkCallClassMethod($programm::curBlock, $varId.text, $mName.text, $argumentList.argumentTypeList, $varId.line)){
+              names.getAllErrors(errors);
+          }
+          if(names.isExistMethod($programm::curBlock, $varId.text, $mName.text)){
+            methodType = names.getMethod($programm::curBlock, $varId.text, $mName.text).getReturnType();
+          }
+        }
     ;
 
 assignmentOperation
-    :  ID assignmentOperator mathExpression
+scope{
+    String idType;
+}
+@init{
+    $assignmentOperation::idType = "none";
+}
+    :  ID 
+       {
+          
+       } 
+       assignmentOperator 
+       mathExpression
     ;
 
 setGraphOperation
@@ -267,23 +310,32 @@ setArcOperation
       }
     ;
 
-mathTerm
-    :  literal
-    |  '(' mathExpression ')'
+mathTerm returns [String mathTermType]
+    :  literal {$mathTerm.mathTermType = $literal.literalType;}
+    |  '(' mathExpression ')' {$mathTerm.mathTermType = $mathExpression.mathExpressionType;}
     ;
 
-unaryExpression
-    :  '+' unaryExpression
-    |  '-' unaryExpression
-    |  mathTerm
+unaryExpression returns [String unaryExpressionType]
+    :  '+' a=unaryExpression {$unaryExpression.unaryExpressionType = $a.unaryExpressionType;}
+    |  '-' b=unaryExpression {$unaryExpression.unaryExpressionType = $b.unaryExpressionType;}
+    |  mathTerm {$unaryExpression.unaryExpressionType = $mathTerm.mathTermType;}
     ;
 
-multiplicativeExpression  
-    :  unaryExpression (('*'|'/') unaryExpression)* 
+multiplicativeExpression  returns [String multiplicativeExpressionType]
+    : {ArrayList<String> type = new ArrayList<String>();} 
+      a=unaryExpression {type.add($a.unaryExpressionType);} (('*'|'/') b=unaryExpression {type.add($b.unaryExpressionType);} )*
+      {
+          multiplicativeExpressionType = typeCheker.checkMathExpressionTypes(type);
+      }
+       
     ;
 
-mathExpression
-    :   multiplicativeExpression (('-'|'+') multiplicativeExpression)*
+mathExpression returns [String mathExpressionType]
+    :   {ArrayList<String> type = new ArrayList<String>();} 
+        a=multiplicativeExpression {type.add($a.multiplicativeExpressionType);}  (('-'|'+') b=multiplicativeExpression  {type.add($b.multiplicativeExpressionType);}  )*
+        {
+          mathExpressionType = typeCheker.checkMathExpressionTypes(type);
+        }
     ;
 
 logicalExpression
@@ -295,15 +347,15 @@ relationExpression
     |  logicalAtom  relationalOp logicalAtom
     ;
 
-logicalAtom
-    : idLiteral
-    | intLiteral
-    | floatLiteral
-    | stringLiteral
-    | booleanLiteral
-    | callClassMethod
-    | callInlineFunction
-    | nullLiteral
+logicalAtom returns [String atomType]
+    : intLiteral {$atomType = "Int"; }
+    |   floatLiteral {$atomType = "Float"; }
+    |   idLiteral {$atomType = $idLiteral.idType;}
+    |   stringLiteral {$atomType = "Text"; }
+    |   booleanLiteral {$atomType = "Bool"; }
+    |   callClassMethod {$atomType = $callClassMethod.methodType;}
+    |   callInlineFunction {$atomType = $callInlineFunction.functionType;}
+    | nullLiteral {$atomType = "null";}
     ;
 
 nullLiteral
@@ -353,8 +405,8 @@ literal returns [String literalType, String literalValue]
     |   idLiteral {$literalType = $idLiteral.idType; $literalValue=$idLiteral.text;}
     |   stringLiteral {$literalType = "Text"; $literalValue=$stringLiteral.text;}
     |   booleanLiteral {$literalType = "Bool"; $literalValue=$booleanLiteral.text;}
-    |   callClassMethod //{if(names.isExistMethod())}
-    |   callInlineFunction
+    |   callClassMethod {$literalType = $callClassMethod.methodType;}
+    |   callInlineFunction {$literalType = $callInlineFunction.functionType;}
     ;
 
 argumentList returns[ArrayList<String> argumentTypeList]

@@ -1,18 +1,7 @@
 Int g1,g2,g3;
 Graph g;
 
-Int func1(Int fa1, Float fa2){
-
-Int a;
-a=max(a,a);
-return fa1;
-}
 main{
-  Graph l1,l2,l3;
-  Node a,b,c;
-  OArc q,w,e;
-  q =(a->b);
-  g=({a,b,c,d,eee},{a->b});
-  l1.nodeValue(a,rtyrtyrt,e,sdfsdf);
+ a=b;
   
 }

@@ -173,12 +173,28 @@ public class NamesTable {
 		return methodNames.containsKey(name);
 	}
 	
+	public boolean isExistMethod(String curBlock, String idName, String methodName) {
+		if(isExistVariable(curBlock+"."+idName)){
+			String idType = getVariable(curBlock+"."+idName).getType();
+			return methodNames.containsKey(idType+"."+methodName);
+		}
+		return methodNames.containsKey(idName);
+	}
+	
 	public void addMethod(MethodName n) {
 		methodNames.put(n.idtf, n);
 	}
 	
 	public MethodName getMethod(String n) {
 		return methodNames.get(n);
+	}
+	
+	public MethodName getMethod(String curBlock, String idName, String methodName) {
+		if(isExistVariable(curBlock+"."+idName)){
+			String idType = getVariable(curBlock+"."+idName).getType();
+			return methodNames.get(idType+"."+methodName);
+		}
+		return methodNames.get(methodName);
 	}
 	
 	public void printMethod(PrintStream out) {
@@ -202,7 +218,7 @@ public class NamesTable {
 			errors.add("line "+line+": function "+funcName+" doesn't exists");
 			return false;
 		}
-		if(!isExistVariable(curBlock+"."+varName) && varName!=null){
+		if(!isExistVariable(curBlock+"."+varName) && varName!=null && !varName.equals("")){
 //			System.out.println("3");
 			errors.add("line "+line+": variable "+varName+" doesn't exists");
 			return false;
@@ -340,6 +356,47 @@ public class NamesTable {
 		return result;
 	}
 	
+	public boolean checkCallClassMethod(String curBlock, String idName,String methodName, ArrayList<String> list, int line){
+		if(list==null) list = new ArrayList<String>();
+		//System.out.println("in chechCallClassMethod : need check "+methodName +" with types "+list.toString());
+		boolean result = true;
+		if(!isExistVariable(curBlock+"."+idName)){
+			errors.add("line "+line+": unknown variable "+idName);
+			return false;
+		}
+		//System.out.println(getVariable(curBlock+"."+idName).getType()+"."+methodName);
+		MethodName method = getMethod(getVariable(curBlock+"."+idName).getType()+"."+methodName);
+		if(method==null){
+			errors.add("line "+line+": unknown method name "+methodName+" with arguments "+list.toString());
+			result = false;
+		}
+		else{
+			ArrayList<String> typeList =  method.getArgumentTypes();
+			//System.out.println(typeList.toString()+" "+list.toString());
+			if(!typeList.equals(list)){
+				errors.add("line "+line+": incorrect argument types for class method "+methodName+" need " + typeList.toString() +" found "+ list.toString() );
+				result = false;
+			}
+		}
+		return  result;
+	}
+	
+	
+	public boolean checkCallFunction(String curBlock, String funcName, ArrayList<String> list, int line ){
+		boolean result = true;
+		if(list == null) list = new ArrayList<String>();
+		if(!isExistFunction(funcName)){
+			errors.add("line "+line+": unknown function "+funcName);
+			return false;
+		}
+		FunctionName func = functionNames.get(funcName);
+		if(!func.getArgumentTypes().equals(list)){
+			errors.add("line "+line+": incorrect argument types for function "+funcName+" need " + func.getArgumentTypes().toString() +" found "+ list.toString() );
+			result = false;
+		}
+		return result;
+	}
+	
 	public void getAllErrors(ArrayList<String> list){
 		while(!errors.isEmpty()){
 			list.add(errors.pop());
@@ -361,41 +418,42 @@ public class NamesTable {
 		list = new ArrayList<String>(); list.add("Graph");
 		name = new FunctionName("printGraph", "void", list, null, 0);
 		functionNames.put(name.idtf, name);
-		list = new ArrayList<String>(); list.add("Graph");
+		list = new ArrayList<String>(); list.add("Node");
 		name = new FunctionName("printNode", "void", list, null, 0);
 		functionNames.put(name.idtf, name);
-		list = new ArrayList<String>(); list.add("Graph");
+		list = new ArrayList<String>(); list.add("OArc");
 		name = new FunctionName("printArc", "void", list, null, 0);
 		functionNames.put(name.idtf, name);
 	}
 	{
 		MethodName name=null;
 		ArrayList<String> list = null;
-		name = new MethodName("getFirst", "OArc", "Node", null);
+		ArrayList<String> nullList = new ArrayList<String>();
+		name = new MethodName("getFirst", "OArc", "Node", nullList);
 		methodNames.put(name.idtf, name);
-		name = new MethodName("getSecond", "OArc", "Node", null);
+		name = new MethodName("getSecond", "OArc", "Node", nullList);
 		methodNames.put(name.idtf, name);
-		name = new MethodName("name", "Node", "Text", null);
+		name = new MethodName("name", "Node", "Text", nullList);
 		methodNames.put(name.idtf, name);
-		name = new MethodName("name", "Graph", "Text", null);
+		name = new MethodName("name", "Graph", "Text", nullList);
 		methodNames.put(name.idtf, name);
-		name = new MethodName("name", "OArc", "Text", null);
+		name = new MethodName("name", "OArc", "Text", nullList);
 		methodNames.put(name.idtf, name);
-		name = new MethodName("nodeNumber", "Graph", "Int", null);
+		name = new MethodName("nodeNumber", "Graph", "Int", nullList);
 		methodNames.put(name.idtf, name);
-		name = new MethodName("arcNumber", "Graph", "Int", null);
+		name = new MethodName("arcNumber", "Graph", "Int", nullList);
 		methodNames.put(name.idtf, name);
-		name = new MethodName("IOArcNumber", "Node", "Int", null);
+		name = new MethodName("IOArcNumber", "Node", "Int", nullList);
 		methodNames.put(name.idtf, name);
-		name = new MethodName("IArcNumber", "Node", "Int", null);
+		name = new MethodName("IArcNumber", "Node", "Int", nullList);
 		methodNames.put(name.idtf, name);
-		name = new MethodName("OArcNumber", "Node", "Int", null);
+		name = new MethodName("OArcNumber", "Node", "Int", nullList);
 		methodNames.put(name.idtf, name);
-		name = new MethodName("toText", "Int", "Text", null);
+		name = new MethodName("toText", "Int", "Text", nullList);
 		methodNames.put(name.idtf, name);
-		name = new MethodName("toText", "Float", "Text", null);
+		name = new MethodName("toText", "Float", "Text", nullList);
 		methodNames.put(name.idtf, name);
-		name = new MethodName("clearMarks", "Graph", "void", null);
+		name = new MethodName("clearMarks", "Graph", "void", nullList);
 		methodNames.put(name.idtf, name);
 		list = new ArrayList<String>(); list.add("Node");
 		name = new MethodName("markNode", "Graph", "void", list);
@@ -412,7 +470,7 @@ public class NamesTable {
 		list = new ArrayList<String>(); list.add("OArc");
 		name = new MethodName("containArc", "Graph", "Bool", list);
 		methodNames.put(name.idtf, name);
-		System.out.println(methodNames.toString());
+		//System.out.println(methodNames.toString());
 	}
 
 }

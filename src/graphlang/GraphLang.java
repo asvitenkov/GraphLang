@@ -13,7 +13,7 @@ public class GraphLang {
 	public static void main(String[] args) throws IOException, RecognitionException {
         //CharStream charStream = new ANTLRStringStream("Int a,b,c; main{}");
         //System.out.println(args[0]);
-        ANTLRFileStream fileStream = new ANTLRFileStream("all.txt");
+        ANTLRFileStream fileStream = new ANTLRFileStream(args[0]);
 	    //GraphLangLexer lexer = new GraphLangLexer(charStream);
         GraphLangLexer lexer = new GraphLangLexer(fileStream);
 	    TokenStream tokenStream = new CommonTokenStream(lexer);
