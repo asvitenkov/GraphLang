@@ -1,7 +1,140 @@
-Int g1,g2,g3;
-Graph g;
+Graph graphGlob;
+Node nodeGlob;
+OArc arcGlob;
+
+
+Node getMaxNodeWeight(Graph aGraph){
+	Node answer;
+	answer="answer node";
+	return answer;
+}
+
 
 main{
- a=b;
-  
+	// init var
+	Graph graphLoc, graph;
+	Node nodeLoc;
+	OArc arcLoc;
+	
+	graphLoc="First Graph";
+	graphGlob="Second Graph";
+	nodeLoc="First Node";
+	nodeGlob="Second Node";
+	arcLoc="First Arc";
+	arcGlob="Second Arc";
+	
+	graphLoc=graphGlob;
+	nodeLoc=nodeGlob;
+	arcGlob=arcLoc;
+	
+	// set arc vertex
+	arcLoc=(nodeLoc->nodeGlob); 
+
+	
+	// сокращённые и полные формы записи
+	graphLoc+=nodeLoc; //Add node to graph
+	graphGlob+=graphLoc;
+	graphLoc+=arcLoc; // Add arc to graph;
+	graphLoc-=nodeLoc;
+	graphLoc-=graphGlob;
+	graphLoc-=arcLoc;
+	graphLoc/=graphGlob;
+	graphLoc%=graphGlob;
+	graphLoc*=graphGlob;
+	Text a;
+	a+="sdfsdfsf";
+	
+	
+	nodeLoc = arcLoc.getFirst();
+	nodeLoc = arcGlob.getSecond();
+	nodeLoc = arcLoc.getFirst();
+	
+	
+	// операции для проверки принадлежности например : узел графу
+	
+	if(graphLoc.containNode(node)==true || graphLoc.containArc(arc)==true){
+		//do smth
+	}
+	
+	
+	//scan(graphGlob);
+	//scan(nodeLoc);
+	//scan(arcLoc);
+	
+	write("About First graph/n");
+	printGraph(graphLoc); // add a variety of output options ???
+	write("About First Node/n");
+	printNode(nodeLoc);
+	write("About First Arc/n");
+	printArc(arcLoc);
+	
+	write(graphLoc.name());
+	write(nodeLoc.name());
+	write(arcLoc.name());
+	Text text;
+	read(text);
+	nodeLoc=text;
+	graphLoc=text;
+	arcGlob=text;
+	
+	Int size;
+	Node aNode;
+	size=graph.nodeNumber();
+	size=graph.arcNumber();
+	size=aNode.IOArcNumber();
+	size=aNode.IArcNumber();
+	size=aNode.OArcNumber();
+	write(size.toText());
+	
+	OArc aArc;
+	foreach(aNode; graphLoc;){
+		// do smth
+		printNode(aNode);
+	}
+	foreach(aArc; nodeLoc; input){
+		// do smth
+		printArc(aArc);
+	}
+	foreach(aArc; nodeLoc; output){
+		// do smth
+		printArc(aArc);
+	}
+	Int i,end;
+	for(i;0;graph.nodeNumber())     {
+	}
+	
+	Bool find;
+	find=false;
+	Node tNode;
+	while(graph.nodeNumber()<25){
+		
+		graph+=tNode;
+	}
+	
+	
+	Node tNode;
+	do{
+		
+		graph+=tNode;
+	}
+	while(graph.nodeNumber()<25);
+	
+	if(graph.nodeNumber()==10){
+		printGraph(graph);
+	}
+	else{
+		write("message");
+		graph+=nodeLoc;
+	}	
+	
+	locGraph.clearMarks();
+	locGraph.markNode(nodeLoc);
+	locGraph.unmarkNode(nodeLoc);
+	nodeLoc = graph.getNode(nodeLoc);
+	
+	if(nodeLoc.isMark()==true){
+		write("marked");
+	}
+	Float f;
+	f = graph.nodeNumber()/25+ 1-(15+2)*3;
 }
