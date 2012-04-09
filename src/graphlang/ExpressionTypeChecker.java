@@ -5,6 +5,7 @@ import java.util.Stack;
 
 public class ExpressionTypeChecker {
 	private Stack<String> errors = new Stack<String>();
+	private ArrayList<String> types = new ArrayList<String>();
 	
 	public void getAllErrors(ArrayList<String> list){
 		while(!errors.isEmpty()){
@@ -35,6 +36,10 @@ public class ExpressionTypeChecker {
 			errors.add("line "+line+": checkAssignOperation undefined error ");
 			return false;
 		}
+		if(!types.contains(lType) || !types.contains(lType)) {
+			errors.add("line "+line+": checkAssignOperation undefined type ");
+			return false;
+		}
 		//System.out.println("line "+line+": check assignment operator ltype="+lType+" rType="+rType+" operator "+operator);
 		if(operator.equals("=")){
 			// type = type
@@ -48,12 +53,26 @@ public class ExpressionTypeChecker {
 				}
 				else{
 					String add="";
-					if(!lType.equals("none") && !lType.equals("?")) add = "right expression must have type "+lType;
+					add = "right expression must have type "+lType;
 					errors.add("line "+line+": assignment operator type mismatch "+add);
 					return false;
 				}
 			}			
 		}
+		if(operator.equals("+=")){
+			if(lType.equals(rType)){
+				if(lType.equals("Text")||lType.equals("Int")||lType.equals("Float")||lType.equals("Graph")){
+					
+				}
+			}
+			else{
+				// error
+			}
+		}
 		return result;
+	}
+	
+	{
+		types.add("Int"); types.add("Float"); types.add("void"); types.add("Graph"); types.add("OArc"); types.add("Node"); types.add("Bool"); types.add("Text");
 	}
 }

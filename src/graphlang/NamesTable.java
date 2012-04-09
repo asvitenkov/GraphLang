@@ -470,6 +470,8 @@ public class NamesTable {
 		list = new ArrayList<String>(); list.add("OArc");
 		name = new MethodName("containArc", "Graph", "Bool", list);
 		methodNames.put(name.idtf, name);
+		name = new MethodName("isMark", "Node", "Bool", nullList);
+		methodNames.put(name.idtf, name);
 		//System.out.println(methodNames.toString());
 	}
 

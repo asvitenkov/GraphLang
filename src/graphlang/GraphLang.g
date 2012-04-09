@@ -384,9 +384,6 @@ assignmentOperator
     |   '-='
     |   '*='
     |   '/='
-    |   '&='
-    |   '|='
-    |   '^='
     |   '%='
     ;
 
@@ -395,7 +392,6 @@ TYPE
 	  | 'Float'
 	  | 'OArc'
 	  | 'Graph'
-	  | 'Arc'
 	  | 'Text'
 	  | 'Node'  
 	  | 'void'
