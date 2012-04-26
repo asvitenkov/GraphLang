@@ -437,7 +437,11 @@ public class NamesTable {
 				errors.add("line "+line+": foreach expression - second variable need type Node, found "+sVar.getType());
 				return false;
 			}
-			!!!!!!!!!!!!!!!!!!!!!!!!!!
+			//!!!!!!!!!!!!!!!!!!!!!!!!!!
+		}
+		if(!fVar.getType().equals("Node") && !fVar.getType().equals("OArc")){
+			errors.add("line "+line+": foreach expression - first variable need type Node or OArc, found "+fVar.getType());
+			return false;
 		}
 		
 		return true;
