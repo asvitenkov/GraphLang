@@ -3,7 +3,7 @@ Node nodeGlob;
 OArc arcGlob;
 
 
-Node getMaxNodeWeight(Graph aGraph){
+Node getMaxNodeWeight(Graph graphGlob){
 	Node answer;
 	answer="answer node";
 	return answer;
@@ -11,6 +11,13 @@ Node getMaxNodeWeight(Graph aGraph){
 
 
 main{
+	Graph graphGlob;
+Node nodeGlob;
+OArc arcGlob;
+	Text t;
+	if(15==15){
+	}
+	
 	// init var
 	Graph graphLoc, graph;
 	Node nodeLoc;
@@ -52,7 +59,7 @@ main{
 	
 	// операции для проверки принадлежности например : узел графу
 	
-	if(graphLoc.containNode(node)==true || graphLoc.containArc(arc)==true){
+	if(graphLoc.containNode(nodeLoc)==true || graphLoc.containArc(arcLoc)==true){
 		//do smth
 	}
 	
@@ -95,12 +102,12 @@ main{
 		// do smth
 		printArc(aArc);
 	}
-	foreach(aArc; nodeLoc; output){
+	foreach(aArc; aArc; output){
 		// do smth
 		printArc(aArc);
 	}
 	Int i,end;
-	for(i;0;graph.nodeNumber())     {
+	for(i;max();graph.nodeNumber())     {
 	}
 	
 	Bool find;
@@ -112,7 +119,7 @@ main{
 	}
 	
 	
-	Node tNode;
+	//Node tNode;
 	do{
 		
 		graph+=tNode;
@@ -127,14 +134,14 @@ main{
 		graph+=nodeLoc;
 	}	
 	
-	locGraph.clearMarks();
-	locGraph.markNode(nodeLoc);
-	locGraph.unmarkNode(nodeLoc);
+	graphLoc.clearMarks();
+	graphLoc.markNode(nodeLoc);
+	graphLoc.unmarkNode(nodeLoc);
 	nodeLoc = graph.getNode(nodeLoc);
 	
 	if(nodeLoc.isMark()==true){
 		write("marked");
 	}
 	Float f;
-	f = graph.nodeNumber()/25+ 1-(15+2)*3;
+	f = 18.0/25.0+ 1.0-(15.0+2.0)*3.0;
 }

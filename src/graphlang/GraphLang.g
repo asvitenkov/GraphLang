@@ -100,7 +100,7 @@ functionArgumentDeclarator
       // add variable and it's type in lists funcArgTypes and funcArgNames
       $functionDeclaration::funcArgTypes.add($TYPE.text);
       $functionDeclaration::funcArgNames.add($ID.text);
-      if(!names.isExistVariable($programm::curBlock+"."+$ID.text)){
+      if(!names.isDeclaredVariable($programm::curBlock+"."+$ID.text)){
           names.addVariable(names.new VariableName($programm::curBlock+"."+$ID.text, $TYPE.text, $ID.line));
       }
       else{
@@ -137,7 +137,12 @@ statement
     ;
     
 foreachControl
-    :   idLiteral ';' idLiteral (';' foreachType?)?
+    :   f=idLiteral ';' s=idLiteral (';' foreachType?)?
+		    {
+		        if(!names.checkForeachControl($programm::curBlock+"."+$f.text, $programm::curBlock+"."+$s.text,$foreachType.text, $s.curLine)){
+		          names.getAllErrors(errors);
+		        }
+		    }
     ;
 
 foreachType
@@ -146,45 +151,47 @@ foreachType
     ;
 
 forControl
-    :   forInit ';' forBegin ';' forEnd
+    :   forInit? ';' forLiteral ';' forLiteral
     ;
 
-forBegin
-    :   intLiteral
-    |   idLiteral
-    ;
     
-forEnd
-    :   intLiteral
-    |   idLiteral
-    |   callClassMethod
-    |   callInlineFunction
+forLiteral
+    :   intLiteral 
+    |   idLiteral {if(!$idLiteral.idType.equals("Int")){errors.add("line "+$idLiteral.curLine+": for  variable must have type int ");}}
+    |   callClassMethod {if(!$callClassMethod.methodType.equals("Int")){errors.add("line "+$callClassMethod.curLine+": for variable must have type int ");}}
+    |   callInlineFunction {if(!$callInlineFunction.functionType.equals("Int")){errors.add("line "+$callInlineFunction.curLine+": for variable must have type int ");}}
     ;
+
 
 forInit
-    :   intLiteral
-    |   idLiteral
+    :   idLiteral
+     {
+        if(!$idLiteral.idType.equals("Int")){
+          errors.add("line "+$idLiteral.curLine+": for init variable must have type int ");
+        }
+     }
     ;
 
-callInlineFunction returns [String functionType]
+callInlineFunction returns [String functionType, int curLine]
     :  ID '(' argumentList? ')'
     {
-          functionType = "?";
+          $functionType = "?";
           ArrayList list = null;
+          $curLine = $ID.line;
           if($argumentList.argumentTypeList==null) list = new ArrayList<String>();
           else list =  $argumentList.argumentTypeList;
           if(!names.checkCallFunction($programm::curBlock, $ID.text, list, $ID.line)){
               names.getAllErrors(errors);
           }
           else{
-              functionType = names.getFunction($ID.text).getReturnType();
+              $functionType = names.getFunction($ID.text).getReturnType();
           }
     }
     ;
 
 
 
-callClassMethod returns[String methodType]
+callClassMethod returns[String methodType, int curLine]
 scope{
   String variableId;
   String methodName;
@@ -195,11 +202,12 @@ scope{
   $callClassMethod::methodName="";
   //$callClassMethod::argumentTypeList= new ArrayList<String>();
 }
-    :   varId=ID '.' {$callClassMethod::variableId=$varId.text;} 
+    :   varId=ID '.' {$callClassMethod::variableId=$varId.text; } 
         mName=ID   {$callClassMethod::methodName=$mName.text;}
         '(' argumentList? ')' //{System.out.println($argumentList.argumentTypeList);} //add check type in class method
         {
-          methodType="?";
+          $methodType="?";
+          $curLine = $varId.line;
           ArrayList list = null;
           if($argumentList.argumentTypeList==null) list = new ArrayList<String>();
           else list =  $argumentList.argumentTypeList;
@@ -207,7 +215,7 @@ scope{
               names.getAllErrors(errors);
           }
           if(names.isExistMethod($programm::curBlock, $varId.text, $mName.text)){
-            methodType = names.getMethod($programm::curBlock, $varId.text, $mName.text).getReturnType();
+            $methodType = names.getMethod($programm::curBlock, $varId.text, $mName.text).getReturnType();
           }
         }
     ;
@@ -266,9 +274,7 @@ setArcExpressions
        (',' a=ID '->' b=ID {$setGraphOperation::firstIdList.add($a.text); $setGraphOperation::secondIdList.add($b.text); })* 
     ;
 
-expression
-	  :  
-	  ;
+
 
 variableDeclarationStatement
 	  : variableDeclaration
@@ -297,7 +303,7 @@ scope{
 }
     :   ID //{System.out.println(currentBlock+" "+tmpType+ " " + $ID.text);}
     {
-        if(!names.isExistVariable($programm::curBlock+"."+$ID.text) ){
+        if(!names.isDeclaredVariable($programm::curBlock+"."+$ID.text) ){
           names.addVariable(names.new VariableName($programm::curBlock+"."+$ID.text, $variableDeclaration::varType, $ID.line));
           $variableDeclarator::varList.add($programm::curBlock+"."+$ID.text);
 	      }
@@ -349,27 +355,47 @@ logicalExpression
 	  :  relationExpression (('&&'|'||') relationExpression)*
 	  ;
 
+
 relationExpression
-    :  '(' logicalExpression ')'
-    |  logicalAtom  relationalOp logicalAtom
+    :  ('(' logicalExpression ')'
+    |  t1=logicalAtom  RELATIONALOP t2=logicalAtom
+       {
+          if(!$t1.atomType.equals($t2.atomType)){
+            if($t1.atomType.equals("null")){
+              if(!$t2.atomType.equals("OArc") && !$t2.atomType.equals("Graph") && !$t2.atomType.equals("Node") && !$t2.atomType.equals("Text")){
+                  errors.add("line "+$RELATIONALOP.line+": the operator "+$RELATIONALOP.text +" is undefined for arguments null,"+$t2.atomType);
+              }
+            }
+            else if($t2.atomType.equals("null")){
+              if(!$t1.atomType.equals("OArc") && !$t1.atomType.equals("Graph") && !$t1.atomType.equals("Node") && !$t1.atomType.equals("Text")){
+                  errors.add("line "+$RELATIONALOP.line+": the operator "+$RELATIONALOP.text +" is undefined for arguments null,"+$t2.atomType);
+              }
+            }
+            else {
+              errors.add("line "+$RELATIONALOP.line+": the operator "+$RELATIONALOP.text +" is undefined for arguments "+$t1.atomType+","+$t2.atomType);
+            }
+            
+          }
+       }
+    )
     ;
 
 logicalAtom returns [String atomType]
-    : intLiteral {$atomType = "Int"; }
+    :   intLiteral {$atomType = "Int"; }
     |   floatLiteral {$atomType = "Float"; }
     |   idLiteral {$atomType = $idLiteral.idType;}
     |   stringLiteral {$atomType = "Text"; }
     |   booleanLiteral {$atomType = "Bool"; }
     |   callClassMethod {$atomType = $callClassMethod.methodType;}
     |   callInlineFunction {$atomType = $callInlineFunction.functionType;}
-    | nullLiteral {$atomType = "null";}
+    |   nullLiteral {$atomType = "null";}
     ;
 
 nullLiteral
     : 'null'
     ;
 
-relationalOp
+RELATIONALOP
 	  :  '>'
 	  |  '<' 
 	  |  '<='
@@ -398,10 +424,6 @@ TYPE
 	  | 'Bool'
 	  ;
 
-test
-    : logicalExpression ';'
-    ;
-
 literal returns [String literalType, String literalValue]
     :   intLiteral {$literalType = "Int"; $literalValue=$intLiteral.text;}
     |   floatLiteral {$literalType = "Float"; $literalValue=$floatLiteral.text;}
@@ -424,9 +446,10 @@ floatLiteral
   : FLOAT 
   ;
 
-idLiteral returns [String idType]
+idLiteral returns [String idType, int curLine]
   : ID  
     {
+      $curLine = $ID.line;
       if(!names.isExistVariable($programm::curBlock+"."+$ID.text)){
         errors.add("line "+$ID.line+": unknown variable "+$ID.text);
         $idType = "";

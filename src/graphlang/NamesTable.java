@@ -20,6 +20,9 @@ public class NamesTable {
 			this.idtf = idtf;
 			this.type = type;
 			lineDeclaration = line;
+//			int i;
+//			if(i==null){
+//			}
 		}
 		public void addLineUses(int line) {
 			linesUses.add(new Integer(line));
@@ -117,6 +120,15 @@ public class NamesTable {
 			}
 		}
 		return rv;
+	}
+	
+	public boolean isDeclaredVariable(String name){
+		boolean result = false;
+		result = variableNames.containsKey(name);
+//		if(result==false){
+//			result = variableNames.containsKey("global"+name.substring(name.indexOf('.')));
+//		}
+		return result;
 	}
 	
 	public void addVariable(VariableName n) {
@@ -395,6 +407,40 @@ public class NamesTable {
 			result = false;
 		}
 		return result;
+	}
+	
+	public boolean checkForeachControl(String fIdLiteral, String sIdLiteral, String foreachType, int line){
+//		System.out.println(fIdLiteral);
+//		System.out.println(sIdLiteral);
+//		System.out.println(foreachType);
+//		System.out.println(Integer.toString(line));
+		boolean result = false;
+		// проверка на существование переменных
+		if(!isExistVariable(fIdLiteral)){
+			errors.add("line "+line+": unknown variable "+fIdLiteral.substring(fIdLiteral.indexOf('.')));
+			return false;
+		}
+		if(!isExistVariable(sIdLiteral)){
+			errors.add("line "+line+": unknown variable "+sIdLiteral.substring(sIdLiteral.indexOf('.')));
+			return false;
+		}
+		VariableName fVar = getVariable(fIdLiteral);
+		VariableName sVar = getVariable(sIdLiteral);
+		if(fVar.getType().equals("Node")){
+			if(!sVar.getType().equals("Graph")){
+				errors.add("line "+line+": foreach expression - second variable need type Graph, found "+sVar.getType());
+				return false;
+			}
+		}
+		if(fVar.getType().equals("OArc")){
+			if(!sVar.getType().equals("Node")){
+				errors.add("line "+line+": foreach expression - second variable need type Node, found "+sVar.getType());
+				return false;
+			}
+			!!!!!!!!!!!!!!!!!!!!!!!!!!
+		}
+		
+		return true;
 	}
 	
 	public void getAllErrors(ArrayList<String> list){
