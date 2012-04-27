@@ -1,4 +1,4 @@
-// $ANTLR 3.3 Nov 30, 2010 12:50:56 D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g 2012-04-26 04:55:28
+// $ANTLR 3.3 Nov 30, 2010 12:50:56 D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g 2012-04-27 04:49:29
 
   package graphlang;
 
@@ -751,7 +751,7 @@ public class GraphLangLexer extends Lexer {
         try {
             int _type = RELATIONALOP;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:399:4: ( '>' | '<' | '<=' | '>=' | '!=' | '==' )
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:398:4: ( '>' | '<' | '<=' | '>=' | '!=' | '==' )
             int alt1=6;
             switch ( input.LA(1) ) {
             case '>':
@@ -795,21 +795,21 @@ public class GraphLangLexer extends Lexer {
 
             switch (alt1) {
                 case 1 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:399:7: '>'
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:398:7: '>'
                     {
                     match('>'); 
 
                     }
                     break;
                 case 2 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:400:7: '<'
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:399:7: '<'
                     {
                     match('<'); 
 
                     }
                     break;
                 case 3 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:401:7: '<='
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:400:7: '<='
                     {
                     match("<="); 
 
@@ -817,7 +817,7 @@ public class GraphLangLexer extends Lexer {
                     }
                     break;
                 case 4 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:402:7: '>='
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:401:7: '>='
                     {
                     match(">="); 
 
@@ -825,7 +825,7 @@ public class GraphLangLexer extends Lexer {
                     }
                     break;
                 case 5 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:403:7: '!='
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:402:7: '!='
                     {
                     match("!="); 
 
@@ -833,7 +833,7 @@ public class GraphLangLexer extends Lexer {
                     }
                     break;
                 case 6 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:404:7: '=='
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:403:7: '=='
                     {
                     match("=="); 
 
@@ -855,7 +855,7 @@ public class GraphLangLexer extends Lexer {
         try {
             int _type = TYPE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:417:4: ( 'Int' | 'Float' | 'OArc' | 'Graph' | 'Text' | 'Node' | 'void' | 'Bool' )
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:416:4: ( 'Int' | 'Float' | 'OArc' | 'Graph' | 'Text' | 'Node' | 'void' | 'Bool' )
             int alt2=8;
             switch ( input.LA(1) ) {
             case 'I':
@@ -907,7 +907,7 @@ public class GraphLangLexer extends Lexer {
 
             switch (alt2) {
                 case 1 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:417:6: 'Int'
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:416:6: 'Int'
                     {
                     match("Int"); 
 
@@ -915,7 +915,7 @@ public class GraphLangLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:418:6: 'Float'
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:417:6: 'Float'
                     {
                     match("Float"); 
 
@@ -923,7 +923,7 @@ public class GraphLangLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:419:6: 'OArc'
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:418:6: 'OArc'
                     {
                     match("OArc"); 
 
@@ -931,7 +931,7 @@ public class GraphLangLexer extends Lexer {
                     }
                     break;
                 case 4 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:420:6: 'Graph'
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:419:6: 'Graph'
                     {
                     match("Graph"); 
 
@@ -939,7 +939,7 @@ public class GraphLangLexer extends Lexer {
                     }
                     break;
                 case 5 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:421:6: 'Text'
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:420:6: 'Text'
                     {
                     match("Text"); 
 
@@ -947,7 +947,7 @@ public class GraphLangLexer extends Lexer {
                     }
                     break;
                 case 6 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:422:6: 'Node'
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:421:6: 'Node'
                     {
                     match("Node"); 
 
@@ -955,7 +955,7 @@ public class GraphLangLexer extends Lexer {
                     }
                     break;
                 case 7 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:423:6: 'void'
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:422:6: 'void'
                     {
                     match("void"); 
 
@@ -963,7 +963,7 @@ public class GraphLangLexer extends Lexer {
                     }
                     break;
                 case 8 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:424:6: 'Bool'
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:423:6: 'Bool'
                     {
                     match("Bool"); 
 
@@ -985,8 +985,8 @@ public class GraphLangLexer extends Lexer {
         try {
             int _type = ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:477:5: ( ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:477:7: ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:476:5: ( ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:476:7: ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -997,7 +997,7 @@ public class GraphLangLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:477:31: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:476:31: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             loop3:
             do {
                 int alt3=2;
@@ -1046,10 +1046,10 @@ public class GraphLangLexer extends Lexer {
         try {
             int _type = INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:480:5: ( ( '0' .. '9' )+ )
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:480:7: ( '0' .. '9' )+
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:479:5: ( ( '0' .. '9' )+ )
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:479:7: ( '0' .. '9' )+
             {
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:480:7: ( '0' .. '9' )+
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:479:7: ( '0' .. '9' )+
             int cnt4=0;
             loop4:
             do {
@@ -1063,7 +1063,7 @@ public class GraphLangLexer extends Lexer {
 
                 switch (alt4) {
             	case 1 :
-            	    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:480:7: '0' .. '9'
+            	    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:479:7: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -1095,14 +1095,14 @@ public class GraphLangLexer extends Lexer {
         try {
             int _type = FLOAT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:484:5: ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* | '.' ( '0' .. '9' )+ | ( '0' .. '9' )+ )
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:483:5: ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* | '.' ( '0' .. '9' )+ | ( '0' .. '9' )+ )
             int alt9=3;
             alt9 = dfa9.predict(input);
             switch (alt9) {
                 case 1 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:484:9: ( '0' .. '9' )+ '.' ( '0' .. '9' )*
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:483:9: ( '0' .. '9' )+ '.' ( '0' .. '9' )*
                     {
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:484:9: ( '0' .. '9' )+
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:483:9: ( '0' .. '9' )+
                     int cnt5=0;
                     loop5:
                     do {
@@ -1116,7 +1116,7 @@ public class GraphLangLexer extends Lexer {
 
                         switch (alt5) {
                     	case 1 :
-                    	    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:484:10: '0' .. '9'
+                    	    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:483:10: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); 
 
@@ -1133,7 +1133,7 @@ public class GraphLangLexer extends Lexer {
                     } while (true);
 
                     match('.'); 
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:484:25: ( '0' .. '9' )*
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:483:25: ( '0' .. '9' )*
                     loop6:
                     do {
                         int alt6=2;
@@ -1146,7 +1146,7 @@ public class GraphLangLexer extends Lexer {
 
                         switch (alt6) {
                     	case 1 :
-                    	    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:484:26: '0' .. '9'
+                    	    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:483:26: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); 
 
@@ -1162,10 +1162,10 @@ public class GraphLangLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:485:9: '.' ( '0' .. '9' )+
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:484:9: '.' ( '0' .. '9' )+
                     {
                     match('.'); 
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:485:13: ( '0' .. '9' )+
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:484:13: ( '0' .. '9' )+
                     int cnt7=0;
                     loop7:
                     do {
@@ -1179,7 +1179,7 @@ public class GraphLangLexer extends Lexer {
 
                         switch (alt7) {
                     	case 1 :
-                    	    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:485:14: '0' .. '9'
+                    	    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:484:14: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); 
 
@@ -1199,9 +1199,9 @@ public class GraphLangLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:486:9: ( '0' .. '9' )+
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:485:9: ( '0' .. '9' )+
                     {
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:486:9: ( '0' .. '9' )+
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:485:9: ( '0' .. '9' )+
                     int cnt8=0;
                     loop8:
                     do {
@@ -1215,7 +1215,7 @@ public class GraphLangLexer extends Lexer {
 
                         switch (alt8) {
                     	case 1 :
-                    	    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:486:10: '0' .. '9'
+                    	    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:485:10: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); 
 
@@ -1249,7 +1249,7 @@ public class GraphLangLexer extends Lexer {
         try {
             int _type = COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:490:5: ( '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n' | '/*' ( options {greedy=false; } : . )* '*/' )
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:489:5: ( '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n' | '/*' ( options {greedy=false; } : . )* '*/' )
             int alt13=2;
             int LA13_0 = input.LA(1);
 
@@ -1277,11 +1277,11 @@ public class GraphLangLexer extends Lexer {
             }
             switch (alt13) {
                 case 1 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:490:9: '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n'
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:489:9: '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n'
                     {
                     match("//"); 
 
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:490:14: (~ ( '\\n' | '\\r' ) )*
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:489:14: (~ ( '\\n' | '\\r' ) )*
                     loop10:
                     do {
                         int alt10=2;
@@ -1294,7 +1294,7 @@ public class GraphLangLexer extends Lexer {
 
                         switch (alt10) {
                     	case 1 :
-                    	    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:490:14: ~ ( '\\n' | '\\r' )
+                    	    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:489:14: ~ ( '\\n' | '\\r' )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -1314,7 +1314,7 @@ public class GraphLangLexer extends Lexer {
                         }
                     } while (true);
 
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:490:28: ( '\\r' )?
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:489:28: ( '\\r' )?
                     int alt11=2;
                     int LA11_0 = input.LA(1);
 
@@ -1323,7 +1323,7 @@ public class GraphLangLexer extends Lexer {
                     }
                     switch (alt11) {
                         case 1 :
-                            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:490:28: '\\r'
+                            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:489:28: '\\r'
                             {
                             match('\r'); 
 
@@ -1338,11 +1338,11 @@ public class GraphLangLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:491:9: '/*' ( options {greedy=false; } : . )* '*/'
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:490:9: '/*' ( options {greedy=false; } : . )* '*/'
                     {
                     match("/*"); 
 
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:491:14: ( options {greedy=false; } : . )*
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:490:14: ( options {greedy=false; } : . )*
                     loop12:
                     do {
                         int alt12=2;
@@ -1367,7 +1367,7 @@ public class GraphLangLexer extends Lexer {
 
                         switch (alt12) {
                     	case 1 :
-                    	    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:491:42: .
+                    	    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:490:42: .
                     	    {
                     	    matchAny(); 
 
@@ -1400,8 +1400,8 @@ public class GraphLangLexer extends Lexer {
         try {
             int _type = WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:494:5: ( ( ' ' | '\\t' | '\\r' | '\\n' ) )
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:494:9: ( ' ' | '\\t' | '\\r' | '\\n' )
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:493:5: ( ( ' ' | '\\t' | '\\r' | '\\n' ) )
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:493:9: ( ' ' | '\\t' | '\\r' | '\\n' )
             {
             if ( (input.LA(1)>='\t' && input.LA(1)<='\n')||input.LA(1)=='\r'||input.LA(1)==' ' ) {
                 input.consume();
@@ -1429,11 +1429,11 @@ public class GraphLangLexer extends Lexer {
         try {
             int _type = STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:502:5: ( '\"' (~ ( '\\\\' | '\"' ) )* '\"' )
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:502:8: '\"' (~ ( '\\\\' | '\"' ) )* '\"'
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:501:5: ( '\"' (~ ( '\\\\' | '\"' ) )* '\"' )
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:501:8: '\"' (~ ( '\\\\' | '\"' ) )* '\"'
             {
             match('\"'); 
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:502:12: (~ ( '\\\\' | '\"' ) )*
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:501:12: (~ ( '\\\\' | '\"' ) )*
             loop14:
             do {
                 int alt14=2;
@@ -1446,7 +1446,7 @@ public class GraphLangLexer extends Lexer {
 
                 switch (alt14) {
             	case 1 :
-            	    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:502:13: ~ ( '\\\\' | '\"' )
+            	    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:501:13: ~ ( '\\\\' | '\"' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -1828,7 +1828,7 @@ public class GraphLangLexer extends Lexer {
             this.transition = DFA9_transition;
         }
         public String getDescription() {
-            return "483:1: FLOAT : ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* | '.' ( '0' .. '9' )+ | ( '0' .. '9' )+ );";
+            return "482:1: FLOAT : ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* | '.' ( '0' .. '9' )+ | ( '0' .. '9' )+ );";
         }
     }
     static final String DFA15_eotS =

@@ -32,7 +32,6 @@ scope{
 	  : globalExpression* {$programm::curBlock = "main";} mainBlock 
 	  ;
 
-
 globalExpression
 	  :  globalVariableDeclaration
 	  |  functionDeclaration

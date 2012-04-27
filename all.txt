@@ -94,7 +94,7 @@ OArc arcGlob;
 	write(size.toText());
 	
 	OArc aArc;
-	foreach(size; graphLoc;){
+	foreach(aNode; graphLoc;input){
 		// do smth
 		printNode(aNode);
 	}
@@ -102,7 +102,7 @@ OArc arcGlob;
 		// do smth
 		printArc(aArc);
 	}
-	foreach(aArc; nodeLoc; output){
+	foreach(aArc; nodeLoc;){
 		// do smth
 		printArc(aArc);
 	}
