@@ -107,7 +107,7 @@ OArc arcGlob;
 		printArc(aArc);
 	}
 	Int i,end;
-	for(i;max();graph.nodeNumber())     {
+	for(i;5;graph.nodeNumber())     {
 	}
 	
 	Bool find;

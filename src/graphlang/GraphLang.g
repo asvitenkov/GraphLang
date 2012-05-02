@@ -2,6 +2,7 @@ grammar GraphLang;
 
 options {
   language = Java;
+  output=template;
 }
 
 
@@ -29,7 +30,7 @@ scope{
 @init{
   $programm::curBlock = "";
 }
-	  : globalExpression* {$programm::curBlock = "main";} mainBlock 
+	  : globalExpression* {$programm::curBlock = "main";} mainBlock ->test()
 	  ;
 
 globalExpression
@@ -286,7 +287,7 @@ scope{
 @init{
   $variableDeclaration::varType = "";
 }
-    :   TYPE {$variableDeclaration::varType = $TYPE.text;} variableDeclarators
+    :   TYPE {$variableDeclaration::varType = $TYPE.text;} variableDeclarators ->test()
     ;
 
 variableDeclarators
@@ -337,7 +338,7 @@ multiplicativeExpression  returns [String multiplicativeExpressionType]
     : {ArrayList<String> type = new ArrayList<String>();} 
       a=unaryExpression {type.add($a.unaryExpressionType);} (('*'|'/') b=unaryExpression {type.add($b.unaryExpressionType);} )*
       {
-          multiplicativeExpressionType = typeCheker.checkMathExpressionTypes(type);
+          $multiplicativeExpressionType = typeCheker.checkMathExpressionTypes(type);
       }
        
     ;
@@ -346,7 +347,7 @@ mathExpression returns [String mathExpressionType]
     :   {ArrayList<String> type = new ArrayList<String>();} 
         a=multiplicativeExpression {type.add($a.multiplicativeExpressionType);}  (('-'|'+') b=multiplicativeExpression  {type.add($b.multiplicativeExpressionType);}  )*
         {
-          mathExpressionType = typeCheker.checkMathExpressionTypes(type);
+          $mathExpressionType = typeCheker.checkMathExpressionTypes(type);
         }
     ;
 
@@ -413,14 +414,14 @@ assignmentOperator
     ;
 
 TYPE  
-	  : 'Int'
-	  | 'Float'
-	  | 'OArc'
-	  | 'Graph'
-	  | 'Text'
-	  | 'Node'  
-	  | 'void'
-	  | 'Bool'
+	  : 'Int' //->test()
+	  | 'Float' //->type_int()
+	  | 'OArc' //->type_int()
+	  | 'Graph'// ->type_int()
+	  | 'Text' //->type_int()
+	  | 'Node' // ->type_int()
+	  | 'void' //->type_int()
+	  | 'Bool' //->type_int()
 	  ;
 
 literal returns [String literalType, String literalValue]
@@ -435,10 +436,10 @@ literal returns [String literalType, String literalValue]
 
 argumentList returns[ArrayList<String> argumentTypeList]
   :  {
-        argumentTypeList = new ArrayList<String>();
+        $argumentTypeList = new ArrayList<String>();
      }  
-  a=literal {argumentTypeList.add($a.literalType);}  
-  (',' b=literal {argumentTypeList.add($b.literalType);} )*
+  a=literal {$argumentTypeList.add($a.literalType);}  
+  (',' b=literal {$argumentTypeList.add($b.literalType);} )*
   ;
 
 floatLiteral
