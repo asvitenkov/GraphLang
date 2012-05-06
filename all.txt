@@ -9,9 +9,8 @@ Node getMaxNodeWeight(Graph graphGlob){
 	return answer;
 }
 
-
 main{
-	Graph graphGlob;
+Graph graphGlob;
 Node nodeGlob;
 OArc arcGlob;
 	Text t;
