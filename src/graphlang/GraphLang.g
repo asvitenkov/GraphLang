@@ -30,7 +30,7 @@ scope{
 @init{
   $programm::curBlock = "";
 }
-	  : globalExpression* {$programm::curBlock = "main";} //mainBlock ->test()
+	  : globalExpression* {$programm::curBlock = "main";} mainBlock //->test()
 	  ;
 
 globalExpression

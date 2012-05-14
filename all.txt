@@ -3,11 +3,22 @@ Node nodeGlob;
 OArc arcGlob;
 
 
+
+
 Node getMaxNodeWeight(Graph graphGlob){
 	Node answer;
 	answer="answer node";
 	return answer;
 }
+
+
+Int max(Int a, Int b){
+	Int result;
+	if(a>b) {result = a;}
+	else {result = b;}
+	return result;
+}
+
 
 main{
 Graph graphGlob;
@@ -143,4 +154,6 @@ OArc arcGlob;
 	}
 	Float f;
 	f = 18.0/25.0+ 1.0-(15.0+2.0)*3.0;
+	Int res;
+	res = max(151.0,15);
 }
