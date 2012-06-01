@@ -31,6 +31,7 @@ public class ExpressionTypeChecker {
 	}
 	
 	public boolean checkAssignOperation(String operator, String lType, String rType, int line){
+		//!!!!!!!!!!!!!11111111 дописать проверку существования переменных
 		boolean result = true;
 		if(operator==null || lType == null || rType == null){
 			errors.add("line "+line+": checkAssignOperation undefined error ");

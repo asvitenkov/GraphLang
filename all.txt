@@ -1,7 +1,7 @@
-Graph graphGlob;
-Node nodeGlob;
+Graph graphGlob, graphGlob2;
+Node nodeGlob,ee,ttt;
 OArc arcGlob;
-
+Int result;
 
 
 Int max(Int a, Int b){
@@ -43,7 +43,6 @@ OArc arcGlob;
 	Graph graphLoc, graph;
 	Node nodeLoc;
 	OArc arcLoc;
-	
 	graphLoc="First Graph";
 	graphGlob="Second Graph";
 	nodeLoc="First Node";

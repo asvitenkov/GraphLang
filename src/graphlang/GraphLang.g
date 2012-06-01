@@ -26,21 +26,23 @@ options {
 programm  
 scope{
   String curBlock;
+  ArrayList<String> tGlobalVariables;
 }
 @init{
   $programm::curBlock = "";
+  $programm::tGlobalVariables = new ArrayList<String>();
 }
-	  : globalExpression* {$programm::curBlock = "main";} mainBlock //->test()
+	  :  s+=globalExpression* {$programm::curBlock = "main";} mainBlock ->print(value={$s})
 	  ;
 
 globalExpression
-	  :  globalVariableDeclaration
-	  |  functionDeclaration
+	  :  globalVariableDeclaration  ->globalVariableDeclaration(list={$globalVariableDeclaration.st}) //-> {$globalVariableDeclaration.st;}//{$st = %MyGlobalVariable(type={$globalVariableDeclaration.tVariableType},list={$globalVariableDeclaration.tVariableList});}
+	  |  functionDeclaration -> {$functionDeclaration.st;}
 	  ;
 
-globalVariableDeclaration
+globalVariableDeclaration returns [String tVariableType,ArrayList<String> tVariableList]
 	  :  {$programm::curBlock = "global";}
-	     variableDeclarationStatement ';'
+	     variableDeclarationStatement ';' ->{$variableDeclarationStatement.st;} //->print(value={$variableDeclarationStatement.st})
 	  ;
 
 functionDeclaration
@@ -110,7 +112,7 @@ functionArgumentDeclarator
     ;
 
 mainBlock
-	  : 'main' '{' blockStatement* '}'
+	  : 'main' '{' blockStatement* '}' 
 	  ;
 
 blockStatement
@@ -232,6 +234,9 @@ scope{
           if(names.isExistVariable($programm::curBlock+"."+$ID.text)){
             $assignmentOperation::idType = names.getVariable($programm::curBlock+"."+$ID.text).getType();
           }
+          else{
+            errors.add("line "+$ID.line+": unknown variable "+$ID.text);
+          }
        } 
        assignmentOperator 
        mathExpression
@@ -276,25 +281,34 @@ setArcExpressions
 
 
 
-variableDeclarationStatement
-	  : variableDeclaration
+variableDeclarationStatement returns [String tVariableType,ArrayList<String> tVariableList]
+	  : variableDeclaration -> {$variableDeclaration.st}//{System.out.println($variableDeclaration.tVariableList);}
+	    //{$variableDeclarationStatement.tVariableList = $variableDeclaration.tVariableList;}
+      //{$variableDeclarationStatement.tVariableType = $variableDeclaration.tVariableType;}
 	  ;
 
-variableDeclaration
+variableDeclaration returns [String tVariableType,ArrayList<String> tVariableList]
 scope{
   String varType;
 }
 @init{
   $variableDeclaration::varType = "";
 }
-    :   TYPE {$variableDeclaration::varType = $TYPE.text;} variableDeclarators //->test()
+    :   TYPE {$variableDeclaration::varType = $TYPE.text;} variableDeclarators 
+        ->MyVariableDeclarators(type={$TYPE.text},list={$variableDeclarators.tVariableList})
+        //{$variableDeclaration.tVariableList = $variableDeclarators.tVariableList;}
+        //{$variableDeclaration.tVariableType = $TYPE.text;}
+        //{System.out.println($variableDeclarators.tVariableList);}
     ;
 
-variableDeclarators
-    :   variableDeclarator (',' variableDeclarator)*
+variableDeclarators returns[ArrayList<String> tVariableList]
+    :   
+      {$variableDeclarators.tVariableList = new ArrayList<String>();}
+      a=variableDeclarator {$variableDeclarators.tVariableList.add($a.tVariableId);}
+      (',' b=variableDeclarator  {$variableDeclarators.tVariableList.add($b.tVariableId);} )*
     ;
 
-variableDeclarator
+variableDeclarator returns[String tVariableId]
 scope{
   ArrayList<String> varList;
 }
@@ -310,6 +324,7 @@ scope{
 	      else{
 	          errors.add("line "+$ID.line+": duplicated variable name "+$ID.text);
 	      }
+	      $variableDeclarator.tVariableId = $ID.text;
     }
     ;
 

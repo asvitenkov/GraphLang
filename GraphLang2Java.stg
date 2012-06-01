@@ -54,4 +54,36 @@ refVar(id) ::= "<id>"
 
 iconst(value) ::= "<value>"
 
-test() ::= "test"
+test() ::=  <<
+test
+>>
+
+
+
+
+MyProgram()::= <<
+public class GraphLangProgram {
+}
+>>
+
+globalVariableDeclaration(list)::= <<
+<list:{n|private <n>}>
+>>
+
+globalExpression() ::=  "sdfsdfsdfsdf"
+
+
+print(value)::= <<
+<value>
+>>
+
+
+
+MyVariableDeclarators(type,list)::= <<
+<type> <list:{n| <n>};separator=",">;
+
+>>
+
+
+
+

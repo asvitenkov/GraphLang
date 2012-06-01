@@ -8,8 +8,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Stack;
 
-public class NamesTable {
 
+
+
+public class NamesTable {
 	public class VariableName {
 		private String 	idtf;
 		private String	type;
