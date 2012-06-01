@@ -60,18 +60,85 @@ public class ExpressionTypeChecker {
 			}			
 		}
 		if(operator.equals("+=")){
-			if(lType.equals(rType)){
-				if(lType.equals("Text")||lType.equals("Int")||lType.equals("Float")||lType.equals("Graph")){
-					
+			if(lType.equals("Text")||lType.equals("Int")||lType.equals("Float")||lType.equals("Graph")){
+				//нужно проверять каждый тип в отдельности
+				if(lType.equals("Text")){
+					if(!rType.equals("Text")){
+						errors.add("line "+line+": assignment operator type mismatch "+"right expression must have type "+lType+" , but have type"+rType);
+						return false;
+					}
+				}
+				else if(lType.equals("Int")){
+					if(!rType.equals("Int")){
+						errors.add("line "+line+": assignment operator type mismatch "+"right expression must have type "+lType+" , but have type "+rType);
+						return false;
+					}
+				}
+				else if(lType.equals("Float")){
+					if(!rType.equals("Float")){
+						errors.add("line "+line+": assignment operator type mismatch "+"right expression must have type "+lType+" , but have type "+rType);
+						return false;
+					}
+				}
+				else if(lType.equals("Graph")){
+					if(!rType.equals("Node") &&  !rType.equals("Graph") &&  !rType.equals("OArc")){
+						errors.add("line "+line+": assignment operator type mismatch "+"right expression must have type "+lType+" , but have type "+rType);
+						return false;
+					}
+				}
+				else{
+					errors.add("line "+line+": undefined error");
+					return false;
 				}
 			}
 			else{
 				// error
+				errors.add("line "+line+": error smart assignment operator types");
+				return false;
 			}
 		}
+
+		if(operator.equals("-=")){
+			if(lType.equals("Int")||lType.equals("Float")||lType.equals("Graph")){
+				//нужно проверять каждый тип в отдельности
+				if(lType.equals("Int")){
+					if(!rType.equals("Int")){
+						errors.add("line "+line+": assignment operator type mismatch "+"right expression must have type "+lType+" , but have type "+rType);
+						return false;
+					}
+				}
+				else if(lType.equals("Float")){
+					if(!rType.equals("Float")){
+						errors.add("line "+line+": assignment operator type mismatch "+"right expression must have type "+lType+" , but have type "+rType);
+						return false;
+					}
+				}
+				else if(lType.equals("Graph")){
+					if(!rType.equals("Node") &&  !rType.equals("Graph") &&  !rType.equals("OArc")){
+						errors.add("line "+line+": assignment operator type mismatch "+"right expression must have type "+lType+" , but have type "+rType);
+						return false;
+					}
+				}
+				else{
+					errors.add("line "+line+": undefined error");
+					return false;
+				}
+			}
+			else{
+				// error
+				errors.add("line "+line+": error smart assignment operator types");
+				return false;
+			}
+		}
+		
+		
+
+
+
+
 		return result;
 	}
-	
+
 	{
 		types.add("Int"); types.add("Float"); types.add("void"); types.add("Graph"); types.add("OArc"); types.add("Node"); types.add("Bool"); types.add("Text");
 	}

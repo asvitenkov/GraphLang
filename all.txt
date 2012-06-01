@@ -4,20 +4,31 @@ OArc arcGlob;
 
 
 
-
-Node getMaxNodeWeight(Graph graphGlob){
-	Node answer;
-	answer="answer node";
-	return answer;
-}
-
-
 Int max(Int a, Int b){
 	Int result;
 	if(a>b) {result = a;}
 	else {result = b;}
 	return result;
 }
+
+
+Node getMaxNodeWeight(Graph graphGlob){
+	Node answer;
+	answer="answer node";
+	
+	Int a;
+	a = max(156,257);
+	return answer;
+}
+
+
+
+
+
+
+
+
+
 
 
 main{
@@ -55,11 +66,10 @@ OArc arcGlob;
 	graphLoc-=nodeLoc;
 	graphLoc-=graphGlob;
 	graphLoc-=arcLoc;
-	graphLoc/=graphGlob;
-	graphLoc%=graphGlob;
-	graphLoc*=graphGlob;
 	Text a;
 	a+="sdfsdfsf";
+	Int ttt1;
+	
 	
 	
 	nodeLoc = arcLoc.getFirst();
@@ -84,6 +94,9 @@ OArc arcGlob;
 	printNode(nodeLoc);
 	write("About First Arc/n");
 	printArc(arcLoc);
+	
+	
+	graphLoc = ({a,b,c},{a->b});
 	
 	write(graphLoc.name());
 	write(nodeLoc.name());
@@ -155,5 +168,5 @@ OArc arcGlob;
 	Float f;
 	f = 18.0/25.0+ 1.0-(15.0+2.0)*3.0;
 	Int res;
-	res = max(151.0,15);
+	res = max(151,15);
 }
