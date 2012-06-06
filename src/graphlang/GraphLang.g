@@ -32,11 +32,11 @@ scope{
   $programm::curBlock = "";
   $programm::tGlobalVariables = new ArrayList<String>();
 }
-	  :  s+=globalExpression* {$programm::curBlock = "main";} mainBlock ->print(value={$s})
+	  :  s+=globalExpression* {$programm::curBlock = "main";} mainBlock ->MyMainBlock(globalExpression={$s}, mainBlock={$mainBlock.st})
 	  ;
 
 globalExpression
-	  :  globalVariableDeclaration  ->globalVariableDeclaration(list={$globalVariableDeclaration.st}) //-> {$globalVariableDeclaration.st;}//{$st = %MyGlobalVariable(type={$globalVariableDeclaration.tVariableType},list={$globalVariableDeclaration.tVariableList});}
+	  :  globalVariableDeclaration  ->MyGlobalVariableDeclaration(list={$globalVariableDeclaration.st}) //-> {$globalVariableDeclaration.st;}//{$st = %MyGlobalVariable(type={$globalVariableDeclaration.tVariableType},list={$globalVariableDeclaration.tVariableList});}
 	  |  functionDeclaration -> {$functionDeclaration.st;}
 	  ;
 
@@ -51,6 +51,7 @@ scope{
   String funcName;
   ArrayList<String> funcArgTypes;
   ArrayList<String> funcArgNames;
+  ArrayList<String> functionArgumentDeclaratorList;
   String returnVariable;
   boolean isReturnUsed;
 }
@@ -59,6 +60,7 @@ scope{
   $functionDeclaration::funcName = "";
   $functionDeclaration::funcArgTypes = new ArrayList<String>();
   $functionDeclaration::funcArgNames = new ArrayList<String>();
+  $functionDeclaration::functionArgumentDeclaratorList = new ArrayList<String>();
   $functionDeclaration::isReturnUsed = false;
   $functionDeclaration::returnVariable="";
 }
@@ -82,6 +84,7 @@ scope{
 	          errors.add(names.getLAstError());
 	        }
 	      }
+	      ->MyFunctionDeclaration(returnType={$TYPE.text},name={$ID.text},argumentList={$functionDeclaration::functionArgumentDeclaratorList})
 	  ;
 
 returnOperator
@@ -97,7 +100,9 @@ functionArgumentList
     ;
 
 functionArgumentDeclarator
-    :  TYPE ID //{System.out.println(currentBlock+" "+currentFuncName+" "+$TYPE.text+" "+$ID.text);}
+    :  TYPE ID 
+      {$functionDeclaration::functionArgumentDeclaratorList.add($TYPE.text+" "+$ID.text);}
+    //{System.out.println(currentBlock+" "+currentFuncName+" "+$TYPE.text+" "+$ID.text);}
     {
       // add variable and it's type in lists funcArgTypes and funcArgNames
       $functionDeclaration::funcArgTypes.add($TYPE.text);
@@ -112,12 +117,12 @@ functionArgumentDeclarator
     ;
 
 mainBlock
-	  : 'main' '{' blockStatement* '}' 
+	  : 'main' '{' s+=blockStatement* '}'  -> print(value = {$s})
 	  ;
 
 blockStatement
-    :   variableDeclarationStatement ';'
-    |   statement
+    :   variableDeclarationStatement ';' -> {$variableDeclarationStatement.st}
+    |   statement -> {$statement.st}
     ;
     
     
@@ -126,16 +131,16 @@ block
     ;
 
 statement
-    :   'if' '(' logicalExpression ')' block ('else' block)?
-    |   'for' '(' forControl ')' block
-    |   'foreach' '(' foreachControl ')' block
-    |   'while' '(' logicalExpression ')' block
-    |   'do'  block 'while' '(' logicalExpression ')' ';' 
-    |   assignmentOperation ';'
-    |   setArcOperation ';'
-    |   setGraphOperation ';'
-    |   callClassMethod ';'
-    |   callInlineFunction ';'
+    :   'if' '(' logicalExpression ')' block ('else' block)? //->test()
+    |   'for' '(' forControl ')' block ->MyForControl()
+    |   'foreach' '(' foreachControl ')' block //->test()
+    |   'while' '(' logicalExpression ')' block //->test()
+    |   'do'  block 'while' '(' logicalExpression ')' ';' //->test() 
+    |   assignmentOperation ';' ->{$assignmentOperation.st}
+    |   setArcOperation ';' //-> test()
+    |   setGraphOperation ';' //->test()
+    |   callClassMethod ';' //->test()
+    |   callInlineFunction ';' //->test()
     ;
     
 foreachControl
@@ -159,16 +164,16 @@ forControl
     
 forLiteral
     :   intLiteral 
-    |   idLiteral {if(!$idLiteral.idType.equals("Int")){errors.add("line "+$idLiteral.curLine+": for  variable must have type int ");}}
-    |   callClassMethod {if(!$callClassMethod.methodType.equals("Int")){errors.add("line "+$callClassMethod.curLine+": for variable must have type int ");}}
-    |   callInlineFunction {if(!$callInlineFunction.functionType.equals("Int")){errors.add("line "+$callInlineFunction.curLine+": for variable must have type int ");}}
+    |   idLiteral {if(!$idLiteral.idType.equals("int")){errors.add("line "+$idLiteral.curLine+": for  variable must have type int ");}}
+    |   callClassMethod {if(!$callClassMethod.methodType.equals("int")){errors.add("line "+$callClassMethod.curLine+": for variable must have type int ");}}
+    |   callInlineFunction {if(!$callInlineFunction.functionType.equals("int")){errors.add("line "+$callInlineFunction.curLine+": for variable must have type int ");}}
     ;
 
 
 forInit
     :   idLiteral
      {
-        if(!$idLiteral.idType.equals("Int")){
+        if(!$idLiteral.idType.equals("int")){
           errors.add("line "+$idLiteral.curLine+": for init variable must have type int ");
         }
      }
@@ -245,6 +250,7 @@ scope{
               typeCheker.getAllErrors(errors);
           }
        }
+       ->test()
     ;
 
 setGraphOperation
@@ -294,8 +300,9 @@ scope{
 @init{
   $variableDeclaration::varType = "";
 }
-    :   TYPE {$variableDeclaration::varType = $TYPE.text;} variableDeclarators 
-        ->MyVariableDeclarators(type={$TYPE.text},list={$variableDeclarators.tVariableList})
+    :   TYPE {$variableDeclaration::varType = $TYPE.text;} variableDeclarators
+        {if($TYPE.text.equals("Text")) $variableDeclaration::varType = "String";}
+        ->MyVariableDeclarators(type={$variableDeclaration::varType},list={$variableDeclarators.tVariableList})
         //{$variableDeclaration.tVariableList = $variableDeclarators.tVariableList;}
         //{$variableDeclaration.tVariableType = $TYPE.text;}
         //{System.out.println($variableDeclarators.tVariableList);}
@@ -396,11 +403,11 @@ relationExpression
     ;
 
 logicalAtom returns [String atomType]
-    :   intLiteral {$atomType = "Int"; }
-    |   floatLiteral {$atomType = "Float"; }
+    :   intLiteral {$atomType = "int"; }
+    |   floatLiteral {$atomType = "float"; }
     |   idLiteral {$atomType = $idLiteral.idType;}
     |   stringLiteral {$atomType = "Text"; }
-    |   booleanLiteral {$atomType = "Bool"; }
+    |   booleanLiteral {$atomType = "bool"; }
     |   callClassMethod {$atomType = $callClassMethod.methodType;}
     |   callInlineFunction {$atomType = $callInlineFunction.functionType;}
     |   nullLiteral {$atomType = "null";}
@@ -429,22 +436,22 @@ assignmentOperator
     ;
 
 TYPE  
-	  : 'Int' //->test()
-	  | 'Float' //->type_int()
+	  : 'int' //->test()
+	  | 'float' //->type_int()
 	  | 'OArc' //->type_int()
 	  | 'Graph'// ->type_int()
 	  | 'Text' //->type_int()
 	  | 'Node' // ->type_int()
 	  | 'void' //->type_int()
-	  | 'Bool' //->type_int()
+	  | 'bool' //->type_int()
 	  ;
 
 literal returns [String literalType, String literalValue]
-    :   intLiteral {$literalType = "Int"; $literalValue=$intLiteral.text;}
-    |   floatLiteral {$literalType = "Float"; $literalValue=$floatLiteral.text;}
+    :   intLiteral {$literalType = "int"; $literalValue=$intLiteral.text;}
+    |   floatLiteral {$literalType = "float"; $literalValue=$floatLiteral.text;}
     |   idLiteral {$literalType = $idLiteral.idType; $literalValue=$idLiteral.text;}
     |   stringLiteral {$literalType = "Text"; $literalValue=$stringLiteral.text;}
-    |   booleanLiteral {$literalType = "Bool"; $literalValue=$booleanLiteral.text; }
+    |   booleanLiteral {$literalType = "bool"; $literalValue=$booleanLiteral.text; }
     |   callClassMethod {$literalType = $callClassMethod.methodType;}
     |   callInlineFunction {$literalType = $callInlineFunction.functionType;}
     ;

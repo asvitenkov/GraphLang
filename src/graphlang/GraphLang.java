@@ -17,7 +17,7 @@ public class GraphLang {
 	//public static StringTemplateGroup templates;
 	public static void main(String[] args) throws IOException, RecognitionException {
 		String templateFileName="GraphLang2Java.stg";
-		
+	
 		StringTemplateGroup templates = new StringTemplateGroup(new FileReader(templateFileName),
 			    AngleBracketTemplateLexer.class);
 		

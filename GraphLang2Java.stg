@@ -56,21 +56,16 @@ iconst(value) ::= "<value>"
 
 test() ::=  <<
 test
+
 >>
 
 
 
 
-MyProgram()::= <<
-public class GraphLangProgram {
-}
->>
-
-globalVariableDeclaration(list)::= <<
+MyGlobalVariableDeclaration(list)::= <<
 <list:{n|private <n>}>
 >>
 
-globalExpression() ::=  "sdfsdfsdfsdf"
 
 
 print(value)::= <<
@@ -85,5 +80,30 @@ MyVariableDeclarators(type,list)::= <<
 >>
 
 
+MyFunctionDeclaration(returnType,name,argumentList)::=<<
+<returnType> <name>(<argumentList;separator=",">){
+function body
+}
+
+>>
+ 
+
+
+MyMainBlock(globalExpression, mainBlock) ::= <<
+public class GraphLangProgram {
+  <globalExpression>
+  
+  public static void main() throws IOException, RecognitionException{
+  <mainBlock>
+  }
+}
+>>
+
+
+
+MyForControl()::= <<
+for control
+
+>>
 
 

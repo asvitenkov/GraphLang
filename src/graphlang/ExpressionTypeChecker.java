@@ -19,7 +19,7 @@ public class ExpressionTypeChecker {
 	
 	public String checkMathExpressionTypes(ArrayList<String> list){
 		String result = "?";
-		if(list.contains("Bool") && list.size()>1) return result;
+		if(list.contains("bool") && list.size()>1) return result;
 		if(list.size()==0) return result;
 		String lastType = list.get(0);
 		result = lastType;
@@ -61,7 +61,7 @@ public class ExpressionTypeChecker {
 			}			
 		}
 		if(operator.equals("+=")){
-			if(lType.equals("Text")||lType.equals("Int")||lType.equals("Float")||lType.equals("Graph")){
+			if(lType.equals("Text")||lType.equals("int")||lType.equals("float")||lType.equals("Graph")){
 				//нужно проверять каждый тип в отдельности
 				if(lType.equals("Text")){
 					if(!rType.equals("Text")){
@@ -69,14 +69,14 @@ public class ExpressionTypeChecker {
 						return false;
 					}
 				}
-				else if(lType.equals("Int")){
-					if(!rType.equals("Int")){
+				else if(lType.equals("int")){
+					if(!rType.equals("int")){
 						errors.add("line "+line+": assignment operator type mismatch "+"right expression must have type "+lType+" , but have type "+rType);
 						return false;
 					}
 				}
-				else if(lType.equals("Float")){
-					if(!rType.equals("Float")){
+				else if(lType.equals("float")){
+					if(!rType.equals("float")){
 						errors.add("line "+line+": assignment operator type mismatch "+"right expression must have type "+lType+" , but have type "+rType);
 						return false;
 					}
@@ -100,16 +100,16 @@ public class ExpressionTypeChecker {
 		}
 
 		if(operator.equals("-=")){
-			if(lType.equals("Int")||lType.equals("Float")||lType.equals("Graph")){
+			if(lType.equals("int")||lType.equals("float")||lType.equals("Graph")){
 				//нужно проверять каждый тип в отдельности
-				if(lType.equals("Int")){
-					if(!rType.equals("Int")){
+				if(lType.equals("int")){
+					if(!rType.equals("int")){
 						errors.add("line "+line+": assignment operator type mismatch "+"right expression must have type "+lType+" , but have type "+rType);
 						return false;
 					}
 				}
-				else if(lType.equals("Float")){
-					if(!rType.equals("Float")){
+				else if(lType.equals("float")){
+					if(!rType.equals("float")){
 						errors.add("line "+line+": assignment operator type mismatch "+"right expression must have type "+lType+" , but have type "+rType);
 						return false;
 					}
@@ -141,6 +141,6 @@ public class ExpressionTypeChecker {
 	}
 
 	{
-		types.add("Int"); types.add("Float"); types.add("void"); types.add("Graph"); types.add("OArc"); types.add("Node"); types.add("Bool"); types.add("Text");
+		types.add("int"); types.add("float"); types.add("void"); types.add("Graph"); types.add("OArc"); types.add("Node"); types.add("bool"); types.add("Text");
 	}
 }

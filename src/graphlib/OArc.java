@@ -10,6 +10,18 @@ public class OArc {
 		// TODO Auto-generated constructor stub
 		startNode = first;
 		endNode = second;
+		startNode.addOutputArc(this);
+		endNode.addInputArc(this);
+	}
+	
+	public void removeFirstVertex(){
+		startNode.removeOutputArc(this);
+		startNode = null;
+	}
+	
+	public void removeSecondVertex(){
+		endNode.removeInputArc(this);
+		endNode = null;
 	}
 	
 	public void setName(String name){
@@ -17,6 +29,11 @@ public class OArc {
 			aName = name;
 		}
 		else throw new NullPointerException("class OArc: setName() - name = null");
+	}
+	
+	
+	public String name(){
+		return aName;
 	}
 	
 	public String toString(){
@@ -53,9 +70,14 @@ public class OArc {
 	}
 	
 	public void setVertex(Node first, Node second){
+		if(startNode!=null)startNode.removeOutputArc(this);
 		startNode = first;
+		if(startNode!=null)startNode.addOutputArc(this);
+		if(endNode!=null)endNode.removeInputArc(this);
 		endNode = second;
+		if(endNode!=null)endNode.addOutputArc(this);
 	}
+	
 	
 	private Node startNode;
 	private Node endNode;
@@ -66,6 +88,14 @@ public class OArc {
 		endNode = null;
 		aName = "";
 		isMark = false;
+	}
+	
+	@Override
+	protected void finalize() throws Throwable {
+		// TODO Auto-generated method stub
+		super.finalize();
+		startNode.removeOutputArc(this);
+		endNode.removeInputArc(this);
 	}
 
 }

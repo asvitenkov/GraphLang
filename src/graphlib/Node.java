@@ -1,7 +1,10 @@
 package graphlib;
 
 
+import java.io.ObjectOutputStream.PutField;
 import java.util.ArrayList;
+
+import org.w3c.dom.traversal.NodeIterator;
 
 public class Node {
 	public Node() {
@@ -18,7 +21,7 @@ public class Node {
 	}
 	public String toString(){
 		String tmp = "Node ";
-		tmp=tmp+nName+"";
+		tmp=tmp+nName+" \n\tinput arcs: " + inputArc.toString()+"\n\toutput arcs: "+outputArc.toString();
 		return tmp;
 	}
 	public int IOArcNumber(){
@@ -72,6 +75,34 @@ public class Node {
 		isMark = false;
 	}
 	
+	
+	public String name(){
+		return nName;
+	}
+	
+	
+	public void addInputArc(OArc arc){
+		if(!inputArc.contains(arc))
+			inputArc.add(arc);
+	}
+	
+	public void addOutputArc(OArc arc){
+		if(!outputArc.contains(arc))
+			outputArc.add(arc);
+	}
+	
+	
+	public void removeInputArc(OArc arc){
+		if(inputArc.contains(arc))
+			inputArc.remove(arc);
+	}
+	
+	
+	public void removeOutputArc(OArc arc){
+		if(outputArc.contains(arc))
+			outputArc.remove(arc);
+	}
+	
 	private String nName;
 	private ArrayList<OArc> inputArc;
 	private ArrayList<OArc> outputArc;
@@ -81,5 +112,35 @@ public class Node {
 		outputArc = new ArrayList<OArc>();
 		nName = "";
 		isMark = false;
+	}
+	
+	
+	public graphlib.NodeIterator IOIterator(){
+		return new IONodeIterator(this);
+	}
+	
+	public graphlib.NodeIterator OIterator(){
+		return new OutputNodeIterator(this);
+	}
+	
+	
+	public graphlib.NodeIterator IIterator(){
+		return new InputNodeIterator(this);
+	}
+	
+	@Override
+	protected void finalize() throws Throwable {
+		// TODO Auto-generated method stub
+		super.finalize();
+		
+		
+		for(OArc tmp:inputArc){
+			tmp.removeSecondVertex();
+		}
+		
+		for(OArc tmp: outputArc){
+			tmp.removeFirstVertex();
+		}
+		
 	}
 }
