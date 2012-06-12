@@ -27,6 +27,6 @@ public  abstract class NodeIterator {
 	{
 		node  = null;
 		curIndex = 0;
-		size = 0;
+		size = -1;
 	}
 }

@@ -6,10 +6,11 @@ int result;
 
 int max(int a, int b){
 	int result;
-	if(a>b) {result = a;}
+	if(a>b) {result = a; result = a; result = a;}
 	else {result = b;}
 	return result;
 }
+
 
 
 Node getMaxNodeWeight(Graph graphGlob){
@@ -114,7 +115,7 @@ OArc arcGlob;
 	size=aNode.IArcNumber();
 	size=aNode.OArcNumber();
 	write(size.toText());
-	
+		
 	OArc aArc;
 	foreach(aNode; graphLoc;input){
 		// do smth
@@ -132,6 +133,7 @@ OArc arcGlob;
 	for(i;5;graph.nodeNumber())     {
 	}
 	
+	graph.getNode(nodeLoc);
 	bool find;
 	find=false;
 	Node tNode;
@@ -167,5 +169,7 @@ OArc arcGlob;
 	float f;
 	f = 18.0/25.0+ 1.0-(15.0+2.0)*3.0;
 	int res;
-	res = max(151,15);
+	res = max(151,15)+max(151,15)+graph.nodeNumber();
+	res = -3;
+	max(3,3);
 }

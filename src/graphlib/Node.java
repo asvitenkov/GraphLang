@@ -28,6 +28,10 @@ public class Node {
 		return inputArc.size()+outputArc.size();
 	}
 	
+	public boolean isMark(){
+		return isMark;
+	}
+	
 	public int size(){
 		return inputArc.size()+outputArc.size();
 	}

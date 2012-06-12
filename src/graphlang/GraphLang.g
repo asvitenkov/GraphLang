@@ -23,6 +23,8 @@ options {
   ArrayList<String> tmpVarNamesList = new ArrayList<String>(); 
 }
 
+
+
 programm  
 scope{
   String curBlock;
@@ -32,7 +34,7 @@ scope{
   $programm::curBlock = "";
   $programm::tGlobalVariables = new ArrayList<String>();
 }
-	  :  s+=globalExpression* {$programm::curBlock = "main";} mainBlock ->MyMainBlock(globalExpression={$s}, mainBlock={$mainBlock.st})
+	  :  s+=globalExpression*  {$programm::curBlock = "main";} mainBlock ->MyMainBlock(globalExpression={$s}, mainBlock={$mainBlock.st})
 	  ;
 
 globalExpression
@@ -77,17 +79,19 @@ scope{
 	              errors.add("line "+$ID.line+": duplicated function declaration "+$ID.text);
 	            }
 	          }  
-	      '{' blockStatement*  returnOperator? '}'
+	       
+	      '{' st+=blockStatement*  returnOperator? '}'  
 	      {
 	        boolean result = names.checkReturnType($ID.text, $functionDeclaration::returnVariable, $programm::curBlock, $functionDeclaration::isReturnUsed, $ID.line);
 	        if(result==false){
 	          errors.add(names.getLAstError());
 	        }
 	      }
-	      ->MyFunctionDeclaration(returnType={$TYPE.text},name={$ID.text},argumentList={$functionDeclaration::functionArgumentDeclaratorList})
+	      {$functionDeclaration::returnVariable = "return "+$functionDeclaration::returnVariable+";";}
+	      ->MyFunctionDeclaration(returnType={$TYPE.text},name={$ID.text},argumentList={$functionDeclaration::functionArgumentDeclaratorList}, statements={$st}, retSt={$functionDeclaration::returnVariable})
 	  ;
 
-returnOperator
+returnOperator 
     :     'return' ID? ';'
           {
               $functionDeclaration::isReturnUsed = true;
@@ -127,20 +131,20 @@ blockStatement
     
     
 block
-    : '{' statement* '}'
+    : '{' s+=statement* '}' ->print(value={$s})
     ;
 
 statement
-    :   'if' '(' logicalExpression ')' block ('else' block)? //->test()
+    :   'if' '(' logicalExpression ')' a=block ('else' b=block)? ->MyIfStatement(logicalExpr={$logicalExpression.st},blockIf={$a.st},blockElse={$b.st})
     |   'for' '(' forControl ')' block ->MyForControl()
     |   'foreach' '(' foreachControl ')' block //->test()
     |   'while' '(' logicalExpression ')' block //->test()
     |   'do'  block 'while' '(' logicalExpression ')' ';' //->test() 
     |   assignmentOperation ';' ->{$assignmentOperation.st}
-    |   setArcOperation ';' //-> test()
-    |   setGraphOperation ';' //->test()
-    |   callClassMethod ';' //->test()
-    |   callInlineFunction ';' //->test()
+    |   setArcOperation ';' ->print(value={$setArcOperation.st+";\n"})
+    |   setGraphOperation ';' ->print(value={$setGraphOperation.st+";\n"})
+    |   callClassMethod ';' ->print(value={$callClassMethod.st+";\n"})
+    |   callInlineFunction ';' ->print(value={$callInlineFunction.st+";\n"})
     ;
     
 foreachControl
@@ -182,6 +186,7 @@ forInit
 callInlineFunction returns [String functionType, int curLine]
     :  ID '(' argumentList? ')'
     {
+          String tmp="";
           $functionType = "?";
           ArrayList list = null;
           $curLine = $ID.line;
@@ -193,7 +198,11 @@ callInlineFunction returns [String functionType, int curLine]
           else{
               $functionType = names.getFunction($ID.text).getReturnType();
           }
+          
+          if($argumentList.st!=null)
+            tmp+=$argumentList.st;
     }
+    ->print(value={$ID.text+"("+tmp+")"})
     ;
 
 
@@ -211,6 +220,7 @@ scope{
 }
     :   varId=ID '.' {$callClassMethod::variableId=$varId.text; } 
         mName=ID   {$callClassMethod::methodName=$mName.text;}
+        {String tmp="";}
         '(' argumentList? ')' //{System.out.println($argumentList.argumentTypeList);} //add check type in class method
         {
           $methodType="?";
@@ -225,6 +235,11 @@ scope{
             $methodType = names.getMethod($programm::curBlock, $varId.text, $mName.text).getReturnType();
           }
         }
+        {
+          if($argumentList.text!=null)
+            tmp+=$argumentList.st;
+        }
+        ->print(value={$varId.text+"."+$mName.text+"("+tmp+")"})
     ;
 
 assignmentOperation
@@ -250,7 +265,9 @@ scope{
               typeCheker.getAllErrors(errors);
           }
        }
-       ->test()
+       //->print(value={"mathExpr\n"})
+       //->{$mathExpression.st;}
+       ->MyAssignmentOperation(id={$ID.text},operator={$assignmentOperator.text}, mathExpr={$mathExpression.st})
     ;
 
 setGraphOperation
@@ -269,6 +286,8 @@ scope{
             names.checkSetGraphOperator($ID.text,$programm::curBlock,$setGraphOperation::varList,$setGraphOperation::firstIdList,$setGraphOperation::secondIdList,$ID.line);
             names.getAllErrors(errors);
         }
+        
+        ->MySetGraphOperation(idGraph={$ID.text},var={$setGraphOperation::varList},fV={$setGraphOperation::firstIdList},sV={$setGraphOperation::secondIdList})
     ;
 
 variableList
@@ -342,39 +361,52 @@ setArcOperation
         if(result==false){
           names.getAllErrors(errors);
         }
-      }
+      } ->print(value={$id.text+".setVertex"+"("+$from.text+","+$to.text+")"})
     ;
 
 mathTerm returns [String mathTermType]
-    :  literal {$mathTerm.mathTermType = $literal.literalType;}
-    |  '(' mathExpression ')' {$mathTerm.mathTermType = $mathExpression.mathExpressionType;}
+    :  literal {$mathTerm.mathTermType = $literal.literalType;} ->print(value={$literal.st})
+    |  '(' mathExpression ')' {$mathTerm.mathTermType = $mathExpression.mathExpressionType;} ->print(value={"("+$mathExpression.st+")"})
     ;
 
 unaryExpression returns [String unaryExpressionType]
-    :  '+' a=unaryExpression {$unaryExpression.unaryExpressionType = $a.unaryExpressionType;}
-    |  '-' b=unaryExpression {$unaryExpression.unaryExpressionType = $b.unaryExpressionType;}
-    |  mathTerm {$unaryExpression.unaryExpressionType = $mathTerm.mathTermType;}
+    :  '+' a=unaryExpression {$unaryExpression.unaryExpressionType = $a.unaryExpressionType;} ->print(value={"+"+$a.st})
+    |  '-' b=unaryExpression {$unaryExpression.unaryExpressionType = $b.unaryExpressionType;} ->print(value={"-"+$b.st})
+    |  mathTerm {$unaryExpression.unaryExpressionType = $mathTerm.mathTermType;} ->{$mathTerm.st}
     ;
 
-multiplicativeExpression  returns [String multiplicativeExpressionType]
+
+
+multiplicativeExpression  returns [String multiplicativeExpressionType, String textValue]
     : {ArrayList<String> type = new ArrayList<String>();} 
-      a=unaryExpression {type.add($a.unaryExpressionType);} (('*'|'/') b=unaryExpression {type.add($b.unaryExpressionType);} )*
+    {String tmp="";}
+      a=unaryExpression {type.add($a.unaryExpressionType);} ((c='*'|c='/') b=unaryExpression {tmp+=$c.text; tmp+=$b.st; type.add($b.unaryExpressionType);} )*
       {
           $multiplicativeExpressionType = typeCheker.checkMathExpressionTypes(type);
       }
-       
+      {
+        
+
+      }
+      ->print(value={$a.st+tmp}) 
     ;
 
 mathExpression returns [String mathExpressionType]
     :   {ArrayList<String> type = new ArrayList<String>();} 
-        a=multiplicativeExpression {type.add($a.multiplicativeExpressionType);}  (('-'|'+') b=multiplicativeExpression  {type.add($b.multiplicativeExpressionType);}  )*
+        {String tmp=""; }
+        {String tmp2="";}
+        a=multiplicativeExpression {type.add($a.multiplicativeExpressionType);}  ((c='-'|c='+') b=multiplicativeExpression   {tmp+=$c.text; tmp+=$b.st; type.add($b.multiplicativeExpressionType);})*
         {
           $mathExpressionType = typeCheker.checkMathExpressionTypes(type);
         }
+
+        ->print(value={$a.st +tmp})
+        
+        
     ;
 
 logicalExpression
-	  :  relationExpression (('&&'|'||') relationExpression)*
+	  :  relationExpression (('&&'|'||') relationExpression)* ->print(value={"logical expression"})
 	  ;
 
 
@@ -407,7 +439,7 @@ logicalAtom returns [String atomType]
     |   floatLiteral {$atomType = "float"; }
     |   idLiteral {$atomType = $idLiteral.idType;}
     |   stringLiteral {$atomType = "Text"; }
-    |   booleanLiteral {$atomType = "bool"; }
+    |   BOOLEANLITERAL {$atomType = "bool"; }
     |   callClassMethod {$atomType = $callClassMethod.methodType;}
     |   callInlineFunction {$atomType = $callInlineFunction.functionType;}
     |   nullLiteral {$atomType = "null";}
@@ -447,25 +479,27 @@ TYPE
 	  ;
 
 literal returns [String literalType, String literalValue]
-    :   intLiteral {$literalType = "int"; $literalValue=$intLiteral.text;}
-    |   floatLiteral {$literalType = "float"; $literalValue=$floatLiteral.text;}
-    |   idLiteral {$literalType = $idLiteral.idType; $literalValue=$idLiteral.text;}
-    |   stringLiteral {$literalType = "Text"; $literalValue=$stringLiteral.text;}
-    |   booleanLiteral {$literalType = "bool"; $literalValue=$booleanLiteral.text; }
-    |   callClassMethod {$literalType = $callClassMethod.methodType;}
-    |   callInlineFunction {$literalType = $callInlineFunction.functionType;}
+    :   intLiteral {$literalType = "int"; $literalValue=$intLiteral.text;} ->{$intLiteral.st;}
+    |   floatLiteral {$literalType = "float"; $literalValue=$floatLiteral.text;} ->{$floatLiteral.st;}
+    |   idLiteral {$literalType = $idLiteral.idType; $literalValue=$idLiteral.text;} ->{$idLiteral.st;}
+    |   stringLiteral {$literalType = "Text"; $literalValue=$stringLiteral.text;} ->{$stringLiteral.st;}
+    |   BOOLEANLITERAL {$literalType = "bool"; $literalValue=$BOOLEANLITERAL.text; } ->print(value={$BOOLEANLITERAL.text})
+    |   callClassMethod {$literalType = $callClassMethod.methodType;  $literalValue="callClassMethod\n"; } ->{$callClassMethod.st;}
+    |   callInlineFunction {$literalType = $callInlineFunction.functionType; $literalValue="callInlineFunction\n";} ->{$callInlineFunction.st;}
     ;
 
 argumentList returns[ArrayList<String> argumentTypeList]
   :  {
         $argumentTypeList = new ArrayList<String>();
+        String tmp="";
      }  
   a=literal {$argumentTypeList.add($a.literalType);}  
-  (',' b=literal {$argumentTypeList.add($b.literalType);} )*
+  (',' b=literal {$argumentTypeList.add($b.literalType); tmp+=","; tmp+=$b.st;} )*
+    ->print(value={$a.st+tmp})
   ;
 
 floatLiteral
-  : FLOAT 
+  : FLOAT ->print(value={$FLOAT.text})
   ;
 
 idLiteral returns [String idType, int curLine]
@@ -481,18 +515,19 @@ idLiteral returns [String idType, int curLine]
         $idType = names.getVariable($programm::curBlock+"."+$ID.text).getType();
       }
     }
+    ->print(value={$ID.text})
   ;
 
 intLiteral
-  : INT 
+  : INT ->print(value={$INT.text})
   ;
 
 stringLiteral
-  :  STRING 
+  :  STRING ->print(value={$STRING.text})
   ;
 
-booleanLiteral
-    :   'true'
+BOOLEANLITERAL
+    :   'true' 
     |   'false'
     ;
 

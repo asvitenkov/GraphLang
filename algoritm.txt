@@ -1,0 +1,39 @@
+// алгоритм поиска минимального пути между указанными вершинами
+
+Node beginNode,endNode;
+Int answer;
+
+void searchNext(Node curNodeP,Int size){
+	if(curNode==endNode){
+		if(size<answer){
+			answer = size;
+		}
+	}
+	OArc aArc;
+	foreach(aArc; nodeLoc; output){
+		tNode = aArc.getSecond();
+		if(tNode.isMark()==false){
+			tNode.markNode();
+			temp=size+1;
+			tSize = searchNext(tNode, temp);
+			tNode.unmarkNode();
+		}
+	}
+	return;
+}
+
+main{
+	Graph g;
+	beginNode = "begin";
+	endNode = "end";
+	scan(graph);
+	answer = 999999;
+	searchNext(graph.getNode(beginNode),0);
+	if(answer!=999999){
+		write(answer.toText());
+	}
+	else{
+		write("way does not exist");
+	}
+	
+}

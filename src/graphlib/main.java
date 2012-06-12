@@ -5,43 +5,66 @@ public class main {
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
-		Node n1 = new Node("1");
-		Node n2 = new Node("2");
-		Node n3 = new Node("3");
-		Node n4 = new Node("4");
-		Node n5 = new Node("5");
-		Node n6 = new Node("6");
-		Node n7 = new Node("7");
-		OArc a1 = new OArc(n1,n2);
-		a1.setName("1->2");
-		OArc a2 = new OArc(n1,n3);
-		a2.setName("1->3");
-		OArc a3 = new OArc(n6,n1);
-		a3.setName("6->1");
-		OArc a4 = new OArc(n7,n1);
-		a4.setName("7->1");
-//		OArc a5 = new OArc(n5,n1);
-//		a5.setName("5->1");
-//		OArc a6 = new OArc(n4,n1);
-//		a6.setName("4->1");
-//		OArc a7 = new OArc(n1,n6);
-//		a7.setName("1->6");
-		
-		
-		System.out.println(n1);
-		
-//		a1.setVertex(null, null);
-		
-		OArc tmp;
-		NodeIterator it = n1.IOIterator();
-		while(!it.isDone()){
-			tmp=it.currentItem();
-			System.out.println(tmp);
-			it.next();
+	
+	public int answer;
+	
+	public Node beginNode, endNode;
+	
+	private void searchNext(Node curNode, int size){
+		if(curNode==endNode){
+			if(size<answer){
+				answer=size;
+				return;
+			}
 		}
 		
+		OArc arc;
+		Node node;
+		int temp;
+		NodeIterator it = curNode.OIterator();
+		for(it.first(); !it.isDone();it.next()){
+			arc = it.currentItem();
+			node = arc.getSecond();
+			if(!node.isMark()){
+				node.markNode();
+				temp=size+1;
+				searchNext(node, temp);
+				node.unmarkNode();
+			}
+		}
+	}
 	
+	public static void main(String[] args) {
+
+		Graph g1 = new Graph();
+		Node n1 = new Node("v1");
+		Node n2 = new Node("v2");
+		Node n3 = new Node("v3");
+		Node n4 = new Node("v4");
+		Node n5 = new Node("v5");
+		OArc a1 = new OArc(n1, n2);
+		a1.setName("v1->v2");
+		OArc a2 = new OArc(n2, n3);
+		a2.setName("v2->v3");
+		OArc a3 = new OArc(n3, n4);
+		a3.setName("v3->v4");
+		OArc a4 = new OArc(n4, n5);
+		a4.setName("v4->v5");
+		OArc a5 = new OArc(n1, n5);
+		a5.setName("v1->v5");
+		
+		
+		main m = new main();
+		
+		m.answer = 99999;
+		
+		m.beginNode = n1;
+		m.endNode = n5;
+		
+		
+		m.searchNext(m.beginNode, 0);
+		
+		System.out.println(m.answer);
 		
 		
 		

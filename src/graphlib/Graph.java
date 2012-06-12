@@ -54,6 +54,8 @@ public class Graph {
 	
 	
 	public void setGraph(ArrayList<String> vars, ArrayList<String> firstN, ArrayList<String> secondN){
+		lNode.clear();
+		lArc.clear();
 		ArrayList<String> varList = new ArrayList<String>();
 		for(String tmp: vars){
 			if(!varList.contains(tmp))
@@ -102,8 +104,32 @@ public class Graph {
 	}
 	
 	
+	public Node getNode(int index){
+		if(index<lNode.size())
+			return lNode.get(index);
+		return null;
+	}
+	
+	
 	public String toString(){
 		return "graph: name "+mName+"\n\t"+lNode.toString() +"\n\t"+ lArc.toString();
+	}
+	
+	
+	
+	public GraphIterator vertexIterator(){
+		return new GraphVertexIterator(this);
+	}
+	
+	
+	public void markNode(Node node){
+		if(searchNode(node))
+			lNode.get(lNode.indexOf(node)).markNode();
+	}
+	
+	public void unmarkNode(Node node){
+		if(searchNode(node))
+			lNode.get(lNode.indexOf(node)).unmarkNode();
 	}
 	
 	

@@ -54,10 +54,6 @@ refVar(id) ::= "<id>"
 
 iconst(value) ::= "<value>"
 
-test() ::=  <<
-test
-
->>
 
 
 
@@ -80,9 +76,14 @@ MyVariableDeclarators(type,list)::= <<
 >>
 
 
-MyFunctionDeclaration(returnType,name,argumentList)::=<<
+MyFunctionDeclaration(returnType,name,argumentList, statements, retSt)::=<<
 <returnType> <name>(<argumentList;separator=",">){
 function body
+
+<statements>
+
+
+<retSt>
 }
 
 >>
@@ -90,11 +91,18 @@ function body
 
 
 MyMainBlock(globalExpression, mainBlock) ::= <<
+
+
+private ArrayList\<String\> listForSGOVar;
+private ArrayList\<String\> listForSGOFirstV; 
+private ArrayList\<String\> listForSGOSecondV;
+
+
 public class GraphLangProgram {
   <globalExpression>
   
   public static void main() throws IOException, RecognitionException{
-  <mainBlock>
+    <mainBlock>
   }
 }
 >>
@@ -107,3 +115,55 @@ for control
 >>
 
 
+
+
+MySetGraphOperation(idGraph,var,fV,sV)::= <<
+listForSGOVar = new ArrayList\<String\>;
+listForSGOFirstV = new ArrayList\<String\>;
+listForSGOSecondV = new ArrayList\<String\>;
+<var:{n|listForSGOVar.add("<n>")};separator=";\n">;
+<fV:{n|listForSGOFirstV.add("<n>")};separator=";\n">;
+<sV:{n|listForSGOSecondV.add("<n>")};separator=";\n">;
+<idGraph>.setGraph(listForSGOVar,listForSGOFirstV,listForSGOSecondV)
+>>
+
+
+
+
+MyAssignmentOperation(id,operator,mathExpr)::= <<
+<id><operator><mathExpr>;
+
+>>
+
+
+
+MyIfStatement(logicalExpr,blockIf,blockElse)::=<<
+if(<logicalExpr>){
+  <blockIf>}
+else{
+  <blockElse>}
+
+>>
+
+
+
+test() ::=  <<
+test
+
+>>
+
+
+testCCM() ::=  <<
+CCM
+>>
+
+testCIF() ::=  <<
+CIF
+>>
+
+
+
+testME() ::=  <<
+MathExpr
+
+>>

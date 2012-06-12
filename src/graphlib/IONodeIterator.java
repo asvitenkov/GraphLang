@@ -4,7 +4,7 @@ public class IONodeIterator extends NodeIterator {
 
 	public IONodeIterator(Node node){
 		super(node);
-		super.size = node.IOArcNumber();
+		if(node!=null) super.size = node.IOArcNumber();
 	}
 	
 	public boolean isDone() {
