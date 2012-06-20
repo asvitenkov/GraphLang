@@ -474,7 +474,7 @@ scope{
 @init{
   $variableDeclarator::varList = new ArrayList<String>();
 }
-    :   ID //{System.out.println(currentBlock+" "+tmpType+ " " + $ID.text);}
+    :   ID 
     {
         if(!names.isDeclaredVariable($programm::curBlock+"."+$ID.text) ){
           names.addVariable(names.new VariableName($programm::curBlock+"."+$ID.text, $variableDeclaration::varType, $ID.line));
