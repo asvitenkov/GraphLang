@@ -35,10 +35,10 @@ public class GraphLangProgram {
     int temp=123;
     int tSize=123;
 
-    graphlib.NodeIterator it_aArc8560 = curNode.OIterator();
-    //aArc = it_aArc8560.currentItem();
-    for(it_aArc8560.first();!it_aArc8560.isDone();it_aArc8560.next()){
-    aArc=it_aArc8560.currentItem();
+    graphlib.NodeIterator it_aArc439584 = curNode.OIterator();
+    //aArc = it_aArc439584.currentItem();
+    for(it_aArc439584.first();!it_aArc439584.isDone();it_aArc439584.next()){
+    aArc=it_aArc439584.currentItem();
 
       tNode=aArc.getSecond();
       if(tNode.isMark()==false){
@@ -78,6 +78,10 @@ public class GraphLangProgram {
     a4.setName("v4->v5");
     a5.setVertex(n2,n5);
     a5.setName("v2->v5");
+    System.out.println("begin node");
+    System.out.println(beginNode);
+    System.out.println("end node");
+    System.out.println(endNode);
     g.addNode(n1);
     g.addNode(n2);
     g.addNode(n3);
