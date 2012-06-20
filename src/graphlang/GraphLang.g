@@ -455,9 +455,7 @@ scope{
           if($TYPE.text.equals("int")) additionPart="=123";
         }
         ->MyVariableDeclarators(type={$variableDeclaration::varType},list={$variableDeclarators.tVariableList},additionPart={additionPart})
-        //{$variableDeclaration.tVariableList = $variableDeclarators.tVariableList;}
-        //{$variableDeclaration.tVariableType = $TYPE.text;}
-        //{System.out.println($variableDeclarators.tVariableList);}
+
     ;
 
 variableDeclarators returns[ArrayList<String> tVariableList]
