@@ -146,6 +146,14 @@ public class Graph {
 		else return false;
 	}
 	
+	public void clearMarks(){
+		for(Node tmp: lNode){
+			tmp.unmarkNode();
+		}
+		for(OArc tmp: lArc){
+			tmp.unmarkArc();
+		}
+	}
 	
 	private ArrayList<Node> getAllNode(){
 		return lNode;

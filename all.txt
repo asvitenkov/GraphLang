@@ -6,7 +6,7 @@ int result;
 
 int max(int a, int b){
 	int result;
-	if(a>b) {result = a; result = a; result = a;}
+	if(a>b) {result = a;}
 	else {result = b;}
 	return result;
 }
@@ -22,22 +22,12 @@ Node getMaxNodeWeight(Graph graphGlob){
 	return answer;
 }
 
-
-
-
-
-
-
-
-
-
-
 main{
 Graph graphGlob;
 Node nodeGlob;
 OArc arcGlob;
 	Text t;
-	if(15==15){
+	if((15==15)&&1==1 &&2==2 && 3!=4){
 	}
 	
 	// init var
@@ -60,6 +50,9 @@ OArc arcGlob;
 
 	
 	// сокращённые и полные формы записи
+	
+	graphLoc=graphLoc;
+	
 	graphLoc+=nodeLoc; //Add node to graph
 	graphGlob+=graphLoc;
 	graphLoc+=arcLoc; // Add arc to graph;
@@ -79,7 +72,7 @@ OArc arcGlob;
 	
 	// операции для проверки принадлежности например : узел графу
 	
-	if(graphLoc.containNode(nodeLoc)==true || graphLoc.containArc(arcLoc)==true){
+	if((graphLoc.containNode(nodeLoc)==true) || (graphLoc.containArc(arcLoc)==true)){
 		//do smth
 	}
 	
@@ -114,7 +107,7 @@ OArc arcGlob;
 	size=aNode.IOArcNumber();
 	size=aNode.IArcNumber();
 	size=aNode.OArcNumber();
-	write(size.toText());
+	write(size);
 		
 	OArc aArc;
 	foreach(aNode; graphLoc;input){
@@ -129,11 +122,16 @@ OArc arcGlob;
 		// do smth
 		printArc(aArc);
 	}
+	
+	
 	int i,end;
 	for(i;5;graph.nodeNumber())     {
+	i=5;
+	i+=5;
 	}
 	
-	graph.getNode(nodeLoc);
+	
+	
 	bool find;
 	find=false;
 	Node tNode;
@@ -161,7 +159,6 @@ OArc arcGlob;
 	graphLoc.clearMarks();
 	graphLoc.markNode(nodeLoc);
 	graphLoc.unmarkNode(nodeLoc);
-	nodeLoc = graph.getNode(nodeLoc);
 	
 	if(nodeLoc.isMark()==true){
 		write("marked");

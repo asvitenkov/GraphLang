@@ -3,11 +3,15 @@ grammar GraphLang;
 options {
   language = Java;
   output=template;
+  //backtrack=true;
 }
 
 
 @header {
-  package graphlang;
+
+package graphlang;
+  import java.util.Random;
+  
   
 }
 
@@ -21,6 +25,7 @@ options {
   protected ArrayList<String> errors = new ArrayList<String>();
   protected ExpressionTypeChecker typeCheker = new ExpressionTypeChecker();
   ArrayList<String> tmpVarNamesList = new ArrayList<String>(); 
+  Random __generator = new Random();
 }
 
 
@@ -136,10 +141,10 @@ block
 
 statement
     :   'if' '(' logicalExpression ')' a=block ('else' b=block)? ->MyIfStatement(logicalExpr={$logicalExpression.st},blockIf={$a.st},blockElse={$b.st})
-    |   'for' '(' forControl ')' block ->MyForControl()
-    |   'foreach' '(' foreachControl ')' block //->test()
-    |   'while' '(' logicalExpression ')' block //->test()
-    |   'do'  block 'while' '(' logicalExpression ')' ';' //->test() 
+    |   'for' '(' forControl ')' a=block ->MyForControl(expr={$forControl.st},block={$a.st})
+    |   'foreach' '(' foreachControl ')' block ->MyForeachStatment(expr={$foreachControl.st},block={$block.st})
+    |   'while' '(' logicalExpression ')' block ->MyWhileStatement(logicalExpr={$logicalExpression.st},block={$block.st})
+    |   'do'  block 'while' '(' logicalExpression ')' ';' ->MyDoWhileStatement(logicalExpr={$logicalExpression.st},block={$block.st})
     |   assignmentOperation ';' ->{$assignmentOperation.st}
     |   setArcOperation ';' ->print(value={$setArcOperation.st+";\n"})
     |   setGraphOperation ';' ->print(value={$setGraphOperation.st+";\n"})
@@ -148,50 +153,88 @@ statement
     ;
     
 foreachControl
-    :   f=idLiteral ';' s=idLiteral (';' foreachType?)?
+    :   
+        {String tmp="";}
+        f=idLiteral ';' s=idLiteral (';' foreachType? {tmp=$foreachType.text;})?
 		    {
 		        if(!names.checkForeachControl($programm::curBlock+"."+$f.text, $programm::curBlock+"."+$s.text,$foreachType.text, $s.curLine)){
 		          names.getAllErrors(errors);
 		        }
 		    }
+		    {
+		      String itType="";
+		      if(tmp==null) tmp="all";
+		      String iterator="";
+		      String type=$s.idType;
+		      if(type.equals("Node")){
+		        itType="graphlib.NodeIterator";
+		        if(tmp.equals("output")){
+		          iterator="OIterator";
+		        }
+		        else if(tmp.equals("input")){
+		          iterator="IIterator";
+		        }
+		        else if(tmp.equals("all")){
+		          iterator="IOIterator";
+		        }
+		        else errors.add("line "+$f.curLine+": undefined foreach type ");
+		      }
+		      
+		      else if(type.equals("Graph")){
+		        itType="GraphIterator";
+            iterator="vertexIterator";
+		      }
+		      else {errors.add("line "+$f.curLine+": undefined foreachType type for variable");}
+		    } ->MyCreateIteratorStatement(itType={itType},var={$f.st},itVar={$s.st},iterator={iterator},randNumber={Integer.toString(__generator.nextInt(555555))})
     ;
 
 foreachType
     :  'output'
     |  'input'
+    |  'all'
     ;
 
 forControl
-    :   forInit? ';' forLiteral ';' forLiteral
+    :   forInit ';' a=forLiteral ';' b=forLiteral
+      ->MyForStatement(var={$forInit.st},begin={$a.st},end={$b.st})
     ;
 
     
 forLiteral
-    :   intLiteral 
-    |   idLiteral {if(!$idLiteral.idType.equals("int")){errors.add("line "+$idLiteral.curLine+": for  variable must have type int ");}}
-    |   callClassMethod {if(!$callClassMethod.methodType.equals("int")){errors.add("line "+$callClassMethod.curLine+": for variable must have type int ");}}
-    |   callInlineFunction {if(!$callInlineFunction.functionType.equals("int")){errors.add("line "+$callInlineFunction.curLine+": for variable must have type int ");}}
+    :   intLiteral ->{$intLiteral.st} 
+    |   idLiteral {if(!$idLiteral.idType.equals("int")){errors.add("line "+$idLiteral.curLine+": for  variable must have type int ");}} ->{$idLiteral.st}
+    |   callClassMethod {if(!$callClassMethod.methodType.equals("int")){errors.add("line "+$callClassMethod.curLine+": for variable must have type int ");}} ->{$callClassMethod.st}
+    |   callInlineFunction {if(!$callInlineFunction.functionType.equals("int")){errors.add("line "+$callInlineFunction.curLine+": for variable must have type int ");}} ->{$callInlineFunction.st}
     ;
 
 
 forInit
-    :   idLiteral
+    :   idLiteral 
      {
         if(!$idLiteral.idType.equals("int")){
           errors.add("line "+$idLiteral.curLine+": for init variable must have type int ");
         }
-     }
+     } ->print(value={$idLiteral.st})
     ;
 
 callInlineFunction returns [String functionType, int curLine]
     :  ID '(' argumentList? ')'
     {
+          String funcName=$ID.text;
           String tmp="";
+         
+          
           $functionType = "?";
           ArrayList list = null;
           $curLine = $ID.line;
           if($argumentList.argumentTypeList==null) list = new ArrayList<String>();
           else list =  $argumentList.argumentTypeList;
+          
+          if($ID.text.equals("write")){
+            list.clear();
+            list.add("Text");
+          } 
+          
           if(!names.checkCallFunction($programm::curBlock, $ID.text, list, $ID.line)){
               names.getAllErrors(errors);
           }
@@ -199,10 +242,25 @@ callInlineFunction returns [String functionType, int curLine]
               $functionType = names.getFunction($ID.text).getReturnType();
           }
           
+                
+          
           if($argumentList.st!=null)
             tmp+=$argumentList.st;
+            
+          if(funcName.equals("write")){
+            funcName="System.out.println";
+          }
+          if(funcName.equals("read")){
+            funcName=tmp+"=__in.nextLine";
+            tmp="";
+          }
+          if(funcName.equals("printNode")||funcName.equals("printArc")||funcName.equals("printGraph")){
+            funcName="System.out.println";
+          }  
+            
+            
     }
-    ->print(value={$ID.text+"("+tmp+")"})
+    ->print(value={funcName+"("+tmp+")"})
     ;
 
 
@@ -228,6 +286,7 @@ scope{
           ArrayList list = null;
           if($argumentList.argumentTypeList==null) list = new ArrayList<String>();
           else list =  $argumentList.argumentTypeList;
+          
           if(!names.checkCallClassMethod($programm::curBlock, $varId.text, $mName.text, $argumentList.argumentTypeList, $varId.line)){
               names.getAllErrors(errors);
           }
@@ -235,6 +294,7 @@ scope{
             $methodType = names.getMethod($programm::curBlock, $varId.text, $mName.text).getReturnType();
           }
         }
+        
         {
           if($argumentList.text!=null)
             tmp+=$argumentList.st;
@@ -250,6 +310,13 @@ scope{
     $assignmentOperation::idType = "none";
 }
     :  ID 
+       {String id="";
+        String operator="";
+        StringTemplate mathExpr;
+        String idType="none";
+        String exprType="";
+        String additionExpr="";
+       }
        {
           if(names.isExistVariable($programm::curBlock+"."+$ID.text)){
             $assignmentOperation::idType = names.getVariable($programm::curBlock+"."+$ID.text).getType();
@@ -258,6 +325,7 @@ scope{
             errors.add("line "+$ID.line+": unknown variable "+$ID.text);
           }
        } 
+       
        assignmentOperator 
        mathExpression
        {
@@ -265,9 +333,65 @@ scope{
               typeCheker.getAllErrors(errors);
           }
        }
-       //->print(value={"mathExpr\n"})
-       //->{$mathExpression.st;}
-       ->MyAssignmentOperation(id={$ID.text},operator={$assignmentOperator.text}, mathExpr={$mathExpression.st})
+       {
+        id=$ID.text;
+        operator=$assignmentOperator.text;
+        mathExpr=$mathExpression.st;
+        exprType= $mathExpression.mathExpressionType;
+        idType=$assignmentOperation::idType;
+        if(operator.equals("+=")){
+            if(idType.equals("Graph"))
+              if(exprType.equals("Node")){
+                operator=".addNode(";
+                additionExpr=")";
+              }
+              if(exprType.equals("Graph")){
+                operator=".addGraph(";
+                additionExpr=")";
+              }
+              if(exprType.equals("OArc")){
+                operator=".addArc(";
+                additionExpr=")";
+              }
+        }
+        
+        if(operator.equals("-=")){
+            if(idType.equals("Graph"))
+              if(exprType.equals("Node")){
+                operator=".removeNode(";
+                additionExpr=")";
+              }
+              if(exprType.equals("Graph")){
+                operator=".removeGraph(";
+                additionExpr=")";
+              }
+              if(exprType.equals("OArc")){
+                operator=".removeArc(";
+                additionExpr=")";
+              }
+        }
+        
+        if(operator.equals("=")){
+            if(idType.equals("Graph"))
+              if(exprType.equals("Text")){
+                operator=".setName(";
+                additionExpr=")";
+              }
+            if(idType.equals("Node"))
+              if(exprType.equals("Text")){
+                operator=".setName(";
+                additionExpr=")";
+              }
+            if(idType.equals("OArc"))
+              if(exprType.equals("Text")){
+                operator=".setName(";
+                additionExpr=")";
+              }
+        }
+        
+        
+       }
+       ->MyAssignmentOperation(id={id},operator={operator}, mathExpr={mathExpr},additionExpr={additionExpr})
     ;
 
 setGraphOperation
@@ -321,7 +445,16 @@ scope{
 }
     :   TYPE {$variableDeclaration::varType = $TYPE.text;} variableDeclarators
         {if($TYPE.text.equals("Text")) $variableDeclaration::varType = "String";}
-        ->MyVariableDeclarators(type={$variableDeclaration::varType},list={$variableDeclarators.tVariableList})
+        {if($TYPE.text.equals("bool")) $variableDeclaration::varType = "boolean";}
+        {
+          String additionPart="";
+          if($TYPE.text.equals("Text")) additionPart="=\"\"";
+          if($TYPE.text.equals("Node")) additionPart="=new Node()";
+          if($TYPE.text.equals("OArc")) additionPart="=new OArc()";
+          if($TYPE.text.equals("Graph")) additionPart="=new Graph()";
+          if($TYPE.text.equals("int")) additionPart="=123";
+        }
+        ->MyVariableDeclarators(type={$variableDeclaration::varType},list={$variableDeclarators.tVariableList},additionPart={additionPart})
         //{$variableDeclaration.tVariableList = $variableDeclarators.tVariableList;}
         //{$variableDeclaration.tVariableType = $TYPE.text;}
         //{System.out.println($variableDeclarators.tVariableList);}
@@ -406,12 +539,14 @@ mathExpression returns [String mathExpressionType]
     ;
 
 logicalExpression
-	  :  relationExpression (('&&'|'||') relationExpression)* ->print(value={"logical expression"})
+	  : {String tmp="";} 
+	    a=relationExpression ((c='&&'|c='||') b=relationExpression {tmp+=$c.text; tmp+=$b.st;})* 
+	    ->print(value={$a.st+tmp})
 	  ;
 
 
 relationExpression
-    :  ('(' logicalExpression ')'
+    :  ('(' logicalExpression ')' ->print(value={"("+$logicalExpression.st+")"})
     |  t1=logicalAtom  RELATIONALOP t2=logicalAtom
        {
           if(!$t1.atomType.equals($t2.atomType)){
@@ -430,19 +565,21 @@ relationExpression
             }
             
           }
-       }
+       } ->print(value={$t1.st+$RELATIONALOP.text+$t2.st})
     )
+    
     ;
 
 logicalAtom returns [String atomType]
-    :   intLiteral {$atomType = "int"; }
-    |   floatLiteral {$atomType = "float"; }
-    |   idLiteral {$atomType = $idLiteral.idType;}
-    |   stringLiteral {$atomType = "Text"; }
-    |   BOOLEANLITERAL {$atomType = "bool"; }
-    |   callClassMethod {$atomType = $callClassMethod.methodType;}
-    |   callInlineFunction {$atomType = $callInlineFunction.functionType;}
-    |   nullLiteral {$atomType = "null";}
+    :   intLiteral {$atomType = "int"; } ->{$intLiteral.st}
+    |   floatLiteral {$atomType = "float"; } ->{$floatLiteral.st}
+    |   idLiteral {$atomType = $idLiteral.idType;} ->{$idLiteral.st}
+    |   stringLiteral {$atomType = "Text"; } ->{$stringLiteral.st}
+    |   BOOLEANLITERAL {$atomType = "bool"; } ->print(value={$BOOLEANLITERAL.text})
+    |   callClassMethod {$atomType = $callClassMethod.methodType;} ->{$callClassMethod.st;}
+    |   callInlineFunction {$atomType = $callInlineFunction.functionType;} ->{$callInlineFunction.st;}
+    |   nullLiteral {$atomType = "null";} ->print(value={"null"})
+    //|   '(' c=logicalAtom ')' {$atomType = $c.atomType;}
     ;
 
 nullLiteral

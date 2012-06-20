@@ -24,9 +24,11 @@ public class ExpressionTypeChecker {
 		String lastType = list.get(0);
 		result = lastType;
 		for(String el:list){
-			if(!el.equals(lastType))
+			if(!el.equals(lastType) )
 				result = "?";
 		}
+		if(list.size()>1&& !result.equals("Text")&&!result.equals("int")&&!result.equals("float"))
+			result="?";
 		return result;
 	}
 	

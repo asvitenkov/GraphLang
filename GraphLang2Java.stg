@@ -70,57 +70,97 @@ print(value)::= <<
 
 
 
-MyVariableDeclarators(type,list)::= <<
-<type> <list:{n| <n>};separator=",">;
+MyVariableDeclarators(type,list,additionPart)::= <<
+<type> <list:{n| <n><additionPart>};separator=",">;
 
 >>
 
 
 MyFunctionDeclaration(returnType,name,argumentList, statements, retSt)::=<<
 <returnType> <name>(<argumentList;separator=",">){
-function body
-
-<statements>
-
-
-<retSt>
+  <statements>
+  <retSt>
 }
+
 
 >>
  
 
 
 MyMainBlock(globalExpression, mainBlock) ::= <<
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 
-private ArrayList\<String\> listForSGOVar;
-private ArrayList\<String\> listForSGOFirstV; 
-private ArrayList\<String\> listForSGOSecondV;
+import antlr.RecognitionException;
+
+import graphlib.*;
 
 
 public class GraphLangProgram {
+
+  private ArrayList\<String\> listForSGOVar;
+  private ArrayList\<String\> listForSGOFirstV; 
+  private ArrayList\<String\> listForSGOSecondV;
+  private Scanner __in;
+  
   <globalExpression>
   
-  public static void main() throws IOException, RecognitionException{
+  public void run() throws IOException, RecognitionException{
     <mainBlock>
+  }
+  {
+    __in = new Scanner(System.in);
   }
 }
 >>
 
+MyWhileStatement(logicalExpr,block)::=<<
+while(<logicalExpr>){
+  <block>}
 
+>>
 
-MyForControl()::= <<
-for control
+MyDoWhileStatement(logicalExpr,block)::=<<
+do{
+  <block>}  while(<logicalExpr>);
+  
 
 >>
 
 
+MyForControl(expr,block)::= <<
+
+<expr>{
+  <block>
+}
+
+>>
+
+MyCreateIteratorStatement(itType,var,itVar,iterator,randNumber)::= <<
+
+<itType> it_<var><randNumber> = <itVar>.<iterator>();
+<var> = it_<var><randNumber>.currentItem();
+for(it_<var><randNumber>.first();!it_<var><randNumber>.isDone();<var>=it_<var><randNumber>.currentItem(),it_<var><randNumber>.next()) 
+
+>>
+
+MyForeachStatment(expr,block)::=<<
+<expr>{
+  <block>
+}
+
+
+>>
 
 
 MySetGraphOperation(idGraph,var,fV,sV)::= <<
-listForSGOVar = new ArrayList\<String\>;
-listForSGOFirstV = new ArrayList\<String\>;
-listForSGOSecondV = new ArrayList\<String\>;
+
+// set graph operation
+listForSGOVar = new ArrayList\<String\>();
+listForSGOFirstV = new ArrayList\<String\>();
+listForSGOSecondV = new ArrayList\<String\>();
 <var:{n|listForSGOVar.add("<n>")};separator=";\n">;
 <fV:{n|listForSGOFirstV.add("<n>")};separator=";\n">;
 <sV:{n|listForSGOSecondV.add("<n>")};separator=";\n">;
@@ -130,8 +170,8 @@ listForSGOSecondV = new ArrayList\<String\>;
 
 
 
-MyAssignmentOperation(id,operator,mathExpr)::= <<
-<id><operator><mathExpr>;
+MyAssignmentOperation(id,operator,mathExpr,additionExpr)::= <<
+<id><operator><mathExpr><additionExpr>;
 
 >>
 
@@ -145,6 +185,9 @@ else{
 
 >>
 
+MyForStatement(var,begin,end)::=<<
+for(<var>=<begin>;<var>\<<end>;<var>++)
+>>
 
 
 test() ::=  <<
