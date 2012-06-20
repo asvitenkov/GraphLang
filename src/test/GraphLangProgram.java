@@ -35,10 +35,10 @@ public class GraphLangProgram {
     int temp=123;
     int tSize=123;
 
-    graphlib.NodeIterator it_aArc32113 = curNode.OIterator();
-    //aArc = it_aArc32113.currentItem();
-    for(it_aArc32113.first();!it_aArc32113.isDone();it_aArc32113.next()){
-    aArc=it_aArc32113.currentItem();
+    graphlib.NodeIterator it_aArc8560 = curNode.OIterator();
+    //aArc = it_aArc8560.currentItem();
+    for(it_aArc8560.first();!it_aArc8560.isDone();it_aArc8560.next()){
+    aArc=it_aArc8560.currentItem();
 
       tNode=aArc.getSecond();
       if(tNode.isMark()==false){
@@ -51,7 +51,6 @@ public class GraphLangProgram {
       }
 
     }
-
 
     return tSize;
   }

@@ -1,63 +1,5 @@
 group Java;
 
-program(globals,functions) ::= <<
-class Wrapper {
-    <globals; separator="\n">
-    <functions; separator="\n">
-}
->>
-
-variable(type,name) ::= "<type> <name>;"
-
-globalVariable ::= variable
-
-function(type,name,args,locals,stats) ::= <<
-<type> <name>(<args; separator=", ">) {
-    <locals; separator="\n">
-    <stats; separator="\n">
-}
->>
-
-type_int() ::= "int"
-
-type_char() ::= "char"
-
-type_user_object(name) ::= "<name>"
-
-parameter(type,name) ::= "<type> <name>"
-
-statement(expr) ::= "<expr>;"
-
-statementList(locals,stats) ::= <<
-{
-    <locals; separator="\n">
-    <stats; separator="\n">
-}<\n>
->>
-
-forLoop(e1,e2,e3,locals,stats) ::= <<
-for (<e1> <e2>; <e3>) {
-    <locals; separator="\n">
-    <stats; separator="\n">
-}
->>
-
-assign(lhs,rhs) ::= "<lhs> = <rhs>;"
-
-equals(left,right) ::= "<left> == <right>"
-
-lessThan(left,right) ::= "<left> \< <right>"
-
-add(left,right) ::= "<left> + <right>"
-
-refVar(id) ::= "<id>"
-
-iconst(value) ::= "<value>"
-
-
-
-
-
 MyGlobalVariableDeclaration(list)::= <<
 <list:{n|private <n>}>
 >>
@@ -193,23 +135,3 @@ for(<var>=<begin>;<var>\<<end>;<var>++)
 >>
 
 
-test() ::=  <<
-test
-
->>
-
-
-testCCM() ::=  <<
-CCM
->>
-
-testCIF() ::=  <<
-CIF
->>
-
-
-
-testME() ::=  <<
-MathExpr
-
->>
