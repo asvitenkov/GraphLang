@@ -1,6 +1,5 @@
+
 package test;
-
-
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,11 +35,11 @@ public class GraphLangProgram {
     int temp=123;
     int tSize=123;
 
-    graphlib.NodeIterator it_aArc289259 = curNode.OIterator();
-    it_aArc289259.first();
-    aArc = it_aArc289259.currentItem();
-    for(;!it_aArc289259.isDone();aArc=it_aArc289259.currentItem(),it_aArc289259.next()) 
-    {
+    graphlib.NodeIterator it_aArc32113 = curNode.OIterator();
+    //aArc = it_aArc32113.currentItem();
+    for(it_aArc32113.first();!it_aArc32113.isDone();it_aArc32113.next()){
+    aArc=it_aArc32113.currentItem();
+
       tNode=aArc.getSecond();
       if(tNode.isMark()==false){
         tNode.markNode();
@@ -61,21 +60,30 @@ public class GraphLangProgram {
   
   public void run() throws IOException, RecognitionException{
     Graph g=new Graph();
-    beginNode.setName("begin");
-    endNode.setName("end");
-
-    // set graph operation
-    listForSGOVar = new ArrayList<String>();
-    listForSGOFirstV = new ArrayList<String>();
-    listForSGOSecondV = new ArrayList<String>();
-    listForSGOVar.add("v1");
-    listForSGOVar.add("v2");
-    listForSGOVar.add("v3");
-    listForSGOFirstV.add("v1");
-    listForSGOFirstV.add("v2");
-    listForSGOSecondV.add("v2");
-    listForSGOSecondV.add("v3");
-    g.setGraph(listForSGOVar,listForSGOFirstV,listForSGOSecondV);
+    Node n1=new Node(),n2=new Node(),n3=new Node(),n4=new Node(),n5=new Node();
+    beginNode=n1;
+    endNode=n5;
+    n1.setName("v1");
+    n2.setName("v2");
+    n3.setName("v3");
+    n4.setName("v4");
+    n5.setName("v5");
+    OArc a1=new OArc(),a2=new OArc(),a3=new OArc(),a4=new OArc(),a5=new OArc();
+    a1.setVertex(n1,n2);
+    a1.setName("v1->v2");
+    a2.setVertex(n2,n3);
+    a2.setName("v2->v3");
+    a3.setVertex(n3,n4);
+    a3.setName("v3->v4");
+    a4.setVertex(n4,n5);
+    a4.setName("v4->v5");
+    a5.setVertex(n2,n5);
+    a5.setName("v2->v5");
+    g.addNode(n1);
+    g.addNode(n2);
+    g.addNode(n3);
+    g.addNode(n4);
+    OArc tmp=new OArc();
     answer=999999;
     searchNext(beginNode,0);
     if(answer!=999999){
@@ -89,12 +97,4 @@ public class GraphLangProgram {
   {
     __in = new Scanner(System.in);
   }
-
-  public static void main(String[] args) throws RecognitionException, IOException{
-	  GraphLangProgram pr = new GraphLangProgram();
-	  pr.run();
-  }
-  
 }
-
-

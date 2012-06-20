@@ -75,7 +75,7 @@ public class OArc {
 		if(startNode!=null)startNode.addOutputArc(this);
 		if(endNode!=null)endNode.removeInputArc(this);
 		endNode = second;
-		if(endNode!=null)endNode.addOutputArc(this);
+		if(endNode!=null)endNode.addInputArc(this);
 	}
 	
 	

@@ -88,6 +88,9 @@ MyFunctionDeclaration(returnType,name,argumentList, statements, retSt)::=<<
 
 
 MyMainBlock(globalExpression, mainBlock) ::= <<
+
+package test;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -141,13 +144,14 @@ MyForControl(expr,block)::= <<
 MyCreateIteratorStatement(itType,var,itVar,iterator,randNumber)::= <<
 
 <itType> it_<var><randNumber> = <itVar>.<iterator>();
-<var> = it_<var><randNumber>.currentItem();
-for(it_<var><randNumber>.first();!it_<var><randNumber>.isDone();<var>=it_<var><randNumber>.currentItem(),it_<var><randNumber>.next()) 
+//<var> = it_<var><randNumber>.currentItem();
+for(it_<var><randNumber>.first();!it_<var><randNumber>.isDone();it_<var><randNumber>.next()){
+<var>=it_<var><randNumber>.currentItem();
 
 >>
 
 MyForeachStatment(expr,block)::=<<
-<expr>{
+<expr>
   <block>
 }
 

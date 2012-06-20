@@ -1,6 +1,7 @@
 package graphlang;
 
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import org.antlr.runtime.ANTLRFileStream;
 import org.antlr.runtime.ANTLRStringStream;
@@ -29,10 +30,17 @@ public class GraphLang {
 		RuleReturnScope r = parser.programm();
 		//parser.programm();
 		if(r!=null && r.getTemplate()!=null) System.out.println(r.getTemplate().toString());
+		
 		for(String s: parser.errors){
 			System.err.println(s);
 		}
-		System.out.println("done work");
+		
+		if(parser.errors.isEmpty()){
+			FileWriter out = new FileWriter("src/test/GraphLangProgram.java");
+            out.write(r.getTemplate().toString());
+            out.close();
+		}
+		//System.out.println("done work");
 	}
 
 }
