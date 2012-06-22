@@ -2,7 +2,6 @@
 
 Node beginNode,endNode;
 int answer;
-
 int searchNext(Node curNode,int size){
 	if(curNode==endNode){
 		if(size<answer){
@@ -25,6 +24,15 @@ int searchNext(Node curNode,int size){
 	return tSize;
 }
 
+
+void mmm(){
+	int answer;
+	answer=  -1;
+	write("sdfsdfsdf");
+	return ;
+}
+
+
 main{
 	Graph g;
 	Node n1,n2,n3,n4,n5;
@@ -45,6 +53,7 @@ main{
 	write(beginNode);
 	write("end node");
 	write(endNode);
+	write(g);
 	g+=n1;
 	g+=n2;
 	g+=n3;
@@ -54,7 +63,7 @@ main{
 	//foreach(tmp;n1;output){
 	//	write(tmp);
 	//}
-	
+	g.getNode("anton");
 	answer = 999999;
 	searchNext(beginNode,0);
 	if(answer!=999999){

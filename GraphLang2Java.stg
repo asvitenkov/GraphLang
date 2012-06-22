@@ -31,8 +31,6 @@ MyFunctionDeclaration(returnType,name,argumentList, statements, retSt)::=<<
 
 MyMainBlock(globalExpression, mainBlock) ::= <<
 
-package test;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -58,6 +56,17 @@ public class GraphLangProgram {
   {
     __in = new Scanner(System.in);
   }
+  
+  
+    public static void main(String[] args) {
+    GraphLangProgram pr = new GraphLangProgram();
+    try {
+    pr.run();
+  } catch (Exception e) {
+    e.printStackTrace();
+  }
+  }
+  
 }
 >>
 

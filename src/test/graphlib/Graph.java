@@ -111,23 +111,8 @@ public class Graph {
 	}
 	
 	
-	public Node getNode(String name){
-		for(Node tmp: lNode){
-			if(tmp.name().equals(name))
-				return tmp;
-		}
-		return new Node();
-	}
-	
-	
-	
 	public String toString(){
-		//return "graph: name "+mName+"\n\t"+lNode.toString();// +"\n\t"+ lArc.toString();
-		String out="Graph: "+this.mName+"\n";
-		for(Node tmp: lNode){
-			out=out+"\tvertex: "+tmp.name()+"\n";
-		}
-		return out;
+		return "graph: name "+mName+"\n\t"+lNode.toString() +"\n\t"+ lArc.toString();
 	}
 	
 	
@@ -179,7 +164,7 @@ public class Graph {
 	}
 	
 	
-	private String mName="";
+	private String mName;
 	
 	
 	

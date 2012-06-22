@@ -220,7 +220,7 @@ public class NamesTable {
 	
 	
 	public boolean checkReturnType(String funcName, String varName, String curBlock,boolean isUsed, int line){
-
+		//System.out.println(curBlock+"."+varName);
 		if(curBlock.equals("main")){
 			//System.out.println("1");
 			errors.add("line "+line+": return statment in main block");
@@ -242,13 +242,19 @@ public class NamesTable {
 		String funcReturnType = func.getReturnType();
 		//String varReturnType = variableNames.get(curBlock+"."+varName).getType();
 		//VariableName var = variableNames.get(varName);
+		
 		if(funcReturnType.equals("void")){
 			// need return a void type  "return ;"
-			if(varName!=null){
-//				System.out.println("4");
-				errors.add("line "+line+": return type of "+ funcName +" mismatch - need void, found "+var.getType());			}
-				return false;		
+			if(varName==null || varName.equals("")){
+				// всё хорошо, так и должно быть
+				return true;
 			}
+			else{
+				// какая то переменная возвращается, а не должно ничего возвращаться
+				errors.add("line "+line+": return type of "+ funcName +" mismatch - need void, found "+var.getType());			
+				return false;	
+			}
+		}
 		else{
 			if(!isUsed){
 				// return not used but func must return a value
@@ -272,7 +278,7 @@ public class NamesTable {
 				}
 			}
 		}
-		var.addLineUses(line);
+		if(var!=null)var.addLineUses(line);
 		return true;
 	}
 	
@@ -513,9 +519,9 @@ public class NamesTable {
 		list = new ArrayList<String>(); list.add("Node");
 		name = new MethodName("unmarkNode", "Node", "void", new ArrayList<String>()); 
 		methodNames.put(name.idtf, name);
-		//list = new ArrayList<String>(); list.add("Node");
-		//name = new MethodName("getNode", "Graph", "Node", list);
-		//methodNames.put(name.idtf, name);
+		list = new ArrayList<String>(); list.add("Text");
+		name = new MethodName("getNode", "Graph", "Node", list);
+		methodNames.put(name.idtf, name);
 		list = new ArrayList<String>(); list.add("Node");
 		name = new MethodName("containNode", "Graph", "bool", list);
 		methodNames.put(name.idtf, name);

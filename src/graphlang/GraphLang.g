@@ -26,6 +26,20 @@ package graphlang;
   protected ExpressionTypeChecker typeCheker = new ExpressionTypeChecker();
   ArrayList<String> tmpVarNamesList = new ArrayList<String>(); 
   Random __generator = new Random();
+  private int index = 1;
+  private int errorLine;
+  
+  public String getErrorHeader(RecognitionException e) {
+        errorLine = e.line;
+        return "";
+  }
+  
+  
+  public void emitErrorMessage(String message) {
+        //ErrorsTable.getInstance().addError(message, errorLine);
+        errors.add("line "+errorLine+":"+message);
+    }
+  
 }
 
 
@@ -92,6 +106,7 @@ scope{
 	          errors.add(names.getLAstError());
 	        }
 	      }
+	      {if($functionDeclaration::returnVariable==null)$functionDeclaration::returnVariable="";}
 	      {$functionDeclaration::returnVariable = "return "+$functionDeclaration::returnVariable+";";}
 	      ->MyFunctionDeclaration(returnType={$TYPE.text},name={$ID.text},argumentList={$functionDeclaration::functionArgumentDeclaratorList}, statements={$st}, retSt={$functionDeclaration::returnVariable})
 	  ;
@@ -185,7 +200,7 @@ foreachControl
             iterator="vertexIterator";
 		      }
 		      else {errors.add("line "+$f.curLine+": undefined foreachType type for variable");}
-		    } ->MyCreateIteratorStatement(itType={itType},var={$f.st},itVar={$s.st},iterator={iterator},randNumber={Integer.toString(__generator.nextInt(555555))})
+		    } ->MyCreateIteratorStatement(itType={itType},var={$f.st},itVar={$s.st},iterator={iterator},randNumber={Integer.toString(index++)})
     ;
 
 foreachType
@@ -452,7 +467,8 @@ scope{
           if($TYPE.text.equals("Node")) additionPart="=new Node()";
           if($TYPE.text.equals("OArc")) additionPart="=new OArc()";
           if($TYPE.text.equals("Graph")) additionPart="=new Graph()";
-          if($TYPE.text.equals("int")) additionPart="=123";
+          if($TYPE.text.equals("int")) additionPart="=0";
+          if($TYPE.text.equals("float")) {additionPart="=0"; $variableDeclaration::varType = "double";}
         }
         ->MyVariableDeclarators(type={$variableDeclaration::varType},list={$variableDeclarators.tVariableList},additionPart={additionPart})
 

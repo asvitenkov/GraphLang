@@ -29,14 +29,15 @@ public class GraphLang {
 		parser.setTemplateLib(templates);
 		RuleReturnScope r = parser.programm();
 		//parser.programm();
-		if(r!=null && r.getTemplate()!=null) System.out.println(r.getTemplate().toString());
+		//if(r!=null && r.getTemplate()!=null) System.out.println(r.getTemplate().toString());
 		
 		for(String s: parser.errors){
 			System.err.println(s);
 		}
 		
 		if(parser.errors.isEmpty()){
-			FileWriter out = new FileWriter("src/test/GraphLangProgram.java");
+//			FileWriter out = new FileWriter("src/test/GraphLangProgram.java");
+			FileWriter out = new FileWriter("GraphLangProgram.java");
             out.write(r.getTemplate().toString());
             out.close();
 		}
