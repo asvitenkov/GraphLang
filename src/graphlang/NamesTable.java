@@ -468,7 +468,7 @@ public class NamesTable {
 	{
 		FunctionName name = null;
 		ArrayList<String> list = null;
-		list = new ArrayList<String>(); list.add("Text");
+		list = new ArrayList<String>(); list.add("String");
 		name = new FunctionName("read", "void", list, null, 0);
 		functionNames.put(name.idtf, name);
 		name = new FunctionName("write", "void", list, null, 0);
@@ -491,11 +491,11 @@ public class NamesTable {
 		methodNames.put(name.idtf, name);
 		name = new MethodName("getSecond", "OArc", "Node", nullList);
 		methodNames.put(name.idtf, name);
-		name = new MethodName("name", "Node", "Text", nullList);
+		name = new MethodName("name", "Node", "String", nullList);
 		methodNames.put(name.idtf, name);
-		name = new MethodName("name", "Graph", "Text", nullList);
+		name = new MethodName("name", "Graph", "String", nullList);
 		methodNames.put(name.idtf, name);
-		name = new MethodName("name", "OArc", "Text", nullList);
+		name = new MethodName("name", "OArc", "String", nullList);
 		methodNames.put(name.idtf, name);
 		name = new MethodName("nodeNumber", "Graph", "int", nullList);
 		methodNames.put(name.idtf, name);
@@ -507,9 +507,9 @@ public class NamesTable {
 		methodNames.put(name.idtf, name);
 		name = new MethodName("OArcNumber", "Node", "int", nullList);
 		methodNames.put(name.idtf, name);
-		name = new MethodName("toText", "int", "Text", nullList);
+		name = new MethodName("toText", "int", "String", nullList);
 		methodNames.put(name.idtf, name);
-		name = new MethodName("toText", "float", "Text", nullList);
+		name = new MethodName("toText", "double", "String", nullList);
 		methodNames.put(name.idtf, name);
 		name = new MethodName("clearMarks", "Graph", "void", nullList);
 		methodNames.put(name.idtf, name);
@@ -519,7 +519,7 @@ public class NamesTable {
 		list = new ArrayList<String>(); list.add("Node");
 		name = new MethodName("unmarkNode", "Node", "void", new ArrayList<String>()); 
 		methodNames.put(name.idtf, name);
-		list = new ArrayList<String>(); list.add("Text");
+		list = new ArrayList<String>(); list.add("String");
 		name = new MethodName("getNode", "Graph", "Node", list);
 		methodNames.put(name.idtf, name);
 		list = new ArrayList<String>(); list.add("Node");

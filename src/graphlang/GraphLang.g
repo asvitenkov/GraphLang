@@ -106,8 +106,13 @@ scope{
 	          errors.add(names.getLAstError());
 	        }
 	      }
-	      {if($functionDeclaration::returnVariable==null)$functionDeclaration::returnVariable="";}
+	      {
+	       if($functionDeclaration::returnVariable==null)$functionDeclaration::returnVariable="";
+	       else{$functionDeclaration::returnVariable="___"+$functionDeclaration::returnVariable;}
+	      }
 	      {$functionDeclaration::returnVariable = "return "+$functionDeclaration::returnVariable+";";}
+	      {if($functionDeclaration::funcType.equals("Text")) $functionDeclaration::funcType="String";}
+	      {if($functionDeclaration::funcType.equals("float")) $functionDeclaration::funcType="double";}
 	      ->MyFunctionDeclaration(returnType={$TYPE.text},name={$ID.text},argumentList={$functionDeclaration::functionArgumentDeclaratorList}, statements={$st}, retSt={$functionDeclaration::returnVariable})
 	  ;
 
@@ -125,7 +130,13 @@ functionArgumentList
 
 functionArgumentDeclarator
     :  TYPE ID 
-      {$functionDeclaration::functionArgumentDeclaratorList.add($TYPE.text+" "+$ID.text);}
+      { String type=$TYPE.text; 
+      if($TYPE.text.equals("Text")) type="String";
+      if($TYPE.text.equals("float")) type="double";
+      
+      $functionDeclaration::functionArgumentDeclaratorList.add(type+" ___"+$ID.text);
+      
+      }
     //{System.out.println(currentBlock+" "+currentFuncName+" "+$TYPE.text+" "+$ID.text);}
     {
       // add variable and it's type in lists funcArgTypes and funcArgNames
@@ -247,7 +258,7 @@ callInlineFunction returns [String functionType, int curLine]
           
           if($ID.text.equals("write")){
             list.clear();
-            list.add("Text");
+            list.add("String");
           } 
           
           if(!names.checkCallFunction($programm::curBlock, $ID.text, list, $ID.line)){
@@ -314,7 +325,7 @@ scope{
           if($argumentList.text!=null)
             tmp+=$argumentList.st;
         }
-        ->print(value={$varId.text+"."+$mName.text+"("+tmp+")"})
+        ->print(value={"___"+$varId.text+"."+$mName.text+"("+tmp+")"})
     ;
 
 assignmentOperation
@@ -388,17 +399,17 @@ scope{
         
         if(operator.equals("=")){
             if(idType.equals("Graph"))
-              if(exprType.equals("Text")){
+              if(exprType.equals("String")){
                 operator=".setName(";
                 additionExpr=")";
               }
             if(idType.equals("Node"))
-              if(exprType.equals("Text")){
+              if(exprType.equals("String")){
                 operator=".setName(";
                 additionExpr=")";
               }
             if(idType.equals("OArc"))
-              if(exprType.equals("Text")){
+              if(exprType.equals("String")){
                 operator=".setName(";
                 additionExpr=")";
               }
@@ -463,12 +474,12 @@ scope{
         {if($TYPE.text.equals("bool")) $variableDeclaration::varType = "boolean";}
         {
           String additionPart="";
-          if($TYPE.text.equals("Text")) additionPart="=\"\"";
+          if($TYPE.text.equals("String")) additionPart="=\"\"";
           if($TYPE.text.equals("Node")) additionPart="=new Node()";
           if($TYPE.text.equals("OArc")) additionPart="=new OArc()";
           if($TYPE.text.equals("Graph")) additionPart="=new Graph()";
           if($TYPE.text.equals("int")) additionPart="=0";
-          if($TYPE.text.equals("float")) {additionPart="=0"; $variableDeclaration::varType = "double";}
+          if($TYPE.text.equals("double")) {additionPart="=0"; $variableDeclaration::varType = "double";}
         }
         ->MyVariableDeclarators(type={$variableDeclaration::varType},list={$variableDeclarators.tVariableList},additionPart={additionPart})
 
@@ -508,7 +519,7 @@ setArcOperation
         if(result==false){
           names.getAllErrors(errors);
         }
-      } ->print(value={$id.text+".setVertex"+"("+$from.text+","+$to.text+")"})
+      } ->print(value={"___"+$id.text+".setVertex"+"("+"___"+$from.text+","+"___"+$to.text+")"})
     ;
 
 mathTerm returns [String mathTermType]
@@ -565,12 +576,12 @@ relationExpression
        {
           if(!$t1.atomType.equals($t2.atomType)){
             if($t1.atomType.equals("null")){
-              if(!$t2.atomType.equals("OArc") && !$t2.atomType.equals("Graph") && !$t2.atomType.equals("Node") && !$t2.atomType.equals("Text")){
+              if(!$t2.atomType.equals("OArc") && !$t2.atomType.equals("Graph") && !$t2.atomType.equals("Node") && !$t2.atomType.equals("String")){
                   errors.add("line "+$RELATIONALOP.line+": the operator "+$RELATIONALOP.text +" is undefined for arguments null,"+$t2.atomType);
               }
             }
             else if($t2.atomType.equals("null")){
-              if(!$t1.atomType.equals("OArc") && !$t1.atomType.equals("Graph") && !$t1.atomType.equals("Node") && !$t1.atomType.equals("Text")){
+              if(!$t1.atomType.equals("OArc") && !$t1.atomType.equals("Graph") && !$t1.atomType.equals("Node") && !$t1.atomType.equals("String")){
                   errors.add("line "+$RELATIONALOP.line+": the operator "+$RELATIONALOP.text +" is undefined for arguments null,"+$t2.atomType);
               }
             }
@@ -586,9 +597,9 @@ relationExpression
 
 logicalAtom returns [String atomType]
     :   intLiteral {$atomType = "int"; } ->{$intLiteral.st}
-    |   floatLiteral {$atomType = "float"; } ->{$floatLiteral.st}
+    |   floatLiteral {$atomType = "double"; } ->{$floatLiteral.st}
     |   idLiteral {$atomType = $idLiteral.idType;} ->{$idLiteral.st}
-    |   stringLiteral {$atomType = "Text"; } ->{$stringLiteral.st}
+    |   stringLiteral {$atomType = "String"; } ->{$stringLiteral.st}
     |   BOOLEANLITERAL {$atomType = "bool"; } ->print(value={$BOOLEANLITERAL.text})
     |   callClassMethod {$atomType = $callClassMethod.methodType;} ->{$callClassMethod.st;}
     |   callInlineFunction {$atomType = $callInlineFunction.functionType;} ->{$callInlineFunction.st;}
@@ -620,10 +631,10 @@ assignmentOperator
 
 TYPE  
 	  : 'int' //->test()
-	  | 'float' //->type_int()
+	  | 'double' //->type_int()
 	  | 'OArc' //->type_int()
 	  | 'Graph'// ->type_int()
-	  | 'Text' //->type_int()
+	  | 'String' //->type_int()
 	  | 'Node' // ->type_int()
 	  | 'void' //->type_int()
 	  | 'bool' //->type_int()
@@ -631,9 +642,9 @@ TYPE
 
 literal returns [String literalType, String literalValue]
     :   intLiteral {$literalType = "int"; $literalValue=$intLiteral.text;} ->{$intLiteral.st;}
-    |   floatLiteral {$literalType = "float"; $literalValue=$floatLiteral.text;} ->{$floatLiteral.st;}
+    |   floatLiteral {$literalType = "double"; $literalValue=$floatLiteral.text;} ->{$floatLiteral.st;}
     |   idLiteral {$literalType = $idLiteral.idType; $literalValue=$idLiteral.text;} ->{$idLiteral.st;}
-    |   stringLiteral {$literalType = "Text"; $literalValue=$stringLiteral.text;} ->{$stringLiteral.st;}
+    |   stringLiteral {$literalType = "String"; $literalValue=$stringLiteral.text;} ->{$stringLiteral.st;}
     |   BOOLEANLITERAL {$literalType = "bool"; $literalValue=$BOOLEANLITERAL.text; } ->print(value={$BOOLEANLITERAL.text})
     |   callClassMethod {$literalType = $callClassMethod.methodType;  $literalValue="callClassMethod\n"; } ->{$callClassMethod.st;}
     |   callInlineFunction {$literalType = $callInlineFunction.functionType; $literalValue="callInlineFunction\n";} ->{$callInlineFunction.st;}
@@ -657,16 +668,17 @@ idLiteral returns [String idType, int curLine]
   : ID  
     {
       $curLine = $ID.line;
+      //System.out.println($programm::curBlock+"."+$ID.text);
       if(!names.isExistVariable($programm::curBlock+"."+$ID.text)){
         errors.add("line "+$ID.line+": unknown variable "+$ID.text);
         $idType = "";
       }
       else{
-        names.getVariable($programm::curBlock+"."+$ID.text).addLineUses($ID.line);
-        $idType = names.getVariable($programm::curBlock+"."+$ID.text).getType();
+        //names.getVariable($programm::curBlock+"."+$ID.text).addLineUses($ID.line);
+        if(names.getVariable($programm::curBlock+"."+$ID.text)!=null) $idType = names.getVariable($programm::curBlock+"."+$ID.text).getType();
       }
     }
-    ->print(value={$ID.text})
+    ->print(value={"___"+$ID.text})
   ;
 
 intLiteral

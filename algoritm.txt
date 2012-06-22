@@ -1,76 +1,39 @@
-// алгоритм поиска минимального пути между указанными вершинами
-
-Node beginNode,endNode;
-int answer;
-int searchNext(Node curNode,int size){
-	if(curNode==endNode){
-		if(size<answer){
-			answer = size;
-		}
-	}
-	OArc aArc;
-	Node tNode;
-	int temp;
-	int tSize;
-	foreach(aArc; curNode; output){
-		tNode = aArc.getSecond();
-		if(tNode.isMark()==false){
-			tNode.markNode();
-			temp=size+1;
-			tSize = searchNext(tNode, temp);
-			tNode.unmarkNode();
-		}
-	}
-	return tSize;
+void voidF(){
+	return ;
 }
 
+int intF(int a){
+	return a;
+}
 
-void mmm(){
-	int answer;
-	answer=  -1;
-	write("sdfsdfsdf");
-	return ;
+double doubleF(double a){
+	return a;
+}
+
+String stringF(String a){
+	return a;
+}
+
+Graph graphF(Graph g){
+	return g;
+}
+
+Node nodeF(Node n){
+	return n;
+}
+
+OArc oarcF(OArc a){
+	return a;
 }
 
 
 main{
+	double f;
+	Node n;
 	Graph g;
-	Node n1,n2,n3,n4,n5;
-	beginNode = n1;
-	endNode = n5;
-	n1="v1";
-	n2="v2";
-	n3="v3";
-	n4="v4";
-	n5="v5";
-	OArc a1,a2,a3,a4,a5;
-	a1=(n1->n2); a1="v1->v2";
-	a2=(n2->n3); a2="v2->v3";
-	a3=(n3->n4); a3="v3->v4";
-	a4=(n4->n5); a4="v4->v5";
-	a5=(n2->n5); a5="v2->v5";
-	write("begin node");
-	write(beginNode);
-	write("end node");
-	write(endNode);
-	write(g);
-	g+=n1;
-	g+=n2;
-	g+=n3;
-	g+=n4;
-	//g+=n5;
-	OArc tmp;
-	//foreach(tmp;n1;output){
-	//	write(tmp);
-	//}
-	g.getNode("anton");
-	answer = 999999;
-	searchNext(beginNode,0);
-	if(answer!=999999){
-		write(answer);
-	}
-	else{
-		write("way does not exist");
-	}
-	
+	OArc a;
+	int i;
+	bool b;
+	String s;
+	write(voidF);
 }
