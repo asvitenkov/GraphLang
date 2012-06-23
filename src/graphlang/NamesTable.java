@@ -112,13 +112,14 @@ public class NamesTable {
 		else return "";
 	}
 	public boolean isExistVariable(String name) {
+		//System.out.println(name);
 		boolean rv = variableNames.containsKey(name);
 		if (! rv && name.indexOf('.')!=-1) {
 			rv = variableNames.containsKey("global"+name.substring(name.indexOf('.')));
 			if(!rv){
 				// search variable name in functions names
 				//System.out.println(name.substring(name.indexOf('.')+1).toString());
-				rv = functionNames.containsKey(name.substring(name.indexOf('.')+1));
+				rv = variableNames.containsKey(name.substring(name.indexOf('.')+1));
 			}
 		}
 		return rv;
@@ -136,6 +137,10 @@ public class NamesTable {
 	public void addVariable(VariableName n) {
 		//System.out.println("Declaration var : "+n.idtf+" line " + n.lineDeclaration);
 		variableNames.put(n.idtf, n);
+	}
+	
+	public void printVars(){
+		System.out.println(variableNames);
 	}
 	
 	public VariableName getVariable(String n) {

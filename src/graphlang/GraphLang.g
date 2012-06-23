@@ -37,6 +37,9 @@ package graphlang;
   
   public void emitErrorMessage(String message) {
         //ErrorsTable.getInstance().addError(message, errorLine);
+        if(message.contains("EOF")){
+            message=" rubbish at the end of file. I did not fall:-D";
+        }
         errors.add("line "+errorLine+":"+message);
     }
   
@@ -53,7 +56,7 @@ scope{
   $programm::curBlock = "";
   $programm::tGlobalVariables = new ArrayList<String>();
 }
-	  :  s+=globalExpression*  {$programm::curBlock = "main";} mainBlock ->MyMainBlock(globalExpression={$s}, mainBlock={$mainBlock.st})
+	  :  s+=globalExpression*  {$programm::curBlock = "main";} mainBlock  EOF ->MyMainBlock(globalExpression={$s}, mainBlock={$mainBlock.st}) 
 	  ;
 
 globalExpression
@@ -113,6 +116,7 @@ scope{
 	      {$functionDeclaration::returnVariable = "return "+$functionDeclaration::returnVariable+";";}
 	      {if($functionDeclaration::funcType.equals("Text")) $functionDeclaration::funcType="String";}
 	      {if($functionDeclaration::funcType.equals("float")) $functionDeclaration::funcType="double";}
+	      
 	      ->MyFunctionDeclaration(returnType={$TYPE.text},name={$ID.text},argumentList={$functionDeclaration::functionArgumentDeclaratorList}, statements={$st}, retSt={$functionDeclaration::returnVariable})
 	  ;
 
@@ -688,6 +692,7 @@ intLiteral
 stringLiteral
   :  STRING ->print(value={$STRING.text})
   ;
+    
 
 BOOLEANLITERAL
     :   'true' 
@@ -717,6 +722,9 @@ WS  :   ( ' '
         | '\n'
         ) {$channel=HIDDEN;}
     ;
+
+
+
 
 STRING
     :  '"' (~('\\'|'"') )* '"'

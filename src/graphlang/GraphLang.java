@@ -16,9 +16,46 @@ import org.antlr.stringtemplate.language.*;
 
 public class GraphLang {
 	//public static StringTemplateGroup templates;
-	public static void main(String[] args) throws IOException, RecognitionException {
+	public static void main(String[] args) throws Exception {
 		String templateFileName="GraphLang2Java.stg";
+		
+		
+		//String str= getClass().getResource("GraphLang2Java.stg").toString();
+		
+//		StringTemplateGroup templates = new StringTemplateGroup(new FileReader(templateFileName),
+//			    AngleBracketTemplateLexer.class);
+//		
+//        ANTLRFileStream fileStream = new ANTLRFileStream(args[0]);
+//        GraphLangLexer lexer = new GraphLangLexer(fileStream);
+//	    TokenStream tokenStream = new CommonTokenStream(lexer);
+//		GraphLangParser parser = new GraphLangParser(tokenStream);
+//		parser.setTemplateLib(templates);
+//		RuleReturnScope r = parser.programm();
+//		//parser.programm();
+//		//if(r!=null && r.getTemplate()!=null) System.out.println(r.getTemplate().toString());
+//		
+//		for(String s: parser.errors){
+//			System.err.println(s);
+//		}
+//		
+//		if(parser.errors.isEmpty()){
+////			FileWriter out = new FileWriter("src/test/GraphLangProgram.java");
+//			FileWriter out = new FileWriter("GraphLangProgram.java");
+//            out.write(r.getTemplate().toString());
+//            out.close();
+//		}
+		//System.out.println("done work");
+		GraphLang t = new GraphLang();
+		t.run(args);
+	}
 	
+	public void run(String[] args) throws Exception{
+		String templateFileName="GraphLang2Java.stg";
+		
+		
+		String str= getClass().getResource("GraphLang2Java.stg").toString();
+		System.out.println(str);
+		
 		StringTemplateGroup templates = new StringTemplateGroup(new FileReader(templateFileName),
 			    AngleBracketTemplateLexer.class);
 		
@@ -41,7 +78,6 @@ public class GraphLang {
             out.write(r.getTemplate().toString());
             out.close();
 		}
-		//System.out.println("done work");
 	}
 
 }

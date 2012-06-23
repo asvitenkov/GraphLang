@@ -1,4 +1,4 @@
-// $ANTLR 3.3 Nov 30, 2010 12:50:56 D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g 2012-06-22 05:24:28
+// $ANTLR 3.3 Nov 30, 2010 12:50:56 D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g 2012-06-23 14:25:42
 
 
 package graphlang;
@@ -118,6 +118,9 @@ public class GraphLangParser extends Parser {
       
       public void emitErrorMessage(String message) {
             //ErrorsTable.getInstance().addError(message, errorLine);
+            if(message.contains("EOF")){
+                message=" rubbish at the end of file. I did not fall:-D";
+            }
             errors.add("line "+errorLine+":"+message);
         }
       
@@ -136,7 +139,7 @@ public class GraphLangParser extends Parser {
     };
 
     // $ANTLR start "programm"
-    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:47:1: programm : (s+= globalExpression )* mainBlock -> MyMainBlock(globalExpression=$smainBlock=$mainBlock.st);
+    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:50:1: programm : (s+= globalExpression )* mainBlock EOF -> MyMainBlock(globalExpression=$smainBlock=$mainBlock.st);
     public final GraphLangParser.programm_return programm() throws RecognitionException {
         programm_stack.push(new programm_scope());
         GraphLangParser.programm_return retval = new GraphLangParser.programm_return();
@@ -151,10 +154,10 @@ public class GraphLangParser extends Parser {
           ((programm_scope)programm_stack.peek()).tGlobalVariables = new ArrayList<String>();
 
         try {
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:56:4: ( (s+= globalExpression )* mainBlock -> MyMainBlock(globalExpression=$smainBlock=$mainBlock.st))
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:56:7: (s+= globalExpression )* mainBlock
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:59:4: ( (s+= globalExpression )* mainBlock EOF -> MyMainBlock(globalExpression=$smainBlock=$mainBlock.st))
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:59:7: (s+= globalExpression )* mainBlock EOF
             {
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:56:8: (s+= globalExpression )*
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:59:8: (s+= globalExpression )*
             loop1:
             do {
                 int alt1=2;
@@ -167,7 +170,7 @@ public class GraphLangParser extends Parser {
 
                 switch (alt1) {
             	case 1 :
-            	    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:56:8: s+= globalExpression
+            	    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:59:8: s+= globalExpression
             	    {
             	    pushFollow(FOLLOW_globalExpression_in_programm73);
             	    s=globalExpression();
@@ -192,10 +195,11 @@ public class GraphLangParser extends Parser {
 
             state._fsp--;
 
+            match(input,EOF,FOLLOW_EOF_in_programm82); 
 
 
             // TEMPLATE REWRITE
-            // 56:71: -> MyMainBlock(globalExpression=$smainBlock=$mainBlock.st)
+            // 59:76: -> MyMainBlock(globalExpression=$smainBlock=$mainBlock.st)
             {
                 retval.st = templateLib.getInstanceOf("MyMainBlock",
               new STAttrMap().put("globalExpression", list_s).put("mainBlock", (mainBlock1!=null?mainBlock1.st:null)));
@@ -225,7 +229,7 @@ public class GraphLangParser extends Parser {
     };
 
     // $ANTLR start "globalExpression"
-    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:59:1: globalExpression : ( globalVariableDeclaration -> MyGlobalVariableDeclaration(list=$globalVariableDeclaration.st) | functionDeclaration -> {$functionDeclaration.st;});
+    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:62:1: globalExpression : ( globalVariableDeclaration -> MyGlobalVariableDeclaration(list=$globalVariableDeclaration.st) | functionDeclaration -> {$functionDeclaration.st;});
     public final GraphLangParser.globalExpression_return globalExpression() throws RecognitionException {
         GraphLangParser.globalExpression_return retval = new GraphLangParser.globalExpression_return();
         retval.start = input.LT(1);
@@ -236,7 +240,7 @@ public class GraphLangParser extends Parser {
 
 
         try {
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:60:4: ( globalVariableDeclaration -> MyGlobalVariableDeclaration(list=$globalVariableDeclaration.st) | functionDeclaration -> {$functionDeclaration.st;})
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:63:4: ( globalVariableDeclaration -> MyGlobalVariableDeclaration(list=$globalVariableDeclaration.st) | functionDeclaration -> {$functionDeclaration.st;})
             int alt2=2;
             int LA2_0 = input.LA(1);
 
@@ -274,9 +278,9 @@ public class GraphLangParser extends Parser {
             }
             switch (alt2) {
                 case 1 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:60:7: globalVariableDeclaration
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:63:7: globalVariableDeclaration
                     {
-                    pushFollow(FOLLOW_globalVariableDeclaration_in_globalExpression108);
+                    pushFollow(FOLLOW_globalVariableDeclaration_in_globalExpression112);
                     globalVariableDeclaration2=globalVariableDeclaration();
 
                     state._fsp--;
@@ -284,7 +288,7 @@ public class GraphLangParser extends Parser {
 
 
                     // TEMPLATE REWRITE
-                    // 60:34: -> MyGlobalVariableDeclaration(list=$globalVariableDeclaration.st)
+                    // 63:34: -> MyGlobalVariableDeclaration(list=$globalVariableDeclaration.st)
                     {
                         retval.st = templateLib.getInstanceOf("MyGlobalVariableDeclaration",
                       new STAttrMap().put("list", (globalVariableDeclaration2!=null?globalVariableDeclaration2.st:null)));
@@ -294,9 +298,9 @@ public class GraphLangParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:61:7: functionDeclaration
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:64:7: functionDeclaration
                     {
-                    pushFollow(FOLLOW_functionDeclaration_in_globalExpression126);
+                    pushFollow(FOLLOW_functionDeclaration_in_globalExpression130);
                     functionDeclaration3=functionDeclaration();
 
                     state._fsp--;
@@ -304,7 +308,7 @@ public class GraphLangParser extends Parser {
 
 
                     // TEMPLATE REWRITE
-                    // 61:27: -> {$functionDeclaration.st;}
+                    // 64:27: -> {$functionDeclaration.st;}
                     {
                         retval.st = (functionDeclaration3!=null?functionDeclaration3.st:null);;
                     }
@@ -336,7 +340,7 @@ public class GraphLangParser extends Parser {
     };
 
     // $ANTLR start "globalVariableDeclaration"
-    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:64:1: globalVariableDeclaration returns [String tVariableType,ArrayList<String> tVariableList] : variableDeclarationStatement ';' -> {$variableDeclarationStatement.st;};
+    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:67:1: globalVariableDeclaration returns [String tVariableType,ArrayList<String> tVariableList] : variableDeclarationStatement ';' -> {$variableDeclarationStatement.st;};
     public final GraphLangParser.globalVariableDeclaration_return globalVariableDeclaration() throws RecognitionException {
         GraphLangParser.globalVariableDeclaration_return retval = new GraphLangParser.globalVariableDeclaration_return();
         retval.start = input.LT(1);
@@ -345,20 +349,20 @@ public class GraphLangParser extends Parser {
 
 
         try {
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:65:4: ( variableDeclarationStatement ';' -> {$variableDeclarationStatement.st;})
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:65:7: variableDeclarationStatement ';'
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:68:4: ( variableDeclarationStatement ';' -> {$variableDeclarationStatement.st;})
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:68:7: variableDeclarationStatement ';'
             {
             ((programm_scope)programm_stack.peek()).curBlock = "global";
-            pushFollow(FOLLOW_variableDeclarationStatement_in_globalVariableDeclaration158);
+            pushFollow(FOLLOW_variableDeclarationStatement_in_globalVariableDeclaration162);
             variableDeclarationStatement4=variableDeclarationStatement();
 
             state._fsp--;
 
-            match(input,13,FOLLOW_13_in_globalVariableDeclaration160); 
+            match(input,13,FOLLOW_13_in_globalVariableDeclaration164); 
 
 
             // TEMPLATE REWRITE
-            // 66:40: -> {$variableDeclarationStatement.st;}
+            // 69:40: -> {$variableDeclarationStatement.st;}
             {
                 retval.st = (variableDeclarationStatement4!=null?variableDeclarationStatement4.st:null);;
             }
@@ -397,7 +401,7 @@ public class GraphLangParser extends Parser {
     };
 
     // $ANTLR start "functionDeclaration"
-    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:69:1: functionDeclaration : TYPE ID '(' ( functionArgumentList )? ')' '{' (st+= blockStatement )* ( returnOperator )? '}' -> MyFunctionDeclaration(returnType=$TYPE.textname=$ID.textargumentList=$functionDeclaration::functionArgumentDeclaratorListstatements=$stretSt=$functionDeclaration::returnVariable);
+    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:72:1: functionDeclaration : TYPE ID '(' ( functionArgumentList )? ')' '{' (st+= blockStatement )* ( returnOperator )? '}' -> MyFunctionDeclaration(returnType=$TYPE.textname=$ID.textargumentList=$functionDeclaration::functionArgumentDeclaratorListstatements=$stretSt=$functionDeclaration::returnVariable);
     public final GraphLangParser.functionDeclaration_return functionDeclaration() throws RecognitionException {
         functionDeclaration_stack.push(new functionDeclaration_scope());
         GraphLangParser.functionDeclaration_return retval = new GraphLangParser.functionDeclaration_return();
@@ -417,15 +421,15 @@ public class GraphLangParser extends Parser {
           ((functionDeclaration_scope)functionDeclaration_stack.peek()).returnVariable ="";
 
         try {
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:88:4: ( TYPE ID '(' ( functionArgumentList )? ')' '{' (st+= blockStatement )* ( returnOperator )? '}' -> MyFunctionDeclaration(returnType=$TYPE.textname=$ID.textargumentList=$functionDeclaration::functionArgumentDeclaratorListstatements=$stretSt=$functionDeclaration::returnVariable))
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:89:8: TYPE ID '(' ( functionArgumentList )? ')' '{' (st+= blockStatement )* ( returnOperator )? '}'
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:91:4: ( TYPE ID '(' ( functionArgumentList )? ')' '{' (st+= blockStatement )* ( returnOperator )? '}' -> MyFunctionDeclaration(returnType=$TYPE.textname=$ID.textargumentList=$functionDeclaration::functionArgumentDeclaratorListstatements=$stretSt=$functionDeclaration::returnVariable))
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:92:8: TYPE ID '(' ( functionArgumentList )? ')' '{' (st+= blockStatement )* ( returnOperator )? '}'
             {
-            TYPE5=(Token)match(input,TYPE,FOLLOW_TYPE_in_functionDeclaration196); 
+            TYPE5=(Token)match(input,TYPE,FOLLOW_TYPE_in_functionDeclaration200); 
             ((functionDeclaration_scope)functionDeclaration_stack.peek()).funcType = (TYPE5!=null?TYPE5.getText():null); 
-            ID6=(Token)match(input,ID,FOLLOW_ID_in_functionDeclaration207); 
+            ID6=(Token)match(input,ID,FOLLOW_ID_in_functionDeclaration211); 
             ((programm_scope)programm_stack.peek()).curBlock = (ID6!=null?ID6.getText():null);
-            match(input,14,FOLLOW_14_in_functionDeclaration220); 
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:91:12: ( functionArgumentList )?
+            match(input,14,FOLLOW_14_in_functionDeclaration224); 
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:94:12: ( functionArgumentList )?
             int alt3=2;
             int LA3_0 = input.LA(1);
 
@@ -434,9 +438,9 @@ public class GraphLangParser extends Parser {
             }
             switch (alt3) {
                 case 1 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:91:12: functionArgumentList
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:94:12: functionArgumentList
                     {
-                    pushFollow(FOLLOW_functionArgumentList_in_functionDeclaration222);
+                    pushFollow(FOLLOW_functionArgumentList_in_functionDeclaration226);
                     functionArgumentList();
 
                     state._fsp--;
@@ -447,7 +451,7 @@ public class GraphLangParser extends Parser {
 
             }
 
-            match(input,15,FOLLOW_15_in_functionDeclaration225); 
+            match(input,15,FOLLOW_15_in_functionDeclaration229); 
 
             	            //add functon in namestable if it's not exists
             	            if(!names.isExistFunction((ID6!=null?ID6.getText():null))){
@@ -457,8 +461,8 @@ public class GraphLangParser extends Parser {
             	              errors.add("line "+(ID6!=null?ID6.getLine():0)+": duplicated function declaration "+(ID6!=null?ID6.getText():null));
             	            }
             	          
-            match(input,16,FOLLOW_16_in_functionDeclaration258); 
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:102:14: (st+= blockStatement )*
+            match(input,16,FOLLOW_16_in_functionDeclaration262); 
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:105:14: (st+= blockStatement )*
             loop4:
             do {
                 int alt4=2;
@@ -471,9 +475,9 @@ public class GraphLangParser extends Parser {
 
                 switch (alt4) {
             	case 1 :
-            	    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:102:14: st+= blockStatement
+            	    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:105:14: st+= blockStatement
             	    {
-            	    pushFollow(FOLLOW_blockStatement_in_functionDeclaration262);
+            	    pushFollow(FOLLOW_blockStatement_in_functionDeclaration266);
             	    st=blockStatement();
 
             	    state._fsp--;
@@ -490,7 +494,7 @@ public class GraphLangParser extends Parser {
                 }
             } while (true);
 
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:102:33: ( returnOperator )?
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:105:33: ( returnOperator )?
             int alt5=2;
             int LA5_0 = input.LA(1);
 
@@ -499,9 +503,9 @@ public class GraphLangParser extends Parser {
             }
             switch (alt5) {
                 case 1 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:102:33: returnOperator
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:105:33: returnOperator
                     {
-                    pushFollow(FOLLOW_returnOperator_in_functionDeclaration266);
+                    pushFollow(FOLLOW_returnOperator_in_functionDeclaration270);
                     returnOperator();
 
                     state._fsp--;
@@ -512,7 +516,7 @@ public class GraphLangParser extends Parser {
 
             }
 
-            match(input,17,FOLLOW_17_in_functionDeclaration269); 
+            match(input,17,FOLLOW_17_in_functionDeclaration273); 
 
             	        boolean result = names.checkReturnType((ID6!=null?ID6.getText():null), ((functionDeclaration_scope)functionDeclaration_stack.peek()).returnVariable, ((programm_scope)programm_stack.peek()).curBlock, ((functionDeclaration_scope)functionDeclaration_stack.peek()).isReturnUsed, (ID6!=null?ID6.getLine():0));
             	        if(result==false){
@@ -529,7 +533,7 @@ public class GraphLangParser extends Parser {
 
 
             // TEMPLATE REWRITE
-            // 116:8: -> MyFunctionDeclaration(returnType=$TYPE.textname=$ID.textargumentList=$functionDeclaration::functionArgumentDeclaratorListstatements=$stretSt=$functionDeclaration::returnVariable)
+            // 120:8: -> MyFunctionDeclaration(returnType=$TYPE.textname=$ID.textargumentList=$functionDeclaration::functionArgumentDeclaratorListstatements=$stretSt=$functionDeclaration::returnVariable)
             {
                 retval.st = templateLib.getInstanceOf("MyFunctionDeclaration",
               new STAttrMap().put("returnType", (TYPE5!=null?TYPE5.getText():null)).put("name", (ID6!=null?ID6.getText():null)).put("argumentList", ((functionDeclaration_scope)functionDeclaration_stack.peek()).functionArgumentDeclaratorList).put("statements", list_st).put("retSt", ((functionDeclaration_scope)functionDeclaration_stack.peek()).returnVariable));
@@ -559,7 +563,7 @@ public class GraphLangParser extends Parser {
     };
 
     // $ANTLR start "returnOperator"
-    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:119:1: returnOperator : 'return' ( ID )? ';' ;
+    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:123:1: returnOperator : 'return' ( ID )? ';' ;
     public final GraphLangParser.returnOperator_return returnOperator() throws RecognitionException {
         GraphLangParser.returnOperator_return retval = new GraphLangParser.returnOperator_return();
         retval.start = input.LT(1);
@@ -567,11 +571,11 @@ public class GraphLangParser extends Parser {
         Token ID7=null;
 
         try {
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:120:5: ( 'return' ( ID )? ';' )
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:120:11: 'return' ( ID )? ';'
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:124:5: ( 'return' ( ID )? ';' )
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:124:11: 'return' ( ID )? ';'
             {
-            match(input,18,FOLLOW_18_in_returnOperator370); 
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:120:20: ( ID )?
+            match(input,18,FOLLOW_18_in_returnOperator382); 
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:124:20: ( ID )?
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -580,16 +584,16 @@ public class GraphLangParser extends Parser {
             }
             switch (alt6) {
                 case 1 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:120:20: ID
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:124:20: ID
                     {
-                    ID7=(Token)match(input,ID,FOLLOW_ID_in_returnOperator372); 
+                    ID7=(Token)match(input,ID,FOLLOW_ID_in_returnOperator384); 
 
                     }
                     break;
 
             }
 
-            match(input,13,FOLLOW_13_in_returnOperator375); 
+            match(input,13,FOLLOW_13_in_returnOperator387); 
 
                           ((functionDeclaration_scope)functionDeclaration_stack.peek()).isReturnUsed = true;
                           ((functionDeclaration_scope)functionDeclaration_stack.peek()).returnVariable =(ID7!=null?ID7.getText():null);
@@ -617,21 +621,21 @@ public class GraphLangParser extends Parser {
     };
 
     // $ANTLR start "functionArgumentList"
-    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:127:1: functionArgumentList : functionArgumentDeclarator ( ',' functionArgumentDeclarator )* ;
+    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:131:1: functionArgumentList : functionArgumentDeclarator ( ',' functionArgumentDeclarator )* ;
     public final GraphLangParser.functionArgumentList_return functionArgumentList() throws RecognitionException {
         GraphLangParser.functionArgumentList_return retval = new GraphLangParser.functionArgumentList_return();
         retval.start = input.LT(1);
 
         try {
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:128:5: ( functionArgumentDeclarator ( ',' functionArgumentDeclarator )* )
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:128:8: functionArgumentDeclarator ( ',' functionArgumentDeclarator )*
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:132:5: ( functionArgumentDeclarator ( ',' functionArgumentDeclarator )* )
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:132:8: functionArgumentDeclarator ( ',' functionArgumentDeclarator )*
             {
-            pushFollow(FOLLOW_functionArgumentDeclarator_in_functionArgumentList405);
+            pushFollow(FOLLOW_functionArgumentDeclarator_in_functionArgumentList417);
             functionArgumentDeclarator();
 
             state._fsp--;
 
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:128:35: ( ',' functionArgumentDeclarator )*
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:132:35: ( ',' functionArgumentDeclarator )*
             loop7:
             do {
                 int alt7=2;
@@ -644,10 +648,10 @@ public class GraphLangParser extends Parser {
 
                 switch (alt7) {
             	case 1 :
-            	    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:128:36: ',' functionArgumentDeclarator
+            	    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:132:36: ',' functionArgumentDeclarator
             	    {
-            	    match(input,19,FOLLOW_19_in_functionArgumentList408); 
-            	    pushFollow(FOLLOW_functionArgumentDeclarator_in_functionArgumentList410);
+            	    match(input,19,FOLLOW_19_in_functionArgumentList420); 
+            	    pushFollow(FOLLOW_functionArgumentDeclarator_in_functionArgumentList422);
             	    functionArgumentDeclarator();
 
             	    state._fsp--;
@@ -684,7 +688,7 @@ public class GraphLangParser extends Parser {
     };
 
     // $ANTLR start "functionArgumentDeclarator"
-    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:131:1: functionArgumentDeclarator : TYPE ID ;
+    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:135:1: functionArgumentDeclarator : TYPE ID ;
     public final GraphLangParser.functionArgumentDeclarator_return functionArgumentDeclarator() throws RecognitionException {
         GraphLangParser.functionArgumentDeclarator_return retval = new GraphLangParser.functionArgumentDeclarator_return();
         retval.start = input.LT(1);
@@ -693,11 +697,11 @@ public class GraphLangParser extends Parser {
         Token ID9=null;
 
         try {
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:132:5: ( TYPE ID )
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:132:8: TYPE ID
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:136:5: ( TYPE ID )
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:136:8: TYPE ID
             {
-            TYPE8=(Token)match(input,TYPE,FOLLOW_TYPE_in_functionArgumentDeclarator430); 
-            ID9=(Token)match(input,ID,FOLLOW_ID_in_functionArgumentDeclarator432); 
+            TYPE8=(Token)match(input,TYPE,FOLLOW_TYPE_in_functionArgumentDeclarator442); 
+            ID9=(Token)match(input,ID,FOLLOW_ID_in_functionArgumentDeclarator444); 
              String type=(TYPE8!=null?TYPE8.getText():null); 
                   if((TYPE8!=null?TYPE8.getText():null).equals("Text")) type="String";
                   if((TYPE8!=null?TYPE8.getText():null).equals("float")) type="double";
@@ -739,7 +743,7 @@ public class GraphLangParser extends Parser {
     };
 
     // $ANTLR start "mainBlock"
-    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:154:1: mainBlock : 'main' '{' (s+= blockStatement )* '}' -> print(value=$s);
+    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:158:1: mainBlock : 'main' '{' (s+= blockStatement )* '}' -> print(value=$s);
     public final GraphLangParser.mainBlock_return mainBlock() throws RecognitionException {
         GraphLangParser.mainBlock_return retval = new GraphLangParser.mainBlock_return();
         retval.start = input.LT(1);
@@ -747,12 +751,12 @@ public class GraphLangParser extends Parser {
         List list_s=null;
         RuleReturnScope s = null;
         try {
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:155:4: ( 'main' '{' (s+= blockStatement )* '}' -> print(value=$s))
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:155:6: 'main' '{' (s+= blockStatement )* '}'
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:159:4: ( 'main' '{' (s+= blockStatement )* '}' -> print(value=$s))
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:159:6: 'main' '{' (s+= blockStatement )* '}'
             {
-            match(input,20,FOLLOW_20_in_mainBlock468); 
-            match(input,16,FOLLOW_16_in_mainBlock470); 
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:155:18: (s+= blockStatement )*
+            match(input,20,FOLLOW_20_in_mainBlock480); 
+            match(input,16,FOLLOW_16_in_mainBlock482); 
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:159:18: (s+= blockStatement )*
             loop8:
             do {
                 int alt8=2;
@@ -765,9 +769,9 @@ public class GraphLangParser extends Parser {
 
                 switch (alt8) {
             	case 1 :
-            	    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:155:18: s+= blockStatement
+            	    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:159:18: s+= blockStatement
             	    {
-            	    pushFollow(FOLLOW_blockStatement_in_mainBlock474);
+            	    pushFollow(FOLLOW_blockStatement_in_mainBlock486);
             	    s=blockStatement();
 
             	    state._fsp--;
@@ -784,11 +788,11 @@ public class GraphLangParser extends Parser {
                 }
             } while (true);
 
-            match(input,17,FOLLOW_17_in_mainBlock477); 
+            match(input,17,FOLLOW_17_in_mainBlock489); 
 
 
             // TEMPLATE REWRITE
-            // 155:41: -> print(value=$s)
+            // 159:41: -> print(value=$s)
             {
                 retval.st = templateLib.getInstanceOf("print",
               new STAttrMap().put("value", list_s));
@@ -817,7 +821,7 @@ public class GraphLangParser extends Parser {
     };
 
     // $ANTLR start "blockStatement"
-    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:158:1: blockStatement : ( variableDeclarationStatement ';' -> {$variableDeclarationStatement.st} | statement -> {$statement.st});
+    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:162:1: blockStatement : ( variableDeclarationStatement ';' -> {$variableDeclarationStatement.st} | statement -> {$statement.st});
     public final GraphLangParser.blockStatement_return blockStatement() throws RecognitionException {
         GraphLangParser.blockStatement_return retval = new GraphLangParser.blockStatement_return();
         retval.start = input.LT(1);
@@ -828,7 +832,7 @@ public class GraphLangParser extends Parser {
 
 
         try {
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:159:5: ( variableDeclarationStatement ';' -> {$variableDeclarationStatement.st} | statement -> {$statement.st})
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:163:5: ( variableDeclarationStatement ';' -> {$variableDeclarationStatement.st} | statement -> {$statement.st})
             int alt9=2;
             int LA9_0 = input.LA(1);
 
@@ -846,18 +850,18 @@ public class GraphLangParser extends Parser {
             }
             switch (alt9) {
                 case 1 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:159:9: variableDeclarationStatement ';'
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:163:9: variableDeclarationStatement ';'
                     {
-                    pushFollow(FOLLOW_variableDeclarationStatement_in_blockStatement507);
+                    pushFollow(FOLLOW_variableDeclarationStatement_in_blockStatement519);
                     variableDeclarationStatement10=variableDeclarationStatement();
 
                     state._fsp--;
 
-                    match(input,13,FOLLOW_13_in_blockStatement509); 
+                    match(input,13,FOLLOW_13_in_blockStatement521); 
 
 
                     // TEMPLATE REWRITE
-                    // 159:42: -> {$variableDeclarationStatement.st}
+                    // 163:42: -> {$variableDeclarationStatement.st}
                     {
                         retval.st = (variableDeclarationStatement10!=null?variableDeclarationStatement10.st:null);
                     }
@@ -866,9 +870,9 @@ public class GraphLangParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:160:9: statement
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:164:9: statement
                     {
-                    pushFollow(FOLLOW_statement_in_blockStatement523);
+                    pushFollow(FOLLOW_statement_in_blockStatement535);
                     statement11=statement();
 
                     state._fsp--;
@@ -876,7 +880,7 @@ public class GraphLangParser extends Parser {
 
 
                     // TEMPLATE REWRITE
-                    // 160:19: -> {$statement.st}
+                    // 164:19: -> {$statement.st}
                     {
                         retval.st = (statement11!=null?statement11.st:null);
                     }
@@ -906,7 +910,7 @@ public class GraphLangParser extends Parser {
     };
 
     // $ANTLR start "block"
-    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:164:1: block : '{' (s+= statement )* '}' -> print(value=$s);
+    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:168:1: block : '{' (s+= statement )* '}' -> print(value=$s);
     public final GraphLangParser.block_return block() throws RecognitionException {
         GraphLangParser.block_return retval = new GraphLangParser.block_return();
         retval.start = input.LT(1);
@@ -914,11 +918,11 @@ public class GraphLangParser extends Parser {
         List list_s=null;
         RuleReturnScope s = null;
         try {
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:165:5: ( '{' (s+= statement )* '}' -> print(value=$s))
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:165:7: '{' (s+= statement )* '}'
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:169:5: ( '{' (s+= statement )* '}' -> print(value=$s))
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:169:7: '{' (s+= statement )* '}'
             {
-            match(input,16,FOLLOW_16_in_block553); 
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:165:12: (s+= statement )*
+            match(input,16,FOLLOW_16_in_block565); 
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:169:12: (s+= statement )*
             loop10:
             do {
                 int alt10=2;
@@ -931,9 +935,9 @@ public class GraphLangParser extends Parser {
 
                 switch (alt10) {
             	case 1 :
-            	    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:165:12: s+= statement
+            	    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:169:12: s+= statement
             	    {
-            	    pushFollow(FOLLOW_statement_in_block557);
+            	    pushFollow(FOLLOW_statement_in_block569);
             	    s=statement();
 
             	    state._fsp--;
@@ -950,11 +954,11 @@ public class GraphLangParser extends Parser {
                 }
             } while (true);
 
-            match(input,17,FOLLOW_17_in_block560); 
+            match(input,17,FOLLOW_17_in_block572); 
 
 
             // TEMPLATE REWRITE
-            // 165:29: -> print(value=$s)
+            // 169:29: -> print(value=$s)
             {
                 retval.st = templateLib.getInstanceOf("print",
               new STAttrMap().put("value", list_s));
@@ -983,7 +987,7 @@ public class GraphLangParser extends Parser {
     };
 
     // $ANTLR start "statement"
-    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:168:1: statement : ( 'if' '(' logicalExpression ')' a= block ( 'else' b= block )? -> MyIfStatement(logicalExpr=$logicalExpression.stblockIf=$a.stblockElse=$b.st) | 'for' '(' forControl ')' a= block -> MyForControl(expr=$forControl.stblock=$a.st) | 'foreach' '(' foreachControl ')' block -> MyForeachStatment(expr=$foreachControl.stblock=$block.st) | 'while' '(' logicalExpression ')' block -> MyWhileStatement(logicalExpr=$logicalExpression.stblock=$block.st) | 'do' block 'while' '(' logicalExpression ')' ';' -> MyDoWhileStatement(logicalExpr=$logicalExpression.stblock=$block.st) | assignmentOperation ';' -> {$assignmentOperation.st} | setArcOperation ';' -> print(value=$setArcOperation.st+\";\\n\") | setGraphOperation ';' -> print(value=$setGraphOperation.st+\";\\n\") | callClassMethod ';' -> print(value=$callClassMethod.st+\";\\n\") | callInlineFunction ';' -> print(value=$callInlineFunction.st+\";\\n\"));
+    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:172:1: statement : ( 'if' '(' logicalExpression ')' a= block ( 'else' b= block )? -> MyIfStatement(logicalExpr=$logicalExpression.stblockIf=$a.stblockElse=$b.st) | 'for' '(' forControl ')' a= block -> MyForControl(expr=$forControl.stblock=$a.st) | 'foreach' '(' foreachControl ')' block -> MyForeachStatment(expr=$foreachControl.stblock=$block.st) | 'while' '(' logicalExpression ')' block -> MyWhileStatement(logicalExpr=$logicalExpression.stblock=$block.st) | 'do' block 'while' '(' logicalExpression ')' ';' -> MyDoWhileStatement(logicalExpr=$logicalExpression.stblock=$block.st) | assignmentOperation ';' -> {$assignmentOperation.st} | setArcOperation ';' -> print(value=$setArcOperation.st+\";\\n\") | setGraphOperation ';' -> print(value=$setGraphOperation.st+\";\\n\") | callClassMethod ';' -> print(value=$callClassMethod.st+\";\\n\") | callInlineFunction ';' -> print(value=$callInlineFunction.st+\";\\n\"));
     public final GraphLangParser.statement_return statement() throws RecognitionException {
         GraphLangParser.statement_return retval = new GraphLangParser.statement_return();
         retval.start = input.LT(1);
@@ -1020,27 +1024,27 @@ public class GraphLangParser extends Parser {
 
 
         try {
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:169:5: ( 'if' '(' logicalExpression ')' a= block ( 'else' b= block )? -> MyIfStatement(logicalExpr=$logicalExpression.stblockIf=$a.stblockElse=$b.st) | 'for' '(' forControl ')' a= block -> MyForControl(expr=$forControl.stblock=$a.st) | 'foreach' '(' foreachControl ')' block -> MyForeachStatment(expr=$foreachControl.stblock=$block.st) | 'while' '(' logicalExpression ')' block -> MyWhileStatement(logicalExpr=$logicalExpression.stblock=$block.st) | 'do' block 'while' '(' logicalExpression ')' ';' -> MyDoWhileStatement(logicalExpr=$logicalExpression.stblock=$block.st) | assignmentOperation ';' -> {$assignmentOperation.st} | setArcOperation ';' -> print(value=$setArcOperation.st+\";\\n\") | setGraphOperation ';' -> print(value=$setGraphOperation.st+\";\\n\") | callClassMethod ';' -> print(value=$callClassMethod.st+\";\\n\") | callInlineFunction ';' -> print(value=$callInlineFunction.st+\";\\n\"))
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:173:5: ( 'if' '(' logicalExpression ')' a= block ( 'else' b= block )? -> MyIfStatement(logicalExpr=$logicalExpression.stblockIf=$a.stblockElse=$b.st) | 'for' '(' forControl ')' a= block -> MyForControl(expr=$forControl.stblock=$a.st) | 'foreach' '(' foreachControl ')' block -> MyForeachStatment(expr=$foreachControl.stblock=$block.st) | 'while' '(' logicalExpression ')' block -> MyWhileStatement(logicalExpr=$logicalExpression.stblock=$block.st) | 'do' block 'while' '(' logicalExpression ')' ';' -> MyDoWhileStatement(logicalExpr=$logicalExpression.stblock=$block.st) | assignmentOperation ';' -> {$assignmentOperation.st} | setArcOperation ';' -> print(value=$setArcOperation.st+\";\\n\") | setGraphOperation ';' -> print(value=$setGraphOperation.st+\";\\n\") | callClassMethod ';' -> print(value=$callClassMethod.st+\";\\n\") | callInlineFunction ';' -> print(value=$callInlineFunction.st+\";\\n\"))
             int alt12=10;
             alt12 = dfa12.predict(input);
             switch (alt12) {
                 case 1 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:169:9: 'if' '(' logicalExpression ')' a= block ( 'else' b= block )?
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:173:9: 'if' '(' logicalExpression ')' a= block ( 'else' b= block )?
                     {
-                    match(input,21,FOLLOW_21_in_statement587); 
-                    match(input,14,FOLLOW_14_in_statement589); 
-                    pushFollow(FOLLOW_logicalExpression_in_statement591);
+                    match(input,21,FOLLOW_21_in_statement599); 
+                    match(input,14,FOLLOW_14_in_statement601); 
+                    pushFollow(FOLLOW_logicalExpression_in_statement603);
                     logicalExpression12=logicalExpression();
 
                     state._fsp--;
 
-                    match(input,15,FOLLOW_15_in_statement593); 
-                    pushFollow(FOLLOW_block_in_statement597);
+                    match(input,15,FOLLOW_15_in_statement605); 
+                    pushFollow(FOLLOW_block_in_statement609);
                     a=block();
 
                     state._fsp--;
 
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:169:48: ( 'else' b= block )?
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:173:48: ( 'else' b= block )?
                     int alt11=2;
                     int LA11_0 = input.LA(1);
 
@@ -1049,10 +1053,10 @@ public class GraphLangParser extends Parser {
                     }
                     switch (alt11) {
                         case 1 :
-                            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:169:49: 'else' b= block
+                            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:173:49: 'else' b= block
                             {
-                            match(input,22,FOLLOW_22_in_statement600); 
-                            pushFollow(FOLLOW_block_in_statement604);
+                            match(input,22,FOLLOW_22_in_statement612); 
+                            pushFollow(FOLLOW_block_in_statement616);
                             b=block();
 
                             state._fsp--;
@@ -1066,7 +1070,7 @@ public class GraphLangParser extends Parser {
 
 
                     // TEMPLATE REWRITE
-                    // 169:66: -> MyIfStatement(logicalExpr=$logicalExpression.stblockIf=$a.stblockElse=$b.st)
+                    // 173:66: -> MyIfStatement(logicalExpr=$logicalExpression.stblockIf=$a.stblockElse=$b.st)
                     {
                         retval.st = templateLib.getInstanceOf("MyIfStatement",
                       new STAttrMap().put("logicalExpr", (logicalExpression12!=null?logicalExpression12.st:null)).put("blockIf", (a!=null?a.st:null)).put("blockElse", (b!=null?b.st:null)));
@@ -1076,17 +1080,17 @@ public class GraphLangParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:170:9: 'for' '(' forControl ')' a= block
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:174:9: 'for' '(' forControl ')' a= block
                     {
-                    match(input,23,FOLLOW_23_in_statement632); 
-                    match(input,14,FOLLOW_14_in_statement634); 
-                    pushFollow(FOLLOW_forControl_in_statement636);
+                    match(input,23,FOLLOW_23_in_statement644); 
+                    match(input,14,FOLLOW_14_in_statement646); 
+                    pushFollow(FOLLOW_forControl_in_statement648);
                     forControl13=forControl();
 
                     state._fsp--;
 
-                    match(input,15,FOLLOW_15_in_statement638); 
-                    pushFollow(FOLLOW_block_in_statement642);
+                    match(input,15,FOLLOW_15_in_statement650); 
+                    pushFollow(FOLLOW_block_in_statement654);
                     a=block();
 
                     state._fsp--;
@@ -1094,7 +1098,7 @@ public class GraphLangParser extends Parser {
 
 
                     // TEMPLATE REWRITE
-                    // 170:42: -> MyForControl(expr=$forControl.stblock=$a.st)
+                    // 174:42: -> MyForControl(expr=$forControl.stblock=$a.st)
                     {
                         retval.st = templateLib.getInstanceOf("MyForControl",
                       new STAttrMap().put("expr", (forControl13!=null?forControl13.st:null)).put("block", (a!=null?a.st:null)));
@@ -1104,17 +1108,17 @@ public class GraphLangParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:171:9: 'foreach' '(' foreachControl ')' block
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:175:9: 'foreach' '(' foreachControl ')' block
                     {
-                    match(input,24,FOLLOW_24_in_statement664); 
-                    match(input,14,FOLLOW_14_in_statement666); 
-                    pushFollow(FOLLOW_foreachControl_in_statement668);
+                    match(input,24,FOLLOW_24_in_statement676); 
+                    match(input,14,FOLLOW_14_in_statement678); 
+                    pushFollow(FOLLOW_foreachControl_in_statement680);
                     foreachControl14=foreachControl();
 
                     state._fsp--;
 
-                    match(input,15,FOLLOW_15_in_statement670); 
-                    pushFollow(FOLLOW_block_in_statement672);
+                    match(input,15,FOLLOW_15_in_statement682); 
+                    pushFollow(FOLLOW_block_in_statement684);
                     block15=block();
 
                     state._fsp--;
@@ -1122,7 +1126,7 @@ public class GraphLangParser extends Parser {
 
 
                     // TEMPLATE REWRITE
-                    // 171:48: -> MyForeachStatment(expr=$foreachControl.stblock=$block.st)
+                    // 175:48: -> MyForeachStatment(expr=$foreachControl.stblock=$block.st)
                     {
                         retval.st = templateLib.getInstanceOf("MyForeachStatment",
                       new STAttrMap().put("expr", (foreachControl14!=null?foreachControl14.st:null)).put("block", (block15!=null?block15.st:null)));
@@ -1132,17 +1136,17 @@ public class GraphLangParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:172:9: 'while' '(' logicalExpression ')' block
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:176:9: 'while' '(' logicalExpression ')' block
                     {
-                    match(input,25,FOLLOW_25_in_statement694); 
-                    match(input,14,FOLLOW_14_in_statement696); 
-                    pushFollow(FOLLOW_logicalExpression_in_statement698);
+                    match(input,25,FOLLOW_25_in_statement706); 
+                    match(input,14,FOLLOW_14_in_statement708); 
+                    pushFollow(FOLLOW_logicalExpression_in_statement710);
                     logicalExpression16=logicalExpression();
 
                     state._fsp--;
 
-                    match(input,15,FOLLOW_15_in_statement700); 
-                    pushFollow(FOLLOW_block_in_statement702);
+                    match(input,15,FOLLOW_15_in_statement712); 
+                    pushFollow(FOLLOW_block_in_statement714);
                     block17=block();
 
                     state._fsp--;
@@ -1150,7 +1154,7 @@ public class GraphLangParser extends Parser {
 
 
                     // TEMPLATE REWRITE
-                    // 172:49: -> MyWhileStatement(logicalExpr=$logicalExpression.stblock=$block.st)
+                    // 176:49: -> MyWhileStatement(logicalExpr=$logicalExpression.stblock=$block.st)
                     {
                         retval.st = templateLib.getInstanceOf("MyWhileStatement",
                       new STAttrMap().put("logicalExpr", (logicalExpression16!=null?logicalExpression16.st:null)).put("block", (block17!=null?block17.st:null)));
@@ -1160,27 +1164,27 @@ public class GraphLangParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:173:9: 'do' block 'while' '(' logicalExpression ')' ';'
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:177:9: 'do' block 'while' '(' logicalExpression ')' ';'
                     {
-                    match(input,26,FOLLOW_26_in_statement724); 
-                    pushFollow(FOLLOW_block_in_statement727);
+                    match(input,26,FOLLOW_26_in_statement736); 
+                    pushFollow(FOLLOW_block_in_statement739);
                     block19=block();
 
                     state._fsp--;
 
-                    match(input,25,FOLLOW_25_in_statement729); 
-                    match(input,14,FOLLOW_14_in_statement731); 
-                    pushFollow(FOLLOW_logicalExpression_in_statement733);
+                    match(input,25,FOLLOW_25_in_statement741); 
+                    match(input,14,FOLLOW_14_in_statement743); 
+                    pushFollow(FOLLOW_logicalExpression_in_statement745);
                     logicalExpression18=logicalExpression();
 
                     state._fsp--;
 
-                    match(input,15,FOLLOW_15_in_statement735); 
-                    match(input,13,FOLLOW_13_in_statement737); 
+                    match(input,15,FOLLOW_15_in_statement747); 
+                    match(input,13,FOLLOW_13_in_statement749); 
 
 
                     // TEMPLATE REWRITE
-                    // 173:59: -> MyDoWhileStatement(logicalExpr=$logicalExpression.stblock=$block.st)
+                    // 177:59: -> MyDoWhileStatement(logicalExpr=$logicalExpression.stblock=$block.st)
                     {
                         retval.st = templateLib.getInstanceOf("MyDoWhileStatement",
                       new STAttrMap().put("logicalExpr", (logicalExpression18!=null?logicalExpression18.st:null)).put("block", (block19!=null?block19.st:null)));
@@ -1190,18 +1194,18 @@ public class GraphLangParser extends Parser {
                     }
                     break;
                 case 6 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:174:9: assignmentOperation ';'
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:178:9: assignmentOperation ';'
                     {
-                    pushFollow(FOLLOW_assignmentOperation_in_statement759);
+                    pushFollow(FOLLOW_assignmentOperation_in_statement771);
                     assignmentOperation20=assignmentOperation();
 
                     state._fsp--;
 
-                    match(input,13,FOLLOW_13_in_statement761); 
+                    match(input,13,FOLLOW_13_in_statement773); 
 
 
                     // TEMPLATE REWRITE
-                    // 174:33: -> {$assignmentOperation.st}
+                    // 178:33: -> {$assignmentOperation.st}
                     {
                         retval.st = (assignmentOperation20!=null?assignmentOperation20.st:null);
                     }
@@ -1210,18 +1214,18 @@ public class GraphLangParser extends Parser {
                     }
                     break;
                 case 7 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:175:9: setArcOperation ';'
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:179:9: setArcOperation ';'
                     {
-                    pushFollow(FOLLOW_setArcOperation_in_statement774);
+                    pushFollow(FOLLOW_setArcOperation_in_statement786);
                     setArcOperation21=setArcOperation();
 
                     state._fsp--;
 
-                    match(input,13,FOLLOW_13_in_statement776); 
+                    match(input,13,FOLLOW_13_in_statement788); 
 
 
                     // TEMPLATE REWRITE
-                    // 175:29: -> print(value=$setArcOperation.st+\";\\n\")
+                    // 179:29: -> print(value=$setArcOperation.st+\";\\n\")
                     {
                         retval.st = templateLib.getInstanceOf("print",
                       new STAttrMap().put("value", (setArcOperation21!=null?setArcOperation21.st:null)+";\n"));
@@ -1231,18 +1235,18 @@ public class GraphLangParser extends Parser {
                     }
                     break;
                 case 8 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:176:9: setGraphOperation ';'
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:180:9: setGraphOperation ';'
                     {
-                    pushFollow(FOLLOW_setGraphOperation_in_statement794);
+                    pushFollow(FOLLOW_setGraphOperation_in_statement806);
                     setGraphOperation22=setGraphOperation();
 
                     state._fsp--;
 
-                    match(input,13,FOLLOW_13_in_statement796); 
+                    match(input,13,FOLLOW_13_in_statement808); 
 
 
                     // TEMPLATE REWRITE
-                    // 176:31: -> print(value=$setGraphOperation.st+\";\\n\")
+                    // 180:31: -> print(value=$setGraphOperation.st+\";\\n\")
                     {
                         retval.st = templateLib.getInstanceOf("print",
                       new STAttrMap().put("value", (setGraphOperation22!=null?setGraphOperation22.st:null)+";\n"));
@@ -1252,18 +1256,18 @@ public class GraphLangParser extends Parser {
                     }
                     break;
                 case 9 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:177:9: callClassMethod ';'
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:181:9: callClassMethod ';'
                     {
-                    pushFollow(FOLLOW_callClassMethod_in_statement814);
+                    pushFollow(FOLLOW_callClassMethod_in_statement826);
                     callClassMethod23=callClassMethod();
 
                     state._fsp--;
 
-                    match(input,13,FOLLOW_13_in_statement816); 
+                    match(input,13,FOLLOW_13_in_statement828); 
 
 
                     // TEMPLATE REWRITE
-                    // 177:29: -> print(value=$callClassMethod.st+\";\\n\")
+                    // 181:29: -> print(value=$callClassMethod.st+\";\\n\")
                     {
                         retval.st = templateLib.getInstanceOf("print",
                       new STAttrMap().put("value", (callClassMethod23!=null?callClassMethod23.st:null)+";\n"));
@@ -1273,18 +1277,18 @@ public class GraphLangParser extends Parser {
                     }
                     break;
                 case 10 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:178:9: callInlineFunction ';'
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:182:9: callInlineFunction ';'
                     {
-                    pushFollow(FOLLOW_callInlineFunction_in_statement834);
+                    pushFollow(FOLLOW_callInlineFunction_in_statement846);
                     callInlineFunction24=callInlineFunction();
 
                     state._fsp--;
 
-                    match(input,13,FOLLOW_13_in_statement836); 
+                    match(input,13,FOLLOW_13_in_statement848); 
 
 
                     // TEMPLATE REWRITE
-                    // 178:32: -> print(value=$callInlineFunction.st+\";\\n\")
+                    // 182:32: -> print(value=$callInlineFunction.st+\";\\n\")
                     {
                         retval.st = templateLib.getInstanceOf("print",
                       new STAttrMap().put("value", (callInlineFunction24!=null?callInlineFunction24.st:null)+";\n"));
@@ -1315,7 +1319,7 @@ public class GraphLangParser extends Parser {
     };
 
     // $ANTLR start "foreachControl"
-    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:181:1: foreachControl : f= idLiteral ';' s= idLiteral ( ';' ( foreachType )? )? -> MyCreateIteratorStatement(itType=itTypevar=$f.stitVar=$s.stiterator=iteratorrandNumber=Integer.toString(index++));
+    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:185:1: foreachControl : f= idLiteral ';' s= idLiteral ( ';' ( foreachType )? )? -> MyCreateIteratorStatement(itType=itTypevar=$f.stitVar=$s.stiterator=iteratorrandNumber=Integer.toString(index++));
     public final GraphLangParser.foreachControl_return foreachControl() throws RecognitionException {
         GraphLangParser.foreachControl_return retval = new GraphLangParser.foreachControl_return();
         retval.start = input.LT(1);
@@ -1328,22 +1332,22 @@ public class GraphLangParser extends Parser {
 
 
         try {
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:182:5: (f= idLiteral ';' s= idLiteral ( ';' ( foreachType )? )? -> MyCreateIteratorStatement(itType=itTypevar=$f.stitVar=$s.stiterator=iteratorrandNumber=Integer.toString(index++)))
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:183:9: f= idLiteral ';' s= idLiteral ( ';' ( foreachType )? )?
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:186:5: (f= idLiteral ';' s= idLiteral ( ';' ( foreachType )? )? -> MyCreateIteratorStatement(itType=itTypevar=$f.stitVar=$s.stiterator=iteratorrandNumber=Integer.toString(index++)))
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:187:9: f= idLiteral ';' s= idLiteral ( ';' ( foreachType )? )?
             {
             String tmp="";
-            pushFollow(FOLLOW_idLiteral_in_foreachControl888);
+            pushFollow(FOLLOW_idLiteral_in_foreachControl900);
             f=idLiteral();
 
             state._fsp--;
 
-            match(input,13,FOLLOW_13_in_foreachControl890); 
-            pushFollow(FOLLOW_idLiteral_in_foreachControl894);
+            match(input,13,FOLLOW_13_in_foreachControl902); 
+            pushFollow(FOLLOW_idLiteral_in_foreachControl906);
             s=idLiteral();
 
             state._fsp--;
 
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:184:37: ( ';' ( foreachType )? )?
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:188:37: ( ';' ( foreachType )? )?
             int alt14=2;
             int LA14_0 = input.LA(1);
 
@@ -1352,10 +1356,10 @@ public class GraphLangParser extends Parser {
             }
             switch (alt14) {
                 case 1 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:184:38: ';' ( foreachType )?
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:188:38: ';' ( foreachType )?
                     {
-                    match(input,13,FOLLOW_13_in_foreachControl897); 
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:184:42: ( foreachType )?
+                    match(input,13,FOLLOW_13_in_foreachControl909); 
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:188:42: ( foreachType )?
                     int alt13=2;
                     int LA13_0 = input.LA(1);
 
@@ -1364,9 +1368,9 @@ public class GraphLangParser extends Parser {
                     }
                     switch (alt13) {
                         case 1 :
-                            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:184:42: foreachType
+                            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:188:42: foreachType
                             {
-                            pushFollow(FOLLOW_foreachType_in_foreachControl899);
+                            pushFollow(FOLLOW_foreachType_in_foreachControl911);
                             foreachType25=foreachType();
 
                             state._fsp--;
@@ -1417,7 +1421,7 @@ public class GraphLangParser extends Parser {
 
 
             // TEMPLATE REWRITE
-            // 214:9: -> MyCreateIteratorStatement(itType=itTypevar=$f.stitVar=$s.stiterator=iteratorrandNumber=Integer.toString(index++))
+            // 218:9: -> MyCreateIteratorStatement(itType=itTypevar=$f.stitVar=$s.stiterator=iteratorrandNumber=Integer.toString(index++))
             {
                 retval.st = templateLib.getInstanceOf("MyCreateIteratorStatement",
               new STAttrMap().put("itType", itType).put("var", (f!=null?f.st:null)).put("itVar", (s!=null?s.st:null)).put("iterator", iterator).put("randNumber", Integer.toString(index++)));
@@ -1446,13 +1450,13 @@ public class GraphLangParser extends Parser {
     };
 
     // $ANTLR start "foreachType"
-    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:217:1: foreachType : ( 'output' | 'input' | 'all' );
+    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:221:1: foreachType : ( 'output' | 'input' | 'all' );
     public final GraphLangParser.foreachType_return foreachType() throws RecognitionException {
         GraphLangParser.foreachType_return retval = new GraphLangParser.foreachType_return();
         retval.start = input.LT(1);
 
         try {
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:218:5: ( 'output' | 'input' | 'all' )
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:222:5: ( 'output' | 'input' | 'all' )
             // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:
             {
             if ( (input.LA(1)>=27 && input.LA(1)<=29) ) {
@@ -1487,7 +1491,7 @@ public class GraphLangParser extends Parser {
     };
 
     // $ANTLR start "forControl"
-    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:223:1: forControl : forInit ';' a= forLiteral ';' b= forLiteral -> MyForStatement(var=$forInit.stbegin=$a.stend=$b.st);
+    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:227:1: forControl : forInit ';' a= forLiteral ';' b= forLiteral -> MyForStatement(var=$forInit.stbegin=$a.stend=$b.st);
     public final GraphLangParser.forControl_return forControl() throws RecognitionException {
         GraphLangParser.forControl_return retval = new GraphLangParser.forControl_return();
         retval.start = input.LT(1);
@@ -1500,22 +1504,22 @@ public class GraphLangParser extends Parser {
 
 
         try {
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:224:5: ( forInit ';' a= forLiteral ';' b= forLiteral -> MyForStatement(var=$forInit.stbegin=$a.stend=$b.st))
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:224:9: forInit ';' a= forLiteral ';' b= forLiteral
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:228:5: ( forInit ';' a= forLiteral ';' b= forLiteral -> MyForStatement(var=$forInit.stbegin=$a.stend=$b.st))
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:228:9: forInit ';' a= forLiteral ';' b= forLiteral
             {
-            pushFollow(FOLLOW_forInit_in_forControl999);
+            pushFollow(FOLLOW_forInit_in_forControl1011);
             forInit26=forInit();
 
             state._fsp--;
 
-            match(input,13,FOLLOW_13_in_forControl1001); 
-            pushFollow(FOLLOW_forLiteral_in_forControl1005);
+            match(input,13,FOLLOW_13_in_forControl1013); 
+            pushFollow(FOLLOW_forLiteral_in_forControl1017);
             a=forLiteral();
 
             state._fsp--;
 
-            match(input,13,FOLLOW_13_in_forControl1007); 
-            pushFollow(FOLLOW_forLiteral_in_forControl1011);
+            match(input,13,FOLLOW_13_in_forControl1019); 
+            pushFollow(FOLLOW_forLiteral_in_forControl1023);
             b=forLiteral();
 
             state._fsp--;
@@ -1523,7 +1527,7 @@ public class GraphLangParser extends Parser {
 
 
             // TEMPLATE REWRITE
-            // 225:7: -> MyForStatement(var=$forInit.stbegin=$a.stend=$b.st)
+            // 229:7: -> MyForStatement(var=$forInit.stbegin=$a.stend=$b.st)
             {
                 retval.st = templateLib.getInstanceOf("MyForStatement",
               new STAttrMap().put("var", (forInit26!=null?forInit26.st:null)).put("begin", (a!=null?a.st:null)).put("end", (b!=null?b.st:null)));
@@ -1552,7 +1556,7 @@ public class GraphLangParser extends Parser {
     };
 
     // $ANTLR start "forLiteral"
-    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:229:1: forLiteral : ( intLiteral -> {$intLiteral.st} | idLiteral -> {$idLiteral.st} | callClassMethod -> {$callClassMethod.st} | callInlineFunction -> {$callInlineFunction.st});
+    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:233:1: forLiteral : ( intLiteral -> {$intLiteral.st} | idLiteral -> {$idLiteral.st} | callClassMethod -> {$callClassMethod.st} | callInlineFunction -> {$callInlineFunction.st});
     public final GraphLangParser.forLiteral_return forLiteral() throws RecognitionException {
         GraphLangParser.forLiteral_return retval = new GraphLangParser.forLiteral_return();
         retval.start = input.LT(1);
@@ -1567,7 +1571,7 @@ public class GraphLangParser extends Parser {
 
 
         try {
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:230:5: ( intLiteral -> {$intLiteral.st} | idLiteral -> {$idLiteral.st} | callClassMethod -> {$callClassMethod.st} | callInlineFunction -> {$callInlineFunction.st})
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:234:5: ( intLiteral -> {$intLiteral.st} | idLiteral -> {$idLiteral.st} | callClassMethod -> {$callClassMethod.st} | callInlineFunction -> {$callInlineFunction.st})
             int alt15=4;
             int LA15_0 = input.LA(1);
 
@@ -1608,9 +1612,9 @@ public class GraphLangParser extends Parser {
             }
             switch (alt15) {
                 case 1 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:230:9: intLiteral
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:234:9: intLiteral
                     {
-                    pushFollow(FOLLOW_intLiteral_in_forLiteral1057);
+                    pushFollow(FOLLOW_intLiteral_in_forLiteral1069);
                     intLiteral27=intLiteral();
 
                     state._fsp--;
@@ -1618,7 +1622,7 @@ public class GraphLangParser extends Parser {
 
 
                     // TEMPLATE REWRITE
-                    // 230:20: -> {$intLiteral.st}
+                    // 234:20: -> {$intLiteral.st}
                     {
                         retval.st = (intLiteral27!=null?intLiteral27.st:null);
                     }
@@ -1627,9 +1631,9 @@ public class GraphLangParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:231:9: idLiteral
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:235:9: idLiteral
                     {
-                    pushFollow(FOLLOW_idLiteral_in_forLiteral1071);
+                    pushFollow(FOLLOW_idLiteral_in_forLiteral1083);
                     idLiteral28=idLiteral();
 
                     state._fsp--;
@@ -1638,7 +1642,7 @@ public class GraphLangParser extends Parser {
 
 
                     // TEMPLATE REWRITE
-                    // 231:137: -> {$idLiteral.st}
+                    // 235:137: -> {$idLiteral.st}
                     {
                         retval.st = (idLiteral28!=null?idLiteral28.st:null);
                     }
@@ -1647,9 +1651,9 @@ public class GraphLangParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:232:9: callClassMethod
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:236:9: callClassMethod
                     {
-                    pushFollow(FOLLOW_callClassMethod_in_forLiteral1086);
+                    pushFollow(FOLLOW_callClassMethod_in_forLiteral1098);
                     callClassMethod29=callClassMethod();
 
                     state._fsp--;
@@ -1658,7 +1662,7 @@ public class GraphLangParser extends Parser {
 
 
                     // TEMPLATE REWRITE
-                    // 232:158: -> {$callClassMethod.st}
+                    // 236:158: -> {$callClassMethod.st}
                     {
                         retval.st = (callClassMethod29!=null?callClassMethod29.st:null);
                     }
@@ -1667,9 +1671,9 @@ public class GraphLangParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:233:9: callInlineFunction
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:237:9: callInlineFunction
                     {
-                    pushFollow(FOLLOW_callInlineFunction_in_forLiteral1101);
+                    pushFollow(FOLLOW_callInlineFunction_in_forLiteral1113);
                     callInlineFunction30=callInlineFunction();
 
                     state._fsp--;
@@ -1678,7 +1682,7 @@ public class GraphLangParser extends Parser {
 
 
                     // TEMPLATE REWRITE
-                    // 233:169: -> {$callInlineFunction.st}
+                    // 237:169: -> {$callInlineFunction.st}
                     {
                         retval.st = (callInlineFunction30!=null?callInlineFunction30.st:null);
                     }
@@ -1708,7 +1712,7 @@ public class GraphLangParser extends Parser {
     };
 
     // $ANTLR start "forInit"
-    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:237:1: forInit : idLiteral -> print(value=$idLiteral.st);
+    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:241:1: forInit : idLiteral -> print(value=$idLiteral.st);
     public final GraphLangParser.forInit_return forInit() throws RecognitionException {
         GraphLangParser.forInit_return retval = new GraphLangParser.forInit_return();
         retval.start = input.LT(1);
@@ -1717,10 +1721,10 @@ public class GraphLangParser extends Parser {
 
 
         try {
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:238:5: ( idLiteral -> print(value=$idLiteral.st))
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:238:9: idLiteral
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:242:5: ( idLiteral -> print(value=$idLiteral.st))
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:242:9: idLiteral
             {
-            pushFollow(FOLLOW_idLiteral_in_forInit1126);
+            pushFollow(FOLLOW_idLiteral_in_forInit1138);
             idLiteral31=idLiteral();
 
             state._fsp--;
@@ -1733,7 +1737,7 @@ public class GraphLangParser extends Parser {
 
 
             // TEMPLATE REWRITE
-            // 243:8: -> print(value=$idLiteral.st)
+            // 247:8: -> print(value=$idLiteral.st)
             {
                 retval.st = templateLib.getInstanceOf("print",
               new STAttrMap().put("value", (idLiteral31!=null?idLiteral31.st:null)));
@@ -1764,7 +1768,7 @@ public class GraphLangParser extends Parser {
     };
 
     // $ANTLR start "callInlineFunction"
-    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:246:1: callInlineFunction returns [String functionType, int curLine] : ID '(' ( argumentList )? ')' -> print(value=funcName+\"(\"+tmp+\")\");
+    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:250:1: callInlineFunction returns [String functionType, int curLine] : ID '(' ( argumentList )? ')' -> print(value=funcName+\"(\"+tmp+\")\");
     public final GraphLangParser.callInlineFunction_return callInlineFunction() throws RecognitionException {
         GraphLangParser.callInlineFunction_return retval = new GraphLangParser.callInlineFunction_return();
         retval.start = input.LT(1);
@@ -1774,12 +1778,12 @@ public class GraphLangParser extends Parser {
 
 
         try {
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:247:5: ( ID '(' ( argumentList )? ')' -> print(value=funcName+\"(\"+tmp+\")\"))
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:247:8: ID '(' ( argumentList )? ')'
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:251:5: ( ID '(' ( argumentList )? ')' -> print(value=funcName+\"(\"+tmp+\")\"))
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:251:8: ID '(' ( argumentList )? ')'
             {
-            ID32=(Token)match(input,ID,FOLLOW_ID_in_callInlineFunction1164); 
-            match(input,14,FOLLOW_14_in_callInlineFunction1166); 
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:247:15: ( argumentList )?
+            ID32=(Token)match(input,ID,FOLLOW_ID_in_callInlineFunction1176); 
+            match(input,14,FOLLOW_14_in_callInlineFunction1178); 
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:251:15: ( argumentList )?
             int alt16=2;
             int LA16_0 = input.LA(1);
 
@@ -1788,9 +1792,9 @@ public class GraphLangParser extends Parser {
             }
             switch (alt16) {
                 case 1 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:247:15: argumentList
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:251:15: argumentList
                     {
-                    pushFollow(FOLLOW_argumentList_in_callInlineFunction1168);
+                    pushFollow(FOLLOW_argumentList_in_callInlineFunction1180);
                     argumentList33=argumentList();
 
                     state._fsp--;
@@ -1801,7 +1805,7 @@ public class GraphLangParser extends Parser {
 
             }
 
-            match(input,15,FOLLOW_15_in_callInlineFunction1171); 
+            match(input,15,FOLLOW_15_in_callInlineFunction1183); 
 
                       String funcName=(ID32!=null?ID32.getText():null);
                       String tmp="";
@@ -1846,7 +1850,7 @@ public class GraphLangParser extends Parser {
 
 
             // TEMPLATE REWRITE
-            // 289:5: -> print(value=funcName+\"(\"+tmp+\")\")
+            // 293:5: -> print(value=funcName+\"(\"+tmp+\")\")
             {
                 retval.st = templateLib.getInstanceOf("print",
               new STAttrMap().put("value", funcName+"("+tmp+")"));
@@ -1884,7 +1888,7 @@ public class GraphLangParser extends Parser {
     };
 
     // $ANTLR start "callClassMethod"
-    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:294:1: callClassMethod returns [String methodType, int curLine] : varId= ID '.' mName= ID '(' ( argumentList )? ')' -> print(value=\"___\"+$varId.text+\".\"+$mName.text+\"(\"+tmp+\")\");
+    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:298:1: callClassMethod returns [String methodType, int curLine] : varId= ID '.' mName= ID '(' ( argumentList )? ')' -> print(value=\"___\"+$varId.text+\".\"+$mName.text+\"(\"+tmp+\")\");
     public final GraphLangParser.callClassMethod_return callClassMethod() throws RecognitionException {
         callClassMethod_stack.push(new callClassMethod_scope());
         GraphLangParser.callClassMethod_return retval = new GraphLangParser.callClassMethod_return();
@@ -1901,17 +1905,17 @@ public class GraphLangParser extends Parser {
           //((callClassMethod_scope)callClassMethod_stack.peek()).argumentTypeList = new ArrayList<String>();
 
         try {
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:305:5: (varId= ID '.' mName= ID '(' ( argumentList )? ')' -> print(value=\"___\"+$varId.text+\".\"+$mName.text+\"(\"+tmp+\")\"))
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:305:9: varId= ID '.' mName= ID '(' ( argumentList )? ')'
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:309:5: (varId= ID '.' mName= ID '(' ( argumentList )? ')' -> print(value=\"___\"+$varId.text+\".\"+$mName.text+\"(\"+tmp+\")\"))
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:309:9: varId= ID '.' mName= ID '(' ( argumentList )? ')'
             {
-            varId=(Token)match(input,ID,FOLLOW_ID_in_callClassMethod1222); 
-            match(input,30,FOLLOW_30_in_callClassMethod1224); 
+            varId=(Token)match(input,ID,FOLLOW_ID_in_callClassMethod1234); 
+            match(input,30,FOLLOW_30_in_callClassMethod1236); 
             ((callClassMethod_scope)callClassMethod_stack.peek()).variableId =(varId!=null?varId.getText():null); 
-            mName=(Token)match(input,ID,FOLLOW_ID_in_callClassMethod1239); 
+            mName=(Token)match(input,ID,FOLLOW_ID_in_callClassMethod1251); 
             ((callClassMethod_scope)callClassMethod_stack.peek()).methodName =(mName!=null?mName.getText():null);
             String tmp="";
-            match(input,14,FOLLOW_14_in_callClassMethod1263); 
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:308:13: ( argumentList )?
+            match(input,14,FOLLOW_14_in_callClassMethod1275); 
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:312:13: ( argumentList )?
             int alt17=2;
             int LA17_0 = input.LA(1);
 
@@ -1920,9 +1924,9 @@ public class GraphLangParser extends Parser {
             }
             switch (alt17) {
                 case 1 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:308:13: argumentList
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:312:13: argumentList
                     {
-                    pushFollow(FOLLOW_argumentList_in_callClassMethod1265);
+                    pushFollow(FOLLOW_argumentList_in_callClassMethod1277);
                     argumentList34=argumentList();
 
                     state._fsp--;
@@ -1933,7 +1937,7 @@ public class GraphLangParser extends Parser {
 
             }
 
-            match(input,15,FOLLOW_15_in_callClassMethod1268); 
+            match(input,15,FOLLOW_15_in_callClassMethod1280); 
 
                       retval.methodType ="?";
                       retval.curLine = (varId!=null?varId.getLine():0);
@@ -1955,7 +1959,7 @@ public class GraphLangParser extends Parser {
 
 
             // TEMPLATE REWRITE
-            // 328:9: -> print(value=\"___\"+$varId.text+\".\"+$mName.text+\"(\"+tmp+\")\")
+            // 332:9: -> print(value=\"___\"+$varId.text+\".\"+$mName.text+\"(\"+tmp+\")\")
             {
                 retval.st = templateLib.getInstanceOf("print",
               new STAttrMap().put("value", "___"+(varId!=null?varId.getText():null)+"."+(mName!=null?mName.getText():null)+"("+tmp+")"));
@@ -1990,7 +1994,7 @@ public class GraphLangParser extends Parser {
     };
 
     // $ANTLR start "assignmentOperation"
-    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:331:1: assignmentOperation : ID assignmentOperator mathExpression -> MyAssignmentOperation(id=idoperator=operatormathExpr=mathExpradditionExpr=additionExpr);
+    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:335:1: assignmentOperation : ID assignmentOperator mathExpression -> MyAssignmentOperation(id=idoperator=operatormathExpr=mathExpradditionExpr=additionExpr);
     public final GraphLangParser.assignmentOperation_return assignmentOperation() throws RecognitionException {
         assignmentOperation_stack.push(new assignmentOperation_scope());
         GraphLangParser.assignmentOperation_return retval = new GraphLangParser.assignmentOperation_return();
@@ -2006,10 +2010,10 @@ public class GraphLangParser extends Parser {
             ((assignmentOperation_scope)assignmentOperation_stack.peek()).idType = "none";
 
         try {
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:338:5: ( ID assignmentOperator mathExpression -> MyAssignmentOperation(id=idoperator=operatormathExpr=mathExpradditionExpr=additionExpr))
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:338:8: ID assignmentOperator mathExpression
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:342:5: ( ID assignmentOperator mathExpression -> MyAssignmentOperation(id=idoperator=operatormathExpr=mathExpradditionExpr=additionExpr))
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:342:8: ID assignmentOperator mathExpression
             {
-            ID35=(Token)match(input,ID,FOLLOW_ID_in_assignmentOperation1339); 
+            ID35=(Token)match(input,ID,FOLLOW_ID_in_assignmentOperation1351); 
             String id="";
                     String operator="";
                     StringTemplate mathExpr;
@@ -2025,12 +2029,12 @@ public class GraphLangParser extends Parser {
                         errors.add("line "+(ID35!=null?ID35.getLine():0)+": unknown variable "+(ID35!=null?ID35.getText():null));
                       }
                    
-            pushFollow(FOLLOW_assignmentOperator_in_assignmentOperation1376);
+            pushFollow(FOLLOW_assignmentOperator_in_assignmentOperation1388);
             assignmentOperator36=assignmentOperator();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_mathExpression_in_assignmentOperation1386);
+            pushFollow(FOLLOW_mathExpression_in_assignmentOperation1398);
             mathExpression37=mathExpression();
 
             state._fsp--;
@@ -2101,7 +2105,7 @@ public class GraphLangParser extends Parser {
 
 
             // TEMPLATE REWRITE
-            // 420:8: -> MyAssignmentOperation(id=idoperator=operatormathExpr=mathExpradditionExpr=additionExpr)
+            // 424:8: -> MyAssignmentOperation(id=idoperator=operatormathExpr=mathExpradditionExpr=additionExpr)
             {
                 retval.st = templateLib.getInstanceOf("MyAssignmentOperation",
               new STAttrMap().put("id", id).put("operator", operator).put("mathExpr", mathExpr).put("additionExpr", additionExpr));
@@ -2138,7 +2142,7 @@ public class GraphLangParser extends Parser {
     };
 
     // $ANTLR start "setGraphOperation"
-    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:423:1: setGraphOperation : ID '=' '(' '{' variableList '}' ',' '{' ( setArcExpressions )? '}' ')' -> MySetGraphOperation(idGraph=$ID.textvar=$setGraphOperation::varListfV=$setGraphOperation::firstIdListsV=$setGraphOperation::secondIdList);
+    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:427:1: setGraphOperation : ID '=' '(' '{' variableList '}' ',' '{' ( setArcExpressions )? '}' ')' -> MySetGraphOperation(idGraph=$ID.textvar=$setGraphOperation::varListfV=$setGraphOperation::firstIdListsV=$setGraphOperation::secondIdList);
     public final GraphLangParser.setGraphOperation_return setGraphOperation() throws RecognitionException {
         setGraphOperation_stack.push(new setGraphOperation_scope());
         GraphLangParser.setGraphOperation_return retval = new GraphLangParser.setGraphOperation_return();
@@ -2152,22 +2156,22 @@ public class GraphLangParser extends Parser {
           ((setGraphOperation_scope)setGraphOperation_stack.peek()).secondIdList = new ArrayList<String>();
 
         try {
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:434:5: ( ID '=' '(' '{' variableList '}' ',' '{' ( setArcExpressions )? '}' ')' -> MySetGraphOperation(idGraph=$ID.textvar=$setGraphOperation::varListfV=$setGraphOperation::firstIdListsV=$setGraphOperation::secondIdList))
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:434:8: ID '=' '(' '{' variableList '}' ',' '{' ( setArcExpressions )? '}' ')'
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:438:5: ( ID '=' '(' '{' variableList '}' ',' '{' ( setArcExpressions )? '}' ')' -> MySetGraphOperation(idGraph=$ID.textvar=$setGraphOperation::varListfV=$setGraphOperation::firstIdListsV=$setGraphOperation::secondIdList))
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:438:8: ID '=' '(' '{' variableList '}' ',' '{' ( setArcExpressions )? '}' ')'
             {
-            ID38=(Token)match(input,ID,FOLLOW_ID_in_setGraphOperation1457); 
-            match(input,31,FOLLOW_31_in_setGraphOperation1459); 
-            match(input,14,FOLLOW_14_in_setGraphOperation1461); 
-            match(input,16,FOLLOW_16_in_setGraphOperation1464); 
-            pushFollow(FOLLOW_variableList_in_setGraphOperation1466);
+            ID38=(Token)match(input,ID,FOLLOW_ID_in_setGraphOperation1469); 
+            match(input,31,FOLLOW_31_in_setGraphOperation1471); 
+            match(input,14,FOLLOW_14_in_setGraphOperation1473); 
+            match(input,16,FOLLOW_16_in_setGraphOperation1476); 
+            pushFollow(FOLLOW_variableList_in_setGraphOperation1478);
             variableList();
 
             state._fsp--;
 
-            match(input,17,FOLLOW_17_in_setGraphOperation1468); 
-            match(input,19,FOLLOW_19_in_setGraphOperation1470); 
-            match(input,16,FOLLOW_16_in_setGraphOperation1472); 
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:434:49: ( setArcExpressions )?
+            match(input,17,FOLLOW_17_in_setGraphOperation1480); 
+            match(input,19,FOLLOW_19_in_setGraphOperation1482); 
+            match(input,16,FOLLOW_16_in_setGraphOperation1484); 
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:438:49: ( setArcExpressions )?
             int alt18=2;
             int LA18_0 = input.LA(1);
 
@@ -2176,9 +2180,9 @@ public class GraphLangParser extends Parser {
             }
             switch (alt18) {
                 case 1 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:434:49: setArcExpressions
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:438:49: setArcExpressions
                     {
-                    pushFollow(FOLLOW_setArcExpressions_in_setGraphOperation1474);
+                    pushFollow(FOLLOW_setArcExpressions_in_setGraphOperation1486);
                     setArcExpressions();
 
                     state._fsp--;
@@ -2189,8 +2193,8 @@ public class GraphLangParser extends Parser {
 
             }
 
-            match(input,17,FOLLOW_17_in_setGraphOperation1477); 
-            match(input,15,FOLLOW_15_in_setGraphOperation1480); 
+            match(input,17,FOLLOW_17_in_setGraphOperation1489); 
+            match(input,15,FOLLOW_15_in_setGraphOperation1492); 
 
                         names.checkSetGraphOperator((ID38!=null?ID38.getText():null),((programm_scope)programm_stack.peek()).curBlock,((setGraphOperation_scope)setGraphOperation_stack.peek()).varList,((setGraphOperation_scope)setGraphOperation_stack.peek()).firstIdList,((setGraphOperation_scope)setGraphOperation_stack.peek()).secondIdList,(ID38!=null?ID38.getLine():0));
                         names.getAllErrors(errors);
@@ -2198,7 +2202,7 @@ public class GraphLangParser extends Parser {
 
 
             // TEMPLATE REWRITE
-            // 440:9: -> MySetGraphOperation(idGraph=$ID.textvar=$setGraphOperation::varListfV=$setGraphOperation::firstIdListsV=$setGraphOperation::secondIdList)
+            // 444:9: -> MySetGraphOperation(idGraph=$ID.textvar=$setGraphOperation::varListfV=$setGraphOperation::firstIdListsV=$setGraphOperation::secondIdList)
             {
                 retval.st = templateLib.getInstanceOf("MySetGraphOperation",
               new STAttrMap().put("idGraph", (ID38!=null?ID38.getText():null)).put("var", ((setGraphOperation_scope)setGraphOperation_stack.peek()).varList).put("fV", ((setGraphOperation_scope)setGraphOperation_stack.peek()).firstIdList).put("sV", ((setGraphOperation_scope)setGraphOperation_stack.peek()).secondIdList));
@@ -2228,7 +2232,7 @@ public class GraphLangParser extends Parser {
     };
 
     // $ANTLR start "variableList"
-    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:443:1: variableList : a= ID ( ',' b= ID )* ;
+    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:447:1: variableList : a= ID ( ',' b= ID )* ;
     public final GraphLangParser.variableList_return variableList() throws RecognitionException {
         GraphLangParser.variableList_return retval = new GraphLangParser.variableList_return();
         retval.start = input.LT(1);
@@ -2237,12 +2241,12 @@ public class GraphLangParser extends Parser {
         Token b=null;
 
         try {
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:444:5: (a= ID ( ',' b= ID )* )
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:444:8: a= ID ( ',' b= ID )*
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:448:5: (a= ID ( ',' b= ID )* )
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:448:8: a= ID ( ',' b= ID )*
             {
-            a=(Token)match(input,ID,FOLLOW_ID_in_variableList1547); 
+            a=(Token)match(input,ID,FOLLOW_ID_in_variableList1559); 
              ((setGraphOperation_scope)setGraphOperation_stack.peek()).varList.add((a!=null?a.getText():null));
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:444:58: ( ',' b= ID )*
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:448:58: ( ',' b= ID )*
             loop19:
             do {
                 int alt19=2;
@@ -2255,10 +2259,10 @@ public class GraphLangParser extends Parser {
 
                 switch (alt19) {
             	case 1 :
-            	    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:444:59: ',' b= ID
+            	    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:448:59: ',' b= ID
             	    {
-            	    match(input,19,FOLLOW_19_in_variableList1552); 
-            	    b=(Token)match(input,ID,FOLLOW_ID_in_variableList1556); 
+            	    match(input,19,FOLLOW_19_in_variableList1564); 
+            	    b=(Token)match(input,ID,FOLLOW_ID_in_variableList1568); 
             	     ((setGraphOperation_scope)setGraphOperation_stack.peek()).varList.add((b!=null?b.getText():null));
 
             	    }
@@ -2292,7 +2296,7 @@ public class GraphLangParser extends Parser {
     };
 
     // $ANTLR start "setArcExpressions"
-    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:448:1: setArcExpressions : f= ID '->' s= ID ( ',' a= ID '->' b= ID )* ;
+    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:452:1: setArcExpressions : f= ID '->' s= ID ( ',' a= ID '->' b= ID )* ;
     public final GraphLangParser.setArcExpressions_return setArcExpressions() throws RecognitionException {
         GraphLangParser.setArcExpressions_return retval = new GraphLangParser.setArcExpressions_return();
         retval.start = input.LT(1);
@@ -2303,17 +2307,17 @@ public class GraphLangParser extends Parser {
         Token b=null;
 
         try {
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:449:5: (f= ID '->' s= ID ( ',' a= ID '->' b= ID )* )
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:449:8: f= ID '->' s= ID ( ',' a= ID '->' b= ID )*
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:453:5: (f= ID '->' s= ID ( ',' a= ID '->' b= ID )* )
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:453:8: f= ID '->' s= ID ( ',' a= ID '->' b= ID )*
             {
-            f=(Token)match(input,ID,FOLLOW_ID_in_setArcExpressions1584); 
-            match(input,32,FOLLOW_32_in_setArcExpressions1586); 
-            s=(Token)match(input,ID,FOLLOW_ID_in_setArcExpressions1590); 
+            f=(Token)match(input,ID,FOLLOW_ID_in_setArcExpressions1596); 
+            match(input,32,FOLLOW_32_in_setArcExpressions1598); 
+            s=(Token)match(input,ID,FOLLOW_ID_in_setArcExpressions1602); 
 
                         ((setGraphOperation_scope)setGraphOperation_stack.peek()).firstIdList.add((f!=null?f.getText():null));
                         ((setGraphOperation_scope)setGraphOperation_stack.peek()).secondIdList.add((s!=null?s.getText():null));
                       
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:454:8: ( ',' a= ID '->' b= ID )*
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:458:8: ( ',' a= ID '->' b= ID )*
             loop20:
             do {
                 int alt20=2;
@@ -2326,12 +2330,12 @@ public class GraphLangParser extends Parser {
 
                 switch (alt20) {
             	case 1 :
-            	    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:454:9: ',' a= ID '->' b= ID
+            	    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:458:9: ',' a= ID '->' b= ID
             	    {
-            	    match(input,19,FOLLOW_19_in_setArcExpressions1613); 
-            	    a=(Token)match(input,ID,FOLLOW_ID_in_setArcExpressions1617); 
-            	    match(input,32,FOLLOW_32_in_setArcExpressions1619); 
-            	    b=(Token)match(input,ID,FOLLOW_ID_in_setArcExpressions1623); 
+            	    match(input,19,FOLLOW_19_in_setArcExpressions1625); 
+            	    a=(Token)match(input,ID,FOLLOW_ID_in_setArcExpressions1629); 
+            	    match(input,32,FOLLOW_32_in_setArcExpressions1631); 
+            	    b=(Token)match(input,ID,FOLLOW_ID_in_setArcExpressions1635); 
             	    ((setGraphOperation_scope)setGraphOperation_stack.peek()).firstIdList.add((a!=null?a.getText():null)); ((setGraphOperation_scope)setGraphOperation_stack.peek()).secondIdList.add((b!=null?b.getText():null)); 
 
             	    }
@@ -2367,7 +2371,7 @@ public class GraphLangParser extends Parser {
     };
 
     // $ANTLR start "variableDeclarationStatement"
-    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:459:1: variableDeclarationStatement returns [String tVariableType,ArrayList<String> tVariableList] : variableDeclaration -> {$variableDeclaration.st};
+    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:463:1: variableDeclarationStatement returns [String tVariableType,ArrayList<String> tVariableList] : variableDeclaration -> {$variableDeclaration.st};
     public final GraphLangParser.variableDeclarationStatement_return variableDeclarationStatement() throws RecognitionException {
         GraphLangParser.variableDeclarationStatement_return retval = new GraphLangParser.variableDeclarationStatement_return();
         retval.start = input.LT(1);
@@ -2376,10 +2380,10 @@ public class GraphLangParser extends Parser {
 
 
         try {
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:460:4: ( variableDeclaration -> {$variableDeclaration.st})
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:460:6: variableDeclaration
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:464:4: ( variableDeclaration -> {$variableDeclaration.st})
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:464:6: variableDeclaration
             {
-            pushFollow(FOLLOW_variableDeclaration_in_variableDeclarationStatement1650);
+            pushFollow(FOLLOW_variableDeclaration_in_variableDeclarationStatement1662);
             variableDeclaration39=variableDeclaration();
 
             state._fsp--;
@@ -2387,7 +2391,7 @@ public class GraphLangParser extends Parser {
 
 
             // TEMPLATE REWRITE
-            // 460:26: -> {$variableDeclaration.st}
+            // 464:26: -> {$variableDeclaration.st}
             {
                 retval.st = (variableDeclaration39!=null?variableDeclaration39.st:null);
             }
@@ -2422,7 +2426,7 @@ public class GraphLangParser extends Parser {
     };
 
     // $ANTLR start "variableDeclaration"
-    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:465:1: variableDeclaration returns [String tVariableType,ArrayList<String> tVariableList] : TYPE variableDeclarators -> MyVariableDeclarators(type=$variableDeclaration::varTypelist=$variableDeclarators.tVariableListadditionPart=additionPart);
+    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:469:1: variableDeclaration returns [String tVariableType,ArrayList<String> tVariableList] : TYPE variableDeclarators -> MyVariableDeclarators(type=$variableDeclaration::varTypelist=$variableDeclarators.tVariableListadditionPart=additionPart);
     public final GraphLangParser.variableDeclaration_return variableDeclaration() throws RecognitionException {
         variableDeclaration_stack.push(new variableDeclaration_scope());
         GraphLangParser.variableDeclaration_return retval = new GraphLangParser.variableDeclaration_return();
@@ -2436,12 +2440,12 @@ public class GraphLangParser extends Parser {
           ((variableDeclaration_scope)variableDeclaration_stack.peek()).varType = "";
 
         try {
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:472:5: ( TYPE variableDeclarators -> MyVariableDeclarators(type=$variableDeclaration::varTypelist=$variableDeclarators.tVariableListadditionPart=additionPart))
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:472:9: TYPE variableDeclarators
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:476:5: ( TYPE variableDeclarators -> MyVariableDeclarators(type=$variableDeclaration::varTypelist=$variableDeclarators.tVariableListadditionPart=additionPart))
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:476:9: TYPE variableDeclarators
             {
-            TYPE40=(Token)match(input,TYPE,FOLLOW_TYPE_in_variableDeclaration1696); 
+            TYPE40=(Token)match(input,TYPE,FOLLOW_TYPE_in_variableDeclaration1708); 
             ((variableDeclaration_scope)variableDeclaration_stack.peek()).varType = (TYPE40!=null?TYPE40.getText():null);
-            pushFollow(FOLLOW_variableDeclarators_in_variableDeclaration1700);
+            pushFollow(FOLLOW_variableDeclarators_in_variableDeclaration1712);
             variableDeclarators41=variableDeclarators();
 
             state._fsp--;
@@ -2460,7 +2464,7 @@ public class GraphLangParser extends Parser {
 
 
             // TEMPLATE REWRITE
-            // 484:9: -> MyVariableDeclarators(type=$variableDeclaration::varTypelist=$variableDeclarators.tVariableListadditionPart=additionPart)
+            // 488:9: -> MyVariableDeclarators(type=$variableDeclaration::varTypelist=$variableDeclarators.tVariableListadditionPart=additionPart)
             {
                 retval.st = templateLib.getInstanceOf("MyVariableDeclarators",
               new STAttrMap().put("type", ((variableDeclaration_scope)variableDeclaration_stack.peek()).varType).put("list", (variableDeclarators41!=null?variableDeclarators41.tVariableList:null)).put("additionPart", additionPart));
@@ -2491,7 +2495,7 @@ public class GraphLangParser extends Parser {
     };
 
     // $ANTLR start "variableDeclarators"
-    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:488:1: variableDeclarators returns [ArrayList<String> tVariableList] : a= variableDeclarator ( ',' b= variableDeclarator )* ;
+    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:492:1: variableDeclarators returns [ArrayList<String> tVariableList] : a= variableDeclarator ( ',' b= variableDeclarator )* ;
     public final GraphLangParser.variableDeclarators_return variableDeclarators() throws RecognitionException {
         GraphLangParser.variableDeclarators_return retval = new GraphLangParser.variableDeclarators_return();
         retval.start = input.LT(1);
@@ -2502,17 +2506,17 @@ public class GraphLangParser extends Parser {
 
 
         try {
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:489:5: (a= variableDeclarator ( ',' b= variableDeclarator )* )
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:490:7: a= variableDeclarator ( ',' b= variableDeclarator )*
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:493:5: (a= variableDeclarator ( ',' b= variableDeclarator )* )
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:494:7: a= variableDeclarator ( ',' b= variableDeclarator )*
             {
             retval.tVariableList = new ArrayList<String>();
-            pushFollow(FOLLOW_variableDeclarator_in_variableDeclarators1794);
+            pushFollow(FOLLOW_variableDeclarator_in_variableDeclarators1806);
             a=variableDeclarator();
 
             state._fsp--;
 
             retval.tVariableList.add((a!=null?a.tVariableId:null));
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:492:7: ( ',' b= variableDeclarator )*
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:496:7: ( ',' b= variableDeclarator )*
             loop21:
             do {
                 int alt21=2;
@@ -2525,10 +2529,10 @@ public class GraphLangParser extends Parser {
 
                 switch (alt21) {
             	case 1 :
-            	    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:492:8: ',' b= variableDeclarator
+            	    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:496:8: ',' b= variableDeclarator
             	    {
-            	    match(input,19,FOLLOW_19_in_variableDeclarators1805); 
-            	    pushFollow(FOLLOW_variableDeclarator_in_variableDeclarators1809);
+            	    match(input,19,FOLLOW_19_in_variableDeclarators1817); 
+            	    pushFollow(FOLLOW_variableDeclarator_in_variableDeclarators1821);
             	    b=variableDeclarator();
 
             	    state._fsp--;
@@ -2572,7 +2576,7 @@ public class GraphLangParser extends Parser {
     };
 
     // $ANTLR start "variableDeclarator"
-    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:495:1: variableDeclarator returns [String tVariableId] : ID ;
+    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:499:1: variableDeclarator returns [String tVariableId] : ID ;
     public final GraphLangParser.variableDeclarator_return variableDeclarator() throws RecognitionException {
         variableDeclarator_stack.push(new variableDeclarator_scope());
         GraphLangParser.variableDeclarator_return retval = new GraphLangParser.variableDeclarator_return();
@@ -2584,10 +2588,10 @@ public class GraphLangParser extends Parser {
           ((variableDeclarator_scope)variableDeclarator_stack.peek()).varList = new ArrayList<String>();
 
         try {
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:502:5: ( ID )
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:502:9: ID
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:506:5: ( ID )
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:506:9: ID
             {
-            ID42=(Token)match(input,ID,FOLLOW_ID_in_variableDeclarator1844); 
+            ID42=(Token)match(input,ID,FOLLOW_ID_in_variableDeclarator1856); 
 
                     if(!names.isDeclaredVariable(((programm_scope)programm_stack.peek()).curBlock+"."+(ID42!=null?ID42.getText():null)) ){
                       names.addVariable(names.new VariableName(((programm_scope)programm_stack.peek()).curBlock+"."+(ID42!=null?ID42.getText():null), ((variableDeclaration_scope)variableDeclaration_stack.peek()).varType, (ID42!=null?ID42.getLine():0)));
@@ -2622,7 +2626,7 @@ public class GraphLangParser extends Parser {
     };
 
     // $ANTLR start "setArcOperation"
-    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:515:1: setArcOperation : id= ID '=' '(' from= ID '->' to= ID ')' -> print(value=\"___\"+$id.text+\".setVertex\"+\"(\"+\"___\"+$from.text+\",\"+\"___\"+$to.text+\")\");
+    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:519:1: setArcOperation : id= ID '=' '(' from= ID '->' to= ID ')' -> print(value=\"___\"+$id.text+\".setVertex\"+\"(\"+\"___\"+$from.text+\",\"+\"___\"+$to.text+\")\");
     public final GraphLangParser.setArcOperation_return setArcOperation() throws RecognitionException {
         GraphLangParser.setArcOperation_return retval = new GraphLangParser.setArcOperation_return();
         retval.start = input.LT(1);
@@ -2632,16 +2636,16 @@ public class GraphLangParser extends Parser {
         Token to=null;
 
         try {
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:516:5: (id= ID '=' '(' from= ID '->' to= ID ')' -> print(value=\"___\"+$id.text+\".setVertex\"+\"(\"+\"___\"+$from.text+\",\"+\"___\"+$to.text+\")\"))
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:516:8: id= ID '=' '(' from= ID '->' to= ID ')'
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:520:5: (id= ID '=' '(' from= ID '->' to= ID ')' -> print(value=\"___\"+$id.text+\".setVertex\"+\"(\"+\"___\"+$from.text+\",\"+\"___\"+$to.text+\")\"))
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:520:8: id= ID '=' '(' from= ID '->' to= ID ')'
             {
-            id=(Token)match(input,ID,FOLLOW_ID_in_setArcOperation1871); 
-            match(input,31,FOLLOW_31_in_setArcOperation1873); 
-            match(input,14,FOLLOW_14_in_setArcOperation1875); 
-            from=(Token)match(input,ID,FOLLOW_ID_in_setArcOperation1879); 
-            match(input,32,FOLLOW_32_in_setArcOperation1881); 
-            to=(Token)match(input,ID,FOLLOW_ID_in_setArcOperation1885); 
-            match(input,15,FOLLOW_15_in_setArcOperation1886); 
+            id=(Token)match(input,ID,FOLLOW_ID_in_setArcOperation1883); 
+            match(input,31,FOLLOW_31_in_setArcOperation1885); 
+            match(input,14,FOLLOW_14_in_setArcOperation1887); 
+            from=(Token)match(input,ID,FOLLOW_ID_in_setArcOperation1891); 
+            match(input,32,FOLLOW_32_in_setArcOperation1893); 
+            to=(Token)match(input,ID,FOLLOW_ID_in_setArcOperation1897); 
+            match(input,15,FOLLOW_15_in_setArcOperation1898); 
 
                     boolean result = names.checkSetArcOperator((id!=null?id.getText():null), (from!=null?from.getText():null), (to!=null?to.getText():null), ((programm_scope)programm_stack.peek()).curBlock, (id!=null?id.getLine():0));
                     if(result==false){
@@ -2651,7 +2655,7 @@ public class GraphLangParser extends Parser {
 
 
             // TEMPLATE REWRITE
-            // 522:9: -> print(value=\"___\"+$id.text+\".setVertex\"+\"(\"+\"___\"+$from.text+\",\"+\"___\"+$to.text+\")\")
+            // 526:9: -> print(value=\"___\"+$id.text+\".setVertex\"+\"(\"+\"___\"+$from.text+\",\"+\"___\"+$to.text+\")\")
             {
                 retval.st = templateLib.getInstanceOf("print",
               new STAttrMap().put("value", "___"+(id!=null?id.getText():null)+".setVertex"+"("+"___"+(from!=null?from.getText():null)+","+"___"+(to!=null?to.getText():null)+")"));
@@ -2681,7 +2685,7 @@ public class GraphLangParser extends Parser {
     };
 
     // $ANTLR start "mathTerm"
-    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:525:1: mathTerm returns [String mathTermType] : ( literal -> print(value=$literal.st) | '(' mathExpression ')' -> print(value=\"(\"+$mathExpression.st+\")\"));
+    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:529:1: mathTerm returns [String mathTermType] : ( literal -> print(value=$literal.st) | '(' mathExpression ')' -> print(value=\"(\"+$mathExpression.st+\")\"));
     public final GraphLangParser.mathTerm_return mathTerm() throws RecognitionException {
         GraphLangParser.mathTerm_return retval = new GraphLangParser.mathTerm_return();
         retval.start = input.LT(1);
@@ -2692,7 +2696,7 @@ public class GraphLangParser extends Parser {
 
 
         try {
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:526:5: ( literal -> print(value=$literal.st) | '(' mathExpression ')' -> print(value=\"(\"+$mathExpression.st+\")\"))
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:530:5: ( literal -> print(value=$literal.st) | '(' mathExpression ')' -> print(value=\"(\"+$mathExpression.st+\")\"))
             int alt22=2;
             int LA22_0 = input.LA(1);
 
@@ -2710,9 +2714,9 @@ public class GraphLangParser extends Parser {
             }
             switch (alt22) {
                 case 1 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:526:8: literal
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:530:8: literal
                     {
-                    pushFollow(FOLLOW_literal_in_mathTerm1925);
+                    pushFollow(FOLLOW_literal_in_mathTerm1937);
                     literal43=literal();
 
                     state._fsp--;
@@ -2721,7 +2725,7 @@ public class GraphLangParser extends Parser {
 
 
                     // TEMPLATE REWRITE
-                    // 526:65: -> print(value=$literal.st)
+                    // 530:65: -> print(value=$literal.st)
                     {
                         retval.st = templateLib.getInstanceOf("print",
                       new STAttrMap().put("value", (literal43!=null?literal43.st:null)));
@@ -2731,20 +2735,20 @@ public class GraphLangParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:527:8: '(' mathExpression ')'
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:531:8: '(' mathExpression ')'
                     {
-                    match(input,14,FOLLOW_14_in_mathTerm1944); 
-                    pushFollow(FOLLOW_mathExpression_in_mathTerm1946);
+                    match(input,14,FOLLOW_14_in_mathTerm1956); 
+                    pushFollow(FOLLOW_mathExpression_in_mathTerm1958);
                     mathExpression44=mathExpression();
 
                     state._fsp--;
 
-                    match(input,15,FOLLOW_15_in_mathTerm1948); 
+                    match(input,15,FOLLOW_15_in_mathTerm1960); 
                     retval.mathTermType = (mathExpression44!=null?mathExpression44.mathExpressionType:null);
 
 
                     // TEMPLATE REWRITE
-                    // 527:94: -> print(value=\"(\"+$mathExpression.st+\")\")
+                    // 531:94: -> print(value=\"(\"+$mathExpression.st+\")\")
                     {
                         retval.st = templateLib.getInstanceOf("print",
                       new STAttrMap().put("value", "("+(mathExpression44!=null?mathExpression44.st:null)+")"));
@@ -2776,7 +2780,7 @@ public class GraphLangParser extends Parser {
     };
 
     // $ANTLR start "unaryExpression"
-    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:530:1: unaryExpression returns [String unaryExpressionType] : ( '+' a= unaryExpression -> print(value=\"+\"+$a.st) | '-' b= unaryExpression -> print(value=\"-\"+$b.st) | mathTerm -> {$mathTerm.st});
+    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:534:1: unaryExpression returns [String unaryExpressionType] : ( '+' a= unaryExpression -> print(value=\"+\"+$a.st) | '-' b= unaryExpression -> print(value=\"-\"+$b.st) | mathTerm -> {$mathTerm.st});
     public final GraphLangParser.unaryExpression_return unaryExpression() throws RecognitionException {
         GraphLangParser.unaryExpression_return retval = new GraphLangParser.unaryExpression_return();
         retval.start = input.LT(1);
@@ -2789,7 +2793,7 @@ public class GraphLangParser extends Parser {
 
 
         try {
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:531:5: ( '+' a= unaryExpression -> print(value=\"+\"+$a.st) | '-' b= unaryExpression -> print(value=\"-\"+$b.st) | mathTerm -> {$mathTerm.st})
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:535:5: ( '+' a= unaryExpression -> print(value=\"+\"+$a.st) | '-' b= unaryExpression -> print(value=\"-\"+$b.st) | mathTerm -> {$mathTerm.st})
             int alt23=3;
             switch ( input.LA(1) ) {
             case 33:
@@ -2821,10 +2825,10 @@ public class GraphLangParser extends Parser {
 
             switch (alt23) {
                 case 1 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:531:8: '+' a= unaryExpression
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:535:8: '+' a= unaryExpression
                     {
-                    match(input,33,FOLLOW_33_in_unaryExpression1980); 
-                    pushFollow(FOLLOW_unaryExpression_in_unaryExpression1984);
+                    match(input,33,FOLLOW_33_in_unaryExpression1992); 
+                    pushFollow(FOLLOW_unaryExpression_in_unaryExpression1996);
                     a=unaryExpression();
 
                     state._fsp--;
@@ -2833,7 +2837,7 @@ public class GraphLangParser extends Parser {
 
 
                     // TEMPLATE REWRITE
-                    // 531:95: -> print(value=\"+\"+$a.st)
+                    // 535:95: -> print(value=\"+\"+$a.st)
                     {
                         retval.st = templateLib.getInstanceOf("print",
                       new STAttrMap().put("value", "+"+(a!=null?a.st:null)));
@@ -2843,10 +2847,10 @@ public class GraphLangParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:532:8: '-' b= unaryExpression
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:536:8: '-' b= unaryExpression
                     {
-                    match(input,34,FOLLOW_34_in_unaryExpression2003); 
-                    pushFollow(FOLLOW_unaryExpression_in_unaryExpression2007);
+                    match(input,34,FOLLOW_34_in_unaryExpression2015); 
+                    pushFollow(FOLLOW_unaryExpression_in_unaryExpression2019);
                     b=unaryExpression();
 
                     state._fsp--;
@@ -2855,7 +2859,7 @@ public class GraphLangParser extends Parser {
 
 
                     // TEMPLATE REWRITE
-                    // 532:95: -> print(value=\"-\"+$b.st)
+                    // 536:95: -> print(value=\"-\"+$b.st)
                     {
                         retval.st = templateLib.getInstanceOf("print",
                       new STAttrMap().put("value", "-"+(b!=null?b.st:null)));
@@ -2865,9 +2869,9 @@ public class GraphLangParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:533:8: mathTerm
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:537:8: mathTerm
                     {
-                    pushFollow(FOLLOW_mathTerm_in_unaryExpression2026);
+                    pushFollow(FOLLOW_mathTerm_in_unaryExpression2038);
                     mathTerm45=mathTerm();
 
                     state._fsp--;
@@ -2876,7 +2880,7 @@ public class GraphLangParser extends Parser {
 
 
                     // TEMPLATE REWRITE
-                    // 533:82: -> {$mathTerm.st}
+                    // 537:82: -> {$mathTerm.st}
                     {
                         retval.st = (mathTerm45!=null?mathTerm45.st:null);
                     }
@@ -2908,7 +2912,7 @@ public class GraphLangParser extends Parser {
     };
 
     // $ANTLR start "multiplicativeExpression"
-    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:538:1: multiplicativeExpression returns [String multiplicativeExpressionType, String textValue] : a= unaryExpression ( (c= '*' | c= '/' ) b= unaryExpression )* -> print(value=$a.st+tmp);
+    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:542:1: multiplicativeExpression returns [String multiplicativeExpressionType, String textValue] : a= unaryExpression ( (c= '*' | c= '/' ) b= unaryExpression )* -> print(value=$a.st+tmp);
     public final GraphLangParser.multiplicativeExpression_return multiplicativeExpression() throws RecognitionException {
         GraphLangParser.multiplicativeExpression_return retval = new GraphLangParser.multiplicativeExpression_return();
         retval.start = input.LT(1);
@@ -2920,18 +2924,18 @@ public class GraphLangParser extends Parser {
 
 
         try {
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:539:5: (a= unaryExpression ( (c= '*' | c= '/' ) b= unaryExpression )* -> print(value=$a.st+tmp))
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:539:7: a= unaryExpression ( (c= '*' | c= '/' ) b= unaryExpression )*
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:543:5: (a= unaryExpression ( (c= '*' | c= '/' ) b= unaryExpression )* -> print(value=$a.st+tmp))
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:543:7: a= unaryExpression ( (c= '*' | c= '/' ) b= unaryExpression )*
             {
             ArrayList<String> type = new ArrayList<String>();
             String tmp="";
-            pushFollow(FOLLOW_unaryExpression_in_multiplicativeExpression2072);
+            pushFollow(FOLLOW_unaryExpression_in_multiplicativeExpression2084);
             a=unaryExpression();
 
             state._fsp--;
 
             type.add((a!=null?a.unaryExpressionType:null));
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:541:61: ( (c= '*' | c= '/' ) b= unaryExpression )*
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:545:61: ( (c= '*' | c= '/' ) b= unaryExpression )*
             loop25:
             do {
                 int alt25=2;
@@ -2944,9 +2948,9 @@ public class GraphLangParser extends Parser {
 
                 switch (alt25) {
             	case 1 :
-            	    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:541:62: (c= '*' | c= '/' ) b= unaryExpression
+            	    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:545:62: (c= '*' | c= '/' ) b= unaryExpression
             	    {
-            	    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:541:62: (c= '*' | c= '/' )
+            	    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:545:62: (c= '*' | c= '/' )
             	    int alt24=2;
             	    int LA24_0 = input.LA(1);
 
@@ -2964,23 +2968,23 @@ public class GraphLangParser extends Parser {
             	    }
             	    switch (alt24) {
             	        case 1 :
-            	            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:541:63: c= '*'
+            	            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:545:63: c= '*'
             	            {
-            	            c=(Token)match(input,35,FOLLOW_35_in_multiplicativeExpression2080); 
+            	            c=(Token)match(input,35,FOLLOW_35_in_multiplicativeExpression2092); 
 
             	            }
             	            break;
             	        case 2 :
-            	            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:541:69: c= '/'
+            	            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:545:69: c= '/'
             	            {
-            	            c=(Token)match(input,36,FOLLOW_36_in_multiplicativeExpression2084); 
+            	            c=(Token)match(input,36,FOLLOW_36_in_multiplicativeExpression2096); 
 
             	            }
             	            break;
 
             	    }
 
-            	    pushFollow(FOLLOW_unaryExpression_in_multiplicativeExpression2089);
+            	    pushFollow(FOLLOW_unaryExpression_in_multiplicativeExpression2101);
             	    b=unaryExpression();
 
             	    state._fsp--;
@@ -3005,7 +3009,7 @@ public class GraphLangParser extends Parser {
 
 
             // TEMPLATE REWRITE
-            // 549:7: -> print(value=$a.st+tmp)
+            // 553:7: -> print(value=$a.st+tmp)
             {
                 retval.st = templateLib.getInstanceOf("print",
               new STAttrMap().put("value", (a!=null?a.st:null)+tmp));
@@ -3035,7 +3039,7 @@ public class GraphLangParser extends Parser {
     };
 
     // $ANTLR start "mathExpression"
-    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:552:1: mathExpression returns [String mathExpressionType] : a= multiplicativeExpression ( (c= '-' | c= '+' ) b= multiplicativeExpression )* -> print(value=$a.st +tmp);
+    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:556:1: mathExpression returns [String mathExpressionType] : a= multiplicativeExpression ( (c= '-' | c= '+' ) b= multiplicativeExpression )* -> print(value=$a.st +tmp);
     public final GraphLangParser.mathExpression_return mathExpression() throws RecognitionException {
         GraphLangParser.mathExpression_return retval = new GraphLangParser.mathExpression_return();
         retval.start = input.LT(1);
@@ -3047,19 +3051,19 @@ public class GraphLangParser extends Parser {
 
 
         try {
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:553:5: (a= multiplicativeExpression ( (c= '-' | c= '+' ) b= multiplicativeExpression )* -> print(value=$a.st +tmp))
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:553:9: a= multiplicativeExpression ( (c= '-' | c= '+' ) b= multiplicativeExpression )*
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:557:5: (a= multiplicativeExpression ( (c= '-' | c= '+' ) b= multiplicativeExpression )* -> print(value=$a.st +tmp))
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:557:9: a= multiplicativeExpression ( (c= '-' | c= '+' ) b= multiplicativeExpression )*
             {
             ArrayList<String> type = new ArrayList<String>();
             String tmp=""; 
             String tmp2="";
-            pushFollow(FOLLOW_multiplicativeExpression_in_mathExpression2181);
+            pushFollow(FOLLOW_multiplicativeExpression_in_mathExpression2193);
             a=multiplicativeExpression();
 
             state._fsp--;
 
             type.add((a!=null?a.multiplicativeExpressionType:null));
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:556:82: ( (c= '-' | c= '+' ) b= multiplicativeExpression )*
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:560:82: ( (c= '-' | c= '+' ) b= multiplicativeExpression )*
             loop27:
             do {
                 int alt27=2;
@@ -3072,9 +3076,9 @@ public class GraphLangParser extends Parser {
 
                 switch (alt27) {
             	case 1 :
-            	    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:556:83: (c= '-' | c= '+' ) b= multiplicativeExpression
+            	    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:560:83: (c= '-' | c= '+' ) b= multiplicativeExpression
             	    {
-            	    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:556:83: (c= '-' | c= '+' )
+            	    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:560:83: (c= '-' | c= '+' )
             	    int alt26=2;
             	    int LA26_0 = input.LA(1);
 
@@ -3092,23 +3096,23 @@ public class GraphLangParser extends Parser {
             	    }
             	    switch (alt26) {
             	        case 1 :
-            	            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:556:84: c= '-'
+            	            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:560:84: c= '-'
             	            {
-            	            c=(Token)match(input,34,FOLLOW_34_in_mathExpression2190); 
+            	            c=(Token)match(input,34,FOLLOW_34_in_mathExpression2202); 
 
             	            }
             	            break;
             	        case 2 :
-            	            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:556:90: c= '+'
+            	            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:560:90: c= '+'
             	            {
-            	            c=(Token)match(input,33,FOLLOW_33_in_mathExpression2194); 
+            	            c=(Token)match(input,33,FOLLOW_33_in_mathExpression2206); 
 
             	            }
             	            break;
 
             	    }
 
-            	    pushFollow(FOLLOW_multiplicativeExpression_in_mathExpression2199);
+            	    pushFollow(FOLLOW_multiplicativeExpression_in_mathExpression2211);
             	    b=multiplicativeExpression();
 
             	    state._fsp--;
@@ -3129,7 +3133,7 @@ public class GraphLangParser extends Parser {
 
 
             // TEMPLATE REWRITE
-            // 561:9: -> print(value=$a.st +tmp)
+            // 565:9: -> print(value=$a.st +tmp)
             {
                 retval.st = templateLib.getInstanceOf("print",
               new STAttrMap().put("value", (a!=null?a.st:null) +tmp));
@@ -3158,7 +3162,7 @@ public class GraphLangParser extends Parser {
     };
 
     // $ANTLR start "logicalExpression"
-    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:566:1: logicalExpression : a= relationExpression ( (c= '&&' | c= '||' ) b= relationExpression )* -> print(value=$a.st+tmp);
+    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:570:1: logicalExpression : a= relationExpression ( (c= '&&' | c= '||' ) b= relationExpression )* -> print(value=$a.st+tmp);
     public final GraphLangParser.logicalExpression_return logicalExpression() throws RecognitionException {
         GraphLangParser.logicalExpression_return retval = new GraphLangParser.logicalExpression_return();
         retval.start = input.LT(1);
@@ -3170,16 +3174,16 @@ public class GraphLangParser extends Parser {
 
 
         try {
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:567:4: (a= relationExpression ( (c= '&&' | c= '||' ) b= relationExpression )* -> print(value=$a.st+tmp))
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:567:6: a= relationExpression ( (c= '&&' | c= '||' ) b= relationExpression )*
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:571:4: (a= relationExpression ( (c= '&&' | c= '||' ) b= relationExpression )* -> print(value=$a.st+tmp))
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:571:6: a= relationExpression ( (c= '&&' | c= '||' ) b= relationExpression )*
             {
             String tmp="";
-            pushFollow(FOLLOW_relationExpression_in_logicalExpression2276);
+            pushFollow(FOLLOW_relationExpression_in_logicalExpression2288);
             a=relationExpression();
 
             state._fsp--;
 
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:568:27: ( (c= '&&' | c= '||' ) b= relationExpression )*
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:572:27: ( (c= '&&' | c= '||' ) b= relationExpression )*
             loop29:
             do {
                 int alt29=2;
@@ -3192,9 +3196,9 @@ public class GraphLangParser extends Parser {
 
                 switch (alt29) {
             	case 1 :
-            	    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:568:28: (c= '&&' | c= '||' ) b= relationExpression
+            	    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:572:28: (c= '&&' | c= '||' ) b= relationExpression
             	    {
-            	    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:568:28: (c= '&&' | c= '||' )
+            	    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:572:28: (c= '&&' | c= '||' )
             	    int alt28=2;
             	    int LA28_0 = input.LA(1);
 
@@ -3212,23 +3216,23 @@ public class GraphLangParser extends Parser {
             	    }
             	    switch (alt28) {
             	        case 1 :
-            	            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:568:29: c= '&&'
+            	            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:572:29: c= '&&'
             	            {
-            	            c=(Token)match(input,37,FOLLOW_37_in_logicalExpression2282); 
+            	            c=(Token)match(input,37,FOLLOW_37_in_logicalExpression2294); 
 
             	            }
             	            break;
             	        case 2 :
-            	            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:568:36: c= '||'
+            	            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:572:36: c= '||'
             	            {
-            	            c=(Token)match(input,38,FOLLOW_38_in_logicalExpression2286); 
+            	            c=(Token)match(input,38,FOLLOW_38_in_logicalExpression2298); 
 
             	            }
             	            break;
 
             	    }
 
-            	    pushFollow(FOLLOW_relationExpression_in_logicalExpression2291);
+            	    pushFollow(FOLLOW_relationExpression_in_logicalExpression2303);
             	    b=relationExpression();
 
             	    state._fsp--;
@@ -3246,7 +3250,7 @@ public class GraphLangParser extends Parser {
 
 
             // TEMPLATE REWRITE
-            // 569:6: -> print(value=$a.st+tmp)
+            // 573:6: -> print(value=$a.st+tmp)
             {
                 retval.st = templateLib.getInstanceOf("print",
               new STAttrMap().put("value", (a!=null?a.st:null)+tmp));
@@ -3275,7 +3279,7 @@ public class GraphLangParser extends Parser {
     };
 
     // $ANTLR start "relationExpression"
-    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:573:1: relationExpression : ( '(' logicalExpression ')' -> print(value=\"(\"+$logicalExpression.st+\")\") | t1= logicalAtom RELATIONALOP t2= logicalAtom -> print(value=$t1.st+$RELATIONALOP.text+$t2.st)) ;
+    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:577:1: relationExpression : ( '(' logicalExpression ')' -> print(value=\"(\"+$logicalExpression.st+\")\") | t1= logicalAtom RELATIONALOP t2= logicalAtom -> print(value=$t1.st+$RELATIONALOP.text+$t2.st)) ;
     public final GraphLangParser.relationExpression_return relationExpression() throws RecognitionException {
         GraphLangParser.relationExpression_return retval = new GraphLangParser.relationExpression_return();
         retval.start = input.LT(1);
@@ -3289,10 +3293,10 @@ public class GraphLangParser extends Parser {
 
 
         try {
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:574:5: ( ( '(' logicalExpression ')' -> print(value=\"(\"+$logicalExpression.st+\")\") | t1= logicalAtom RELATIONALOP t2= logicalAtom -> print(value=$t1.st+$RELATIONALOP.text+$t2.st)) )
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:574:8: ( '(' logicalExpression ')' -> print(value=\"(\"+$logicalExpression.st+\")\") | t1= logicalAtom RELATIONALOP t2= logicalAtom -> print(value=$t1.st+$RELATIONALOP.text+$t2.st))
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:578:5: ( ( '(' logicalExpression ')' -> print(value=\"(\"+$logicalExpression.st+\")\") | t1= logicalAtom RELATIONALOP t2= logicalAtom -> print(value=$t1.st+$RELATIONALOP.text+$t2.st)) )
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:578:8: ( '(' logicalExpression ')' -> print(value=\"(\"+$logicalExpression.st+\")\") | t1= logicalAtom RELATIONALOP t2= logicalAtom -> print(value=$t1.st+$RELATIONALOP.text+$t2.st))
             {
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:574:8: ( '(' logicalExpression ')' -> print(value=\"(\"+$logicalExpression.st+\")\") | t1= logicalAtom RELATIONALOP t2= logicalAtom -> print(value=$t1.st+$RELATIONALOP.text+$t2.st))
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:578:8: ( '(' logicalExpression ')' -> print(value=\"(\"+$logicalExpression.st+\")\") | t1= logicalAtom RELATIONALOP t2= logicalAtom -> print(value=$t1.st+$RELATIONALOP.text+$t2.st))
             int alt30=2;
             int LA30_0 = input.LA(1);
 
@@ -3310,19 +3314,19 @@ public class GraphLangParser extends Parser {
             }
             switch (alt30) {
                 case 1 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:574:9: '(' logicalExpression ')'
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:578:9: '(' logicalExpression ')'
                     {
-                    match(input,14,FOLLOW_14_in_relationExpression2328); 
-                    pushFollow(FOLLOW_logicalExpression_in_relationExpression2330);
+                    match(input,14,FOLLOW_14_in_relationExpression2340); 
+                    pushFollow(FOLLOW_logicalExpression_in_relationExpression2342);
                     logicalExpression46=logicalExpression();
 
                     state._fsp--;
 
-                    match(input,15,FOLLOW_15_in_relationExpression2332); 
+                    match(input,15,FOLLOW_15_in_relationExpression2344); 
 
 
                     // TEMPLATE REWRITE
-                    // 574:35: -> print(value=\"(\"+$logicalExpression.st+\")\")
+                    // 578:35: -> print(value=\"(\"+$logicalExpression.st+\")\")
                     {
                         retval.st = templateLib.getInstanceOf("print",
                       new STAttrMap().put("value", "("+(logicalExpression46!=null?logicalExpression46.st:null)+")"));
@@ -3332,15 +3336,15 @@ public class GraphLangParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:575:8: t1= logicalAtom RELATIONALOP t2= logicalAtom
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:579:8: t1= logicalAtom RELATIONALOP t2= logicalAtom
                     {
-                    pushFollow(FOLLOW_logicalAtom_in_relationExpression2351);
+                    pushFollow(FOLLOW_logicalAtom_in_relationExpression2363);
                     t1=logicalAtom();
 
                     state._fsp--;
 
-                    RELATIONALOP47=(Token)match(input,RELATIONALOP,FOLLOW_RELATIONALOP_in_relationExpression2354); 
-                    pushFollow(FOLLOW_logicalAtom_in_relationExpression2358);
+                    RELATIONALOP47=(Token)match(input,RELATIONALOP,FOLLOW_RELATIONALOP_in_relationExpression2366); 
+                    pushFollow(FOLLOW_logicalAtom_in_relationExpression2370);
                     t2=logicalAtom();
 
                     state._fsp--;
@@ -3366,7 +3370,7 @@ public class GraphLangParser extends Parser {
 
 
                     // TEMPLATE REWRITE
-                    // 593:10: -> print(value=$t1.st+$RELATIONALOP.text+$t2.st)
+                    // 597:10: -> print(value=$t1.st+$RELATIONALOP.text+$t2.st)
                     {
                         retval.st = templateLib.getInstanceOf("print",
                       new STAttrMap().put("value", (t1!=null?t1.st:null)+(RELATIONALOP47!=null?RELATIONALOP47.getText():null)+(t2!=null?t2.st:null)));
@@ -3402,7 +3406,7 @@ public class GraphLangParser extends Parser {
     };
 
     // $ANTLR start "logicalAtom"
-    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:598:1: logicalAtom returns [String atomType] : ( intLiteral -> {$intLiteral.st} | floatLiteral -> {$floatLiteral.st} | idLiteral -> {$idLiteral.st} | stringLiteral -> {$stringLiteral.st} | BOOLEANLITERAL -> print(value=$BOOLEANLITERAL.text) | callClassMethod -> {$callClassMethod.st;} | callInlineFunction -> {$callInlineFunction.st;} | nullLiteral -> print(value=\"null\"));
+    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:602:1: logicalAtom returns [String atomType] : ( intLiteral -> {$intLiteral.st} | floatLiteral -> {$floatLiteral.st} | idLiteral -> {$idLiteral.st} | stringLiteral -> {$stringLiteral.st} | BOOLEANLITERAL -> print(value=$BOOLEANLITERAL.text) | callClassMethod -> {$callClassMethod.st;} | callInlineFunction -> {$callInlineFunction.st;} | nullLiteral -> print(value=\"null\"));
     public final GraphLangParser.logicalAtom_return logicalAtom() throws RecognitionException {
         GraphLangParser.logicalAtom_return retval = new GraphLangParser.logicalAtom_return();
         retval.start = input.LT(1);
@@ -3422,14 +3426,14 @@ public class GraphLangParser extends Parser {
 
 
         try {
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:599:5: ( intLiteral -> {$intLiteral.st} | floatLiteral -> {$floatLiteral.st} | idLiteral -> {$idLiteral.st} | stringLiteral -> {$stringLiteral.st} | BOOLEANLITERAL -> print(value=$BOOLEANLITERAL.text) | callClassMethod -> {$callClassMethod.st;} | callInlineFunction -> {$callInlineFunction.st;} | nullLiteral -> print(value=\"null\"))
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:603:5: ( intLiteral -> {$intLiteral.st} | floatLiteral -> {$floatLiteral.st} | idLiteral -> {$idLiteral.st} | stringLiteral -> {$stringLiteral.st} | BOOLEANLITERAL -> print(value=$BOOLEANLITERAL.text) | callClassMethod -> {$callClassMethod.st;} | callInlineFunction -> {$callInlineFunction.st;} | nullLiteral -> print(value=\"null\"))
             int alt31=8;
             alt31 = dfa31.predict(input);
             switch (alt31) {
                 case 1 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:599:9: intLiteral
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:603:9: intLiteral
                     {
-                    pushFollow(FOLLOW_intLiteral_in_logicalAtom2409);
+                    pushFollow(FOLLOW_intLiteral_in_logicalAtom2421);
                     intLiteral48=intLiteral();
 
                     state._fsp--;
@@ -3438,7 +3442,7 @@ public class GraphLangParser extends Parser {
 
 
                     // TEMPLATE REWRITE
-                    // 599:42: -> {$intLiteral.st}
+                    // 603:42: -> {$intLiteral.st}
                     {
                         retval.st = (intLiteral48!=null?intLiteral48.st:null);
                     }
@@ -3447,9 +3451,9 @@ public class GraphLangParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:600:9: floatLiteral
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:604:9: floatLiteral
                     {
-                    pushFollow(FOLLOW_floatLiteral_in_logicalAtom2424);
+                    pushFollow(FOLLOW_floatLiteral_in_logicalAtom2436);
                     floatLiteral49=floatLiteral();
 
                     state._fsp--;
@@ -3458,7 +3462,7 @@ public class GraphLangParser extends Parser {
 
 
                     // TEMPLATE REWRITE
-                    // 600:47: -> {$floatLiteral.st}
+                    // 604:47: -> {$floatLiteral.st}
                     {
                         retval.st = (floatLiteral49!=null?floatLiteral49.st:null);
                     }
@@ -3467,9 +3471,9 @@ public class GraphLangParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:601:9: idLiteral
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:605:9: idLiteral
                     {
-                    pushFollow(FOLLOW_idLiteral_in_logicalAtom2439);
+                    pushFollow(FOLLOW_idLiteral_in_logicalAtom2451);
                     idLiteral50=idLiteral();
 
                     state._fsp--;
@@ -3478,7 +3482,7 @@ public class GraphLangParser extends Parser {
 
 
                     // TEMPLATE REWRITE
-                    // 601:52: -> {$idLiteral.st}
+                    // 605:52: -> {$idLiteral.st}
                     {
                         retval.st = (idLiteral50!=null?idLiteral50.st:null);
                     }
@@ -3487,9 +3491,9 @@ public class GraphLangParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:602:9: stringLiteral
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:606:9: stringLiteral
                     {
-                    pushFollow(FOLLOW_stringLiteral_in_logicalAtom2454);
+                    pushFollow(FOLLOW_stringLiteral_in_logicalAtom2466);
                     stringLiteral51=stringLiteral();
 
                     state._fsp--;
@@ -3498,7 +3502,7 @@ public class GraphLangParser extends Parser {
 
 
                     // TEMPLATE REWRITE
-                    // 602:48: -> {$stringLiteral.st}
+                    // 606:48: -> {$stringLiteral.st}
                     {
                         retval.st = (stringLiteral51!=null?stringLiteral51.st:null);
                     }
@@ -3507,14 +3511,14 @@ public class GraphLangParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:603:9: BOOLEANLITERAL
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:607:9: BOOLEANLITERAL
                     {
-                    BOOLEANLITERAL52=(Token)match(input,BOOLEANLITERAL,FOLLOW_BOOLEANLITERAL_in_logicalAtom2469); 
+                    BOOLEANLITERAL52=(Token)match(input,BOOLEANLITERAL,FOLLOW_BOOLEANLITERAL_in_logicalAtom2481); 
                     retval.atomType = "bool"; 
 
 
                     // TEMPLATE REWRITE
-                    // 603:47: -> print(value=$BOOLEANLITERAL.text)
+                    // 607:47: -> print(value=$BOOLEANLITERAL.text)
                     {
                         retval.st = templateLib.getInstanceOf("print",
                       new STAttrMap().put("value", (BOOLEANLITERAL52!=null?BOOLEANLITERAL52.getText():null)));
@@ -3524,9 +3528,9 @@ public class GraphLangParser extends Parser {
                     }
                     break;
                 case 6 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:604:9: callClassMethod
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:608:9: callClassMethod
                     {
-                    pushFollow(FOLLOW_callClassMethod_in_logicalAtom2489);
+                    pushFollow(FOLLOW_callClassMethod_in_logicalAtom2501);
                     callClassMethod53=callClassMethod();
 
                     state._fsp--;
@@ -3535,7 +3539,7 @@ public class GraphLangParser extends Parser {
 
 
                     // TEMPLATE REWRITE
-                    // 604:68: -> {$callClassMethod.st;}
+                    // 608:68: -> {$callClassMethod.st;}
                     {
                         retval.st = (callClassMethod53!=null?callClassMethod53.st:null);;
                     }
@@ -3544,9 +3548,9 @@ public class GraphLangParser extends Parser {
                     }
                     break;
                 case 7 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:605:9: callInlineFunction
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:609:9: callInlineFunction
                     {
-                    pushFollow(FOLLOW_callInlineFunction_in_logicalAtom2504);
+                    pushFollow(FOLLOW_callInlineFunction_in_logicalAtom2516);
                     callInlineFunction54=callInlineFunction();
 
                     state._fsp--;
@@ -3555,7 +3559,7 @@ public class GraphLangParser extends Parser {
 
 
                     // TEMPLATE REWRITE
-                    // 605:76: -> {$callInlineFunction.st;}
+                    // 609:76: -> {$callInlineFunction.st;}
                     {
                         retval.st = (callInlineFunction54!=null?callInlineFunction54.st:null);;
                     }
@@ -3564,9 +3568,9 @@ public class GraphLangParser extends Parser {
                     }
                     break;
                 case 8 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:606:9: nullLiteral
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:610:9: nullLiteral
                     {
-                    pushFollow(FOLLOW_nullLiteral_in_logicalAtom2519);
+                    pushFollow(FOLLOW_nullLiteral_in_logicalAtom2531);
                     nullLiteral();
 
                     state._fsp--;
@@ -3575,7 +3579,7 @@ public class GraphLangParser extends Parser {
 
 
                     // TEMPLATE REWRITE
-                    // 606:43: -> print(value=\"null\")
+                    // 610:43: -> print(value=\"null\")
                     {
                         retval.st = templateLib.getInstanceOf("print",
                       new STAttrMap().put("value", "null"));
@@ -3606,16 +3610,16 @@ public class GraphLangParser extends Parser {
     };
 
     // $ANTLR start "nullLiteral"
-    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:610:1: nullLiteral : 'null' ;
+    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:614:1: nullLiteral : 'null' ;
     public final GraphLangParser.nullLiteral_return nullLiteral() throws RecognitionException {
         GraphLangParser.nullLiteral_return retval = new GraphLangParser.nullLiteral_return();
         retval.start = input.LT(1);
 
         try {
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:611:5: ( 'null' )
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:611:7: 'null'
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:615:5: ( 'null' )
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:615:7: 'null'
             {
-            match(input,39,FOLLOW_39_in_nullLiteral2551); 
+            match(input,39,FOLLOW_39_in_nullLiteral2563); 
 
             }
 
@@ -3639,13 +3643,13 @@ public class GraphLangParser extends Parser {
     };
 
     // $ANTLR start "assignmentOperator"
-    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:623:1: assignmentOperator : ( '=' | '+=' | '-=' | '*=' | '/=' | '%=' );
+    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:627:1: assignmentOperator : ( '=' | '+=' | '-=' | '*=' | '/=' | '%=' );
     public final GraphLangParser.assignmentOperator_return assignmentOperator() throws RecognitionException {
         GraphLangParser.assignmentOperator_return retval = new GraphLangParser.assignmentOperator_return();
         retval.start = input.LT(1);
 
         try {
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:624:5: ( '=' | '+=' | '-=' | '*=' | '/=' | '%=' )
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:628:5: ( '=' | '+=' | '-=' | '*=' | '/=' | '%=' )
             // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:
             {
             if ( input.LA(1)==31||(input.LA(1)>=40 && input.LA(1)<=44) ) {
@@ -3682,7 +3686,7 @@ public class GraphLangParser extends Parser {
     };
 
     // $ANTLR start "literal"
-    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:643:1: literal returns [String literalType, String literalValue] : ( intLiteral -> {$intLiteral.st;} | floatLiteral -> {$floatLiteral.st;} | idLiteral -> {$idLiteral.st;} | stringLiteral -> {$stringLiteral.st;} | BOOLEANLITERAL -> print(value=$BOOLEANLITERAL.text) | callClassMethod -> {$callClassMethod.st;} | callInlineFunction -> {$callInlineFunction.st;});
+    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:647:1: literal returns [String literalType, String literalValue] : ( intLiteral -> {$intLiteral.st;} | floatLiteral -> {$floatLiteral.st;} | idLiteral -> {$idLiteral.st;} | stringLiteral -> {$stringLiteral.st;} | BOOLEANLITERAL -> print(value=$BOOLEANLITERAL.text) | callClassMethod -> {$callClassMethod.st;} | callInlineFunction -> {$callInlineFunction.st;});
     public final GraphLangParser.literal_return literal() throws RecognitionException {
         GraphLangParser.literal_return retval = new GraphLangParser.literal_return();
         retval.start = input.LT(1);
@@ -3702,7 +3706,7 @@ public class GraphLangParser extends Parser {
 
 
         try {
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:644:5: ( intLiteral -> {$intLiteral.st;} | floatLiteral -> {$floatLiteral.st;} | idLiteral -> {$idLiteral.st;} | stringLiteral -> {$stringLiteral.st;} | BOOLEANLITERAL -> print(value=$BOOLEANLITERAL.text) | callClassMethod -> {$callClassMethod.st;} | callInlineFunction -> {$callInlineFunction.st;})
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:648:5: ( intLiteral -> {$intLiteral.st;} | floatLiteral -> {$floatLiteral.st;} | idLiteral -> {$idLiteral.st;} | stringLiteral -> {$stringLiteral.st;} | BOOLEANLITERAL -> print(value=$BOOLEANLITERAL.text) | callClassMethod -> {$callClassMethod.st;} | callInlineFunction -> {$callInlineFunction.st;})
             int alt32=7;
             switch ( input.LA(1) ) {
             case INT:
@@ -3767,9 +3771,9 @@ public class GraphLangParser extends Parser {
 
             switch (alt32) {
                 case 1 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:644:9: intLiteral
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:648:9: intLiteral
                     {
-                    pushFollow(FOLLOW_intLiteral_in_literal2773);
+                    pushFollow(FOLLOW_intLiteral_in_literal2785);
                     intLiteral55=intLiteral();
 
                     state._fsp--;
@@ -3778,7 +3782,7 @@ public class GraphLangParser extends Parser {
 
 
                     // TEMPLATE REWRITE
-                    // 644:76: -> {$intLiteral.st;}
+                    // 648:76: -> {$intLiteral.st;}
                     {
                         retval.st = (intLiteral55!=null?intLiteral55.st:null);;
                     }
@@ -3787,9 +3791,9 @@ public class GraphLangParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:645:9: floatLiteral
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:649:9: floatLiteral
                     {
-                    pushFollow(FOLLOW_floatLiteral_in_literal2788);
+                    pushFollow(FOLLOW_floatLiteral_in_literal2800);
                     floatLiteral56=floatLiteral();
 
                     state._fsp--;
@@ -3798,7 +3802,7 @@ public class GraphLangParser extends Parser {
 
 
                     // TEMPLATE REWRITE
-                    // 645:83: -> {$floatLiteral.st;}
+                    // 649:83: -> {$floatLiteral.st;}
                     {
                         retval.st = (floatLiteral56!=null?floatLiteral56.st:null);;
                     }
@@ -3807,9 +3811,9 @@ public class GraphLangParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:646:9: idLiteral
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:650:9: idLiteral
                     {
-                    pushFollow(FOLLOW_idLiteral_in_literal2803);
+                    pushFollow(FOLLOW_idLiteral_in_literal2815);
                     idLiteral57=idLiteral();
 
                     state._fsp--;
@@ -3818,7 +3822,7 @@ public class GraphLangParser extends Parser {
 
 
                     // TEMPLATE REWRITE
-                    // 646:86: -> {$idLiteral.st;}
+                    // 650:86: -> {$idLiteral.st;}
                     {
                         retval.st = (idLiteral57!=null?idLiteral57.st:null);;
                     }
@@ -3827,9 +3831,9 @@ public class GraphLangParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:647:9: stringLiteral
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:651:9: stringLiteral
                     {
-                    pushFollow(FOLLOW_stringLiteral_in_literal2818);
+                    pushFollow(FOLLOW_stringLiteral_in_literal2830);
                     stringLiteral58=stringLiteral();
 
                     state._fsp--;
@@ -3838,7 +3842,7 @@ public class GraphLangParser extends Parser {
 
 
                     // TEMPLATE REWRITE
-                    // 647:85: -> {$stringLiteral.st;}
+                    // 651:85: -> {$stringLiteral.st;}
                     {
                         retval.st = (stringLiteral58!=null?stringLiteral58.st:null);;
                     }
@@ -3847,14 +3851,14 @@ public class GraphLangParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:648:9: BOOLEANLITERAL
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:652:9: BOOLEANLITERAL
                     {
-                    BOOLEANLITERAL59=(Token)match(input,BOOLEANLITERAL,FOLLOW_BOOLEANLITERAL_in_literal2833); 
+                    BOOLEANLITERAL59=(Token)match(input,BOOLEANLITERAL,FOLLOW_BOOLEANLITERAL_in_literal2845); 
                     retval.literalType = "bool"; retval.literalValue =(BOOLEANLITERAL59!=null?BOOLEANLITERAL59.getText():null); 
 
 
                     // TEMPLATE REWRITE
-                    // 648:86: -> print(value=$BOOLEANLITERAL.text)
+                    // 652:86: -> print(value=$BOOLEANLITERAL.text)
                     {
                         retval.st = templateLib.getInstanceOf("print",
                       new STAttrMap().put("value", (BOOLEANLITERAL59!=null?BOOLEANLITERAL59.getText():null)));
@@ -3864,9 +3868,9 @@ public class GraphLangParser extends Parser {
                     }
                     break;
                 case 6 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:649:9: callClassMethod
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:653:9: callClassMethod
                     {
-                    pushFollow(FOLLOW_callClassMethod_in_literal2853);
+                    pushFollow(FOLLOW_callClassMethod_in_literal2865);
                     callClassMethod60=callClassMethod();
 
                     state._fsp--;
@@ -3875,7 +3879,7 @@ public class GraphLangParser extends Parser {
 
 
                     // TEMPLATE REWRITE
-                    // 649:108: -> {$callClassMethod.st;}
+                    // 653:108: -> {$callClassMethod.st;}
                     {
                         retval.st = (callClassMethod60!=null?callClassMethod60.st:null);;
                     }
@@ -3884,9 +3888,9 @@ public class GraphLangParser extends Parser {
                     }
                     break;
                 case 7 :
-                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:650:9: callInlineFunction
+                    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:654:9: callInlineFunction
                     {
-                    pushFollow(FOLLOW_callInlineFunction_in_literal2868);
+                    pushFollow(FOLLOW_callInlineFunction_in_literal2880);
                     callInlineFunction61=callInlineFunction();
 
                     state._fsp--;
@@ -3895,7 +3899,7 @@ public class GraphLangParser extends Parser {
 
 
                     // TEMPLATE REWRITE
-                    // 650:117: -> {$callInlineFunction.st;}
+                    // 654:117: -> {$callInlineFunction.st;}
                     {
                         retval.st = (callInlineFunction61!=null?callInlineFunction61.st:null);;
                     }
@@ -3926,7 +3930,7 @@ public class GraphLangParser extends Parser {
     };
 
     // $ANTLR start "argumentList"
-    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:653:1: argumentList returns [ArrayList<String> argumentTypeList] : a= literal ( ',' b= literal )* -> print(value=$a.st+tmp);
+    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:657:1: argumentList returns [ArrayList<String> argumentTypeList] : a= literal ( ',' b= literal )* -> print(value=$a.st+tmp);
     public final GraphLangParser.argumentList_return argumentList() throws RecognitionException {
         GraphLangParser.argumentList_return retval = new GraphLangParser.argumentList_return();
         retval.start = input.LT(1);
@@ -3937,20 +3941,20 @@ public class GraphLangParser extends Parser {
 
 
         try {
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:654:3: (a= literal ( ',' b= literal )* -> print(value=$a.st+tmp))
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:654:6: a= literal ( ',' b= literal )*
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:658:3: (a= literal ( ',' b= literal )* -> print(value=$a.st+tmp))
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:658:6: a= literal ( ',' b= literal )*
             {
 
                     retval.argumentTypeList = new ArrayList<String>();
                     String tmp="";
                  
-            pushFollow(FOLLOW_literal_in_argumentList2900);
+            pushFollow(FOLLOW_literal_in_argumentList2912);
             a=literal();
 
             state._fsp--;
 
             retval.argumentTypeList.add((a!=null?a.literalType:null));
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:659:3: ( ',' b= literal )*
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:663:3: ( ',' b= literal )*
             loop33:
             do {
                 int alt33=2;
@@ -3963,10 +3967,10 @@ public class GraphLangParser extends Parser {
 
                 switch (alt33) {
             	case 1 :
-            	    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:659:4: ',' b= literal
+            	    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:663:4: ',' b= literal
             	    {
-            	    match(input,19,FOLLOW_19_in_argumentList2909); 
-            	    pushFollow(FOLLOW_literal_in_argumentList2913);
+            	    match(input,19,FOLLOW_19_in_argumentList2921); 
+            	    pushFollow(FOLLOW_literal_in_argumentList2925);
             	    b=literal();
 
             	    state._fsp--;
@@ -3984,7 +3988,7 @@ public class GraphLangParser extends Parser {
 
 
             // TEMPLATE REWRITE
-            // 660:5: -> print(value=$a.st+tmp)
+            // 664:5: -> print(value=$a.st+tmp)
             {
                 retval.st = templateLib.getInstanceOf("print",
               new STAttrMap().put("value", (a!=null?a.st:null)+tmp));
@@ -4013,7 +4017,7 @@ public class GraphLangParser extends Parser {
     };
 
     // $ANTLR start "floatLiteral"
-    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:663:1: floatLiteral : FLOAT -> print(value=$FLOAT.text);
+    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:667:1: floatLiteral : FLOAT -> print(value=$FLOAT.text);
     public final GraphLangParser.floatLiteral_return floatLiteral() throws RecognitionException {
         GraphLangParser.floatLiteral_return retval = new GraphLangParser.floatLiteral_return();
         retval.start = input.LT(1);
@@ -4021,14 +4025,14 @@ public class GraphLangParser extends Parser {
         Token FLOAT62=null;
 
         try {
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:664:3: ( FLOAT -> print(value=$FLOAT.text))
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:664:5: FLOAT
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:668:3: ( FLOAT -> print(value=$FLOAT.text))
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:668:5: FLOAT
             {
-            FLOAT62=(Token)match(input,FLOAT,FOLLOW_FLOAT_in_floatLiteral2943); 
+            FLOAT62=(Token)match(input,FLOAT,FOLLOW_FLOAT_in_floatLiteral2955); 
 
 
             // TEMPLATE REWRITE
-            // 664:11: -> print(value=$FLOAT.text)
+            // 668:11: -> print(value=$FLOAT.text)
             {
                 retval.st = templateLib.getInstanceOf("print",
               new STAttrMap().put("value", (FLOAT62!=null?FLOAT62.getText():null)));
@@ -4059,7 +4063,7 @@ public class GraphLangParser extends Parser {
     };
 
     // $ANTLR start "idLiteral"
-    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:667:1: idLiteral returns [String idType, int curLine] : ID -> print(value=\"___\"+$ID.text);
+    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:671:1: idLiteral returns [String idType, int curLine] : ID -> print(value=\"___\"+$ID.text);
     public final GraphLangParser.idLiteral_return idLiteral() throws RecognitionException {
         GraphLangParser.idLiteral_return retval = new GraphLangParser.idLiteral_return();
         retval.start = input.LT(1);
@@ -4067,10 +4071,10 @@ public class GraphLangParser extends Parser {
         Token ID63=null;
 
         try {
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:668:3: ( ID -> print(value=\"___\"+$ID.text))
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:668:5: ID
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:672:3: ( ID -> print(value=\"___\"+$ID.text))
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:672:5: ID
             {
-            ID63=(Token)match(input,ID,FOLLOW_ID_in_idLiteral2968); 
+            ID63=(Token)match(input,ID,FOLLOW_ID_in_idLiteral2980); 
 
                   retval.curLine = (ID63!=null?ID63.getLine():0);
                   //System.out.println(((programm_scope)programm_stack.peek()).curBlock+"."+(ID63!=null?ID63.getText():null));
@@ -4086,7 +4090,7 @@ public class GraphLangParser extends Parser {
 
 
             // TEMPLATE REWRITE
-            // 681:5: -> print(value=\"___\"+$ID.text)
+            // 685:5: -> print(value=\"___\"+$ID.text)
             {
                 retval.st = templateLib.getInstanceOf("print",
               new STAttrMap().put("value", "___"+(ID63!=null?ID63.getText():null)));
@@ -4115,7 +4119,7 @@ public class GraphLangParser extends Parser {
     };
 
     // $ANTLR start "intLiteral"
-    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:684:1: intLiteral : INT -> print(value=$INT.text);
+    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:688:1: intLiteral : INT -> print(value=$INT.text);
     public final GraphLangParser.intLiteral_return intLiteral() throws RecognitionException {
         GraphLangParser.intLiteral_return retval = new GraphLangParser.intLiteral_return();
         retval.start = input.LT(1);
@@ -4123,14 +4127,14 @@ public class GraphLangParser extends Parser {
         Token INT64=null;
 
         try {
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:685:3: ( INT -> print(value=$INT.text))
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:685:5: INT
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:689:3: ( INT -> print(value=$INT.text))
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:689:5: INT
             {
-            INT64=(Token)match(input,INT,FOLLOW_INT_in_intLiteral3001); 
+            INT64=(Token)match(input,INT,FOLLOW_INT_in_intLiteral3013); 
 
 
             // TEMPLATE REWRITE
-            // 685:9: -> print(value=$INT.text)
+            // 689:9: -> print(value=$INT.text)
             {
                 retval.st = templateLib.getInstanceOf("print",
               new STAttrMap().put("value", (INT64!=null?INT64.getText():null)));
@@ -4159,7 +4163,7 @@ public class GraphLangParser extends Parser {
     };
 
     // $ANTLR start "stringLiteral"
-    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:688:1: stringLiteral : STRING -> print(value=$STRING.text);
+    // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:692:1: stringLiteral : STRING -> print(value=$STRING.text);
     public final GraphLangParser.stringLiteral_return stringLiteral() throws RecognitionException {
         GraphLangParser.stringLiteral_return retval = new GraphLangParser.stringLiteral_return();
         retval.start = input.LT(1);
@@ -4167,14 +4171,14 @@ public class GraphLangParser extends Parser {
         Token STRING65=null;
 
         try {
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:689:3: ( STRING -> print(value=$STRING.text))
-            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:689:6: STRING
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:693:3: ( STRING -> print(value=$STRING.text))
+            // D:\\Programming\\PROJECTS\\Eclipse\\workspace\\GraphLang\\src\\graphlang\\GraphLang.g:693:6: STRING
             {
-            STRING65=(Token)match(input,STRING,FOLLOW_STRING_in_stringLiteral3023); 
+            STRING65=(Token)match(input,STRING,FOLLOW_STRING_in_stringLiteral3035); 
 
 
             // TEMPLATE REWRITE
-            // 689:13: -> print(value=$STRING.text)
+            // 693:13: -> print(value=$STRING.text)
             {
                 retval.st = templateLib.getInstanceOf("print",
               new STAttrMap().put("value", (STRING65!=null?STRING65.getText():null)));
@@ -4262,7 +4266,7 @@ public class GraphLangParser extends Parser {
             this.transition = DFA12_transition;
         }
         public String getDescription() {
-            return "168:1: statement : ( 'if' '(' logicalExpression ')' a= block ( 'else' b= block )? -> MyIfStatement(logicalExpr=$logicalExpression.stblockIf=$a.stblockElse=$b.st) | 'for' '(' forControl ')' a= block -> MyForControl(expr=$forControl.stblock=$a.st) | 'foreach' '(' foreachControl ')' block -> MyForeachStatment(expr=$foreachControl.stblock=$block.st) | 'while' '(' logicalExpression ')' block -> MyWhileStatement(logicalExpr=$logicalExpression.stblock=$block.st) | 'do' block 'while' '(' logicalExpression ')' ';' -> MyDoWhileStatement(logicalExpr=$logicalExpression.stblock=$block.st) | assignmentOperation ';' -> {$assignmentOperation.st} | setArcOperation ';' -> print(value=$setArcOperation.st+\";\\n\") | setGraphOperation ';' -> print(value=$setGraphOperation.st+\";\\n\") | callClassMethod ';' -> print(value=$callClassMethod.st+\";\\n\") | callInlineFunction ';' -> print(value=$callInlineFunction.st+\";\\n\"));";
+            return "172:1: statement : ( 'if' '(' logicalExpression ')' a= block ( 'else' b= block )? -> MyIfStatement(logicalExpr=$logicalExpression.stblockIf=$a.stblockElse=$b.st) | 'for' '(' forControl ')' a= block -> MyForControl(expr=$forControl.stblock=$a.st) | 'foreach' '(' foreachControl ')' block -> MyForeachStatment(expr=$foreachControl.stblock=$block.st) | 'while' '(' logicalExpression ')' block -> MyWhileStatement(logicalExpr=$logicalExpression.stblock=$block.st) | 'do' block 'while' '(' logicalExpression ')' ';' -> MyDoWhileStatement(logicalExpr=$logicalExpression.stblock=$block.st) | assignmentOperation ';' -> {$assignmentOperation.st} | setArcOperation ';' -> print(value=$setArcOperation.st+\";\\n\") | setGraphOperation ';' -> print(value=$setGraphOperation.st+\";\\n\") | callClassMethod ';' -> print(value=$callClassMethod.st+\";\\n\") | callInlineFunction ';' -> print(value=$callInlineFunction.st+\";\\n\"));";
         }
     }
     static final String DFA31_eotS =
@@ -4320,197 +4324,198 @@ public class GraphLangParser extends Parser {
             this.transition = DFA31_transition;
         }
         public String getDescription() {
-            return "598:1: logicalAtom returns [String atomType] : ( intLiteral -> {$intLiteral.st} | floatLiteral -> {$floatLiteral.st} | idLiteral -> {$idLiteral.st} | stringLiteral -> {$stringLiteral.st} | BOOLEANLITERAL -> print(value=$BOOLEANLITERAL.text) | callClassMethod -> {$callClassMethod.st;} | callInlineFunction -> {$callInlineFunction.st;} | nullLiteral -> print(value=\"null\"));";
+            return "602:1: logicalAtom returns [String atomType] : ( intLiteral -> {$intLiteral.st} | floatLiteral -> {$floatLiteral.st} | idLiteral -> {$idLiteral.st} | stringLiteral -> {$stringLiteral.st} | BOOLEANLITERAL -> print(value=$BOOLEANLITERAL.text) | callClassMethod -> {$callClassMethod.st;} | callInlineFunction -> {$callInlineFunction.st;} | nullLiteral -> print(value=\"null\"));";
         }
     }
  
 
     public static final BitSet FOLLOW_globalExpression_in_programm73 = new BitSet(new long[]{0x0000000000100010L});
-    public static final BitSet FOLLOW_mainBlock_in_programm79 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_globalVariableDeclaration_in_globalExpression108 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_functionDeclaration_in_globalExpression126 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_variableDeclarationStatement_in_globalVariableDeclaration158 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_13_in_globalVariableDeclaration160 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TYPE_in_functionDeclaration196 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_ID_in_functionDeclaration207 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_14_in_functionDeclaration220 = new BitSet(new long[]{0x0000000000008010L});
-    public static final BitSet FOLLOW_functionArgumentList_in_functionDeclaration222 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_15_in_functionDeclaration225 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_16_in_functionDeclaration258 = new BitSet(new long[]{0x0000000007A60030L});
-    public static final BitSet FOLLOW_blockStatement_in_functionDeclaration262 = new BitSet(new long[]{0x0000000007A60030L});
-    public static final BitSet FOLLOW_returnOperator_in_functionDeclaration266 = new BitSet(new long[]{0x0000000000020000L});
-    public static final BitSet FOLLOW_17_in_functionDeclaration269 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_18_in_returnOperator370 = new BitSet(new long[]{0x0000000000002020L});
-    public static final BitSet FOLLOW_ID_in_returnOperator372 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_13_in_returnOperator375 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_functionArgumentDeclarator_in_functionArgumentList405 = new BitSet(new long[]{0x0000000000080002L});
-    public static final BitSet FOLLOW_19_in_functionArgumentList408 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_functionArgumentDeclarator_in_functionArgumentList410 = new BitSet(new long[]{0x0000000000080002L});
-    public static final BitSet FOLLOW_TYPE_in_functionArgumentDeclarator430 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_ID_in_functionArgumentDeclarator432 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_20_in_mainBlock468 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_16_in_mainBlock470 = new BitSet(new long[]{0x0000000007A20030L});
-    public static final BitSet FOLLOW_blockStatement_in_mainBlock474 = new BitSet(new long[]{0x0000000007A20030L});
-    public static final BitSet FOLLOW_17_in_mainBlock477 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_variableDeclarationStatement_in_blockStatement507 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_13_in_blockStatement509 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_statement_in_blockStatement523 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_16_in_block553 = new BitSet(new long[]{0x0000000007A20030L});
-    public static final BitSet FOLLOW_statement_in_block557 = new BitSet(new long[]{0x0000000007A20030L});
-    public static final BitSet FOLLOW_17_in_block560 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_21_in_statement587 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_14_in_statement589 = new BitSet(new long[]{0x0000008007A047B0L});
-    public static final BitSet FOLLOW_logicalExpression_in_statement591 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_15_in_statement593 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_block_in_statement597 = new BitSet(new long[]{0x0000000000400002L});
-    public static final BitSet FOLLOW_22_in_statement600 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_block_in_statement604 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_23_in_statement632 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_14_in_statement634 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_forControl_in_statement636 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_15_in_statement638 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_block_in_statement642 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_24_in_statement664 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_14_in_statement666 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_foreachControl_in_statement668 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_15_in_statement670 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_block_in_statement672 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_25_in_statement694 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_14_in_statement696 = new BitSet(new long[]{0x0000008007A047B0L});
-    public static final BitSet FOLLOW_logicalExpression_in_statement698 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_15_in_statement700 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_block_in_statement702 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_26_in_statement724 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_block_in_statement727 = new BitSet(new long[]{0x0000000002000000L});
-    public static final BitSet FOLLOW_25_in_statement729 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_14_in_statement731 = new BitSet(new long[]{0x0000008007A047B0L});
-    public static final BitSet FOLLOW_logicalExpression_in_statement733 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_15_in_statement735 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_13_in_statement737 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_assignmentOperation_in_statement759 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_13_in_statement761 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_setArcOperation_in_statement774 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_13_in_statement776 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_setGraphOperation_in_statement794 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_13_in_statement796 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_callClassMethod_in_statement814 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_13_in_statement816 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_callInlineFunction_in_statement834 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_13_in_statement836 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_idLiteral_in_foreachControl888 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_13_in_foreachControl890 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_idLiteral_in_foreachControl894 = new BitSet(new long[]{0x0000000000002002L});
-    public static final BitSet FOLLOW_13_in_foreachControl897 = new BitSet(new long[]{0x0000000038000002L});
-    public static final BitSet FOLLOW_foreachType_in_foreachControl899 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_mainBlock_in_programm79 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_programm82 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_globalVariableDeclaration_in_globalExpression112 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_functionDeclaration_in_globalExpression130 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_variableDeclarationStatement_in_globalVariableDeclaration162 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_13_in_globalVariableDeclaration164 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TYPE_in_functionDeclaration200 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_ID_in_functionDeclaration211 = new BitSet(new long[]{0x0000000000004000L});
+    public static final BitSet FOLLOW_14_in_functionDeclaration224 = new BitSet(new long[]{0x0000000000008010L});
+    public static final BitSet FOLLOW_functionArgumentList_in_functionDeclaration226 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_15_in_functionDeclaration229 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_16_in_functionDeclaration262 = new BitSet(new long[]{0x0000000007A60030L});
+    public static final BitSet FOLLOW_blockStatement_in_functionDeclaration266 = new BitSet(new long[]{0x0000000007A60030L});
+    public static final BitSet FOLLOW_returnOperator_in_functionDeclaration270 = new BitSet(new long[]{0x0000000000020000L});
+    public static final BitSet FOLLOW_17_in_functionDeclaration273 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_18_in_returnOperator382 = new BitSet(new long[]{0x0000000000002020L});
+    public static final BitSet FOLLOW_ID_in_returnOperator384 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_13_in_returnOperator387 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_functionArgumentDeclarator_in_functionArgumentList417 = new BitSet(new long[]{0x0000000000080002L});
+    public static final BitSet FOLLOW_19_in_functionArgumentList420 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_functionArgumentDeclarator_in_functionArgumentList422 = new BitSet(new long[]{0x0000000000080002L});
+    public static final BitSet FOLLOW_TYPE_in_functionArgumentDeclarator442 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_ID_in_functionArgumentDeclarator444 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_20_in_mainBlock480 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_16_in_mainBlock482 = new BitSet(new long[]{0x0000000007A20030L});
+    public static final BitSet FOLLOW_blockStatement_in_mainBlock486 = new BitSet(new long[]{0x0000000007A20030L});
+    public static final BitSet FOLLOW_17_in_mainBlock489 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_variableDeclarationStatement_in_blockStatement519 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_13_in_blockStatement521 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_statement_in_blockStatement535 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_16_in_block565 = new BitSet(new long[]{0x0000000007A20030L});
+    public static final BitSet FOLLOW_statement_in_block569 = new BitSet(new long[]{0x0000000007A20030L});
+    public static final BitSet FOLLOW_17_in_block572 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_21_in_statement599 = new BitSet(new long[]{0x0000000000004000L});
+    public static final BitSet FOLLOW_14_in_statement601 = new BitSet(new long[]{0x0000008007A047B0L});
+    public static final BitSet FOLLOW_logicalExpression_in_statement603 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_15_in_statement605 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_block_in_statement609 = new BitSet(new long[]{0x0000000000400002L});
+    public static final BitSet FOLLOW_22_in_statement612 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_block_in_statement616 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_23_in_statement644 = new BitSet(new long[]{0x0000000000004000L});
+    public static final BitSet FOLLOW_14_in_statement646 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_forControl_in_statement648 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_15_in_statement650 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_block_in_statement654 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_24_in_statement676 = new BitSet(new long[]{0x0000000000004000L});
+    public static final BitSet FOLLOW_14_in_statement678 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_foreachControl_in_statement680 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_15_in_statement682 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_block_in_statement684 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_25_in_statement706 = new BitSet(new long[]{0x0000000000004000L});
+    public static final BitSet FOLLOW_14_in_statement708 = new BitSet(new long[]{0x0000008007A047B0L});
+    public static final BitSet FOLLOW_logicalExpression_in_statement710 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_15_in_statement712 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_block_in_statement714 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_26_in_statement736 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_block_in_statement739 = new BitSet(new long[]{0x0000000002000000L});
+    public static final BitSet FOLLOW_25_in_statement741 = new BitSet(new long[]{0x0000000000004000L});
+    public static final BitSet FOLLOW_14_in_statement743 = new BitSet(new long[]{0x0000008007A047B0L});
+    public static final BitSet FOLLOW_logicalExpression_in_statement745 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_15_in_statement747 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_13_in_statement749 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_assignmentOperation_in_statement771 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_13_in_statement773 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_setArcOperation_in_statement786 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_13_in_statement788 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_setGraphOperation_in_statement806 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_13_in_statement808 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_callClassMethod_in_statement826 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_13_in_statement828 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_callInlineFunction_in_statement846 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_13_in_statement848 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_idLiteral_in_foreachControl900 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_13_in_foreachControl902 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_idLiteral_in_foreachControl906 = new BitSet(new long[]{0x0000000000002002L});
+    public static final BitSet FOLLOW_13_in_foreachControl909 = new BitSet(new long[]{0x0000000038000002L});
+    public static final BitSet FOLLOW_foreachType_in_foreachControl911 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_set_in_foreachType0 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_forInit_in_forControl999 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_13_in_forControl1001 = new BitSet(new long[]{0x0000000007A00230L});
-    public static final BitSet FOLLOW_forLiteral_in_forControl1005 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_13_in_forControl1007 = new BitSet(new long[]{0x0000000007A00230L});
-    public static final BitSet FOLLOW_forLiteral_in_forControl1011 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_intLiteral_in_forLiteral1057 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_idLiteral_in_forLiteral1071 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_callClassMethod_in_forLiteral1086 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_callInlineFunction_in_forLiteral1101 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_idLiteral_in_forInit1126 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ID_in_callInlineFunction1164 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_14_in_callInlineFunction1166 = new BitSet(new long[]{0x0000000007A087B0L});
-    public static final BitSet FOLLOW_argumentList_in_callInlineFunction1168 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_15_in_callInlineFunction1171 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ID_in_callClassMethod1222 = new BitSet(new long[]{0x0000000040000000L});
-    public static final BitSet FOLLOW_30_in_callClassMethod1224 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_ID_in_callClassMethod1239 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_14_in_callClassMethod1263 = new BitSet(new long[]{0x0000000007A087B0L});
-    public static final BitSet FOLLOW_argumentList_in_callClassMethod1265 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_15_in_callClassMethod1268 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ID_in_assignmentOperation1339 = new BitSet(new long[]{0x00001F0080000000L});
-    public static final BitSet FOLLOW_assignmentOperator_in_assignmentOperation1376 = new BitSet(new long[]{0x0000000607A047B0L});
-    public static final BitSet FOLLOW_mathExpression_in_assignmentOperation1386 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ID_in_setGraphOperation1457 = new BitSet(new long[]{0x0000000080000000L});
-    public static final BitSet FOLLOW_31_in_setGraphOperation1459 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_14_in_setGraphOperation1461 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_16_in_setGraphOperation1464 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_variableList_in_setGraphOperation1466 = new BitSet(new long[]{0x0000000000020000L});
-    public static final BitSet FOLLOW_17_in_setGraphOperation1468 = new BitSet(new long[]{0x0000000000080000L});
-    public static final BitSet FOLLOW_19_in_setGraphOperation1470 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_16_in_setGraphOperation1472 = new BitSet(new long[]{0x0000000000020020L});
-    public static final BitSet FOLLOW_setArcExpressions_in_setGraphOperation1474 = new BitSet(new long[]{0x0000000000020000L});
-    public static final BitSet FOLLOW_17_in_setGraphOperation1477 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_15_in_setGraphOperation1480 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ID_in_variableList1547 = new BitSet(new long[]{0x0000000000080002L});
-    public static final BitSet FOLLOW_19_in_variableList1552 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_ID_in_variableList1556 = new BitSet(new long[]{0x0000000000080002L});
-    public static final BitSet FOLLOW_ID_in_setArcExpressions1584 = new BitSet(new long[]{0x0000000100000000L});
-    public static final BitSet FOLLOW_32_in_setArcExpressions1586 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_ID_in_setArcExpressions1590 = new BitSet(new long[]{0x0000000000080002L});
-    public static final BitSet FOLLOW_19_in_setArcExpressions1613 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_ID_in_setArcExpressions1617 = new BitSet(new long[]{0x0000000100000000L});
-    public static final BitSet FOLLOW_32_in_setArcExpressions1619 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_ID_in_setArcExpressions1623 = new BitSet(new long[]{0x0000000000080002L});
-    public static final BitSet FOLLOW_variableDeclaration_in_variableDeclarationStatement1650 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TYPE_in_variableDeclaration1696 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_variableDeclarators_in_variableDeclaration1700 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_variableDeclarator_in_variableDeclarators1794 = new BitSet(new long[]{0x0000000000080002L});
-    public static final BitSet FOLLOW_19_in_variableDeclarators1805 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_variableDeclarator_in_variableDeclarators1809 = new BitSet(new long[]{0x0000000000080002L});
-    public static final BitSet FOLLOW_ID_in_variableDeclarator1844 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ID_in_setArcOperation1871 = new BitSet(new long[]{0x0000000080000000L});
-    public static final BitSet FOLLOW_31_in_setArcOperation1873 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_14_in_setArcOperation1875 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_ID_in_setArcOperation1879 = new BitSet(new long[]{0x0000000100000000L});
-    public static final BitSet FOLLOW_32_in_setArcOperation1881 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_ID_in_setArcOperation1885 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_15_in_setArcOperation1886 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_literal_in_mathTerm1925 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_14_in_mathTerm1944 = new BitSet(new long[]{0x0000000607A047B0L});
-    public static final BitSet FOLLOW_mathExpression_in_mathTerm1946 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_15_in_mathTerm1948 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_33_in_unaryExpression1980 = new BitSet(new long[]{0x0000000607A047B0L});
-    public static final BitSet FOLLOW_unaryExpression_in_unaryExpression1984 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_34_in_unaryExpression2003 = new BitSet(new long[]{0x0000000607A047B0L});
-    public static final BitSet FOLLOW_unaryExpression_in_unaryExpression2007 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_mathTerm_in_unaryExpression2026 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_unaryExpression_in_multiplicativeExpression2072 = new BitSet(new long[]{0x0000001800000002L});
-    public static final BitSet FOLLOW_35_in_multiplicativeExpression2080 = new BitSet(new long[]{0x0000000607A047B0L});
-    public static final BitSet FOLLOW_36_in_multiplicativeExpression2084 = new BitSet(new long[]{0x0000000607A047B0L});
-    public static final BitSet FOLLOW_unaryExpression_in_multiplicativeExpression2089 = new BitSet(new long[]{0x0000001800000002L});
-    public static final BitSet FOLLOW_multiplicativeExpression_in_mathExpression2181 = new BitSet(new long[]{0x0000000600000002L});
-    public static final BitSet FOLLOW_34_in_mathExpression2190 = new BitSet(new long[]{0x0000000607A047B0L});
-    public static final BitSet FOLLOW_33_in_mathExpression2194 = new BitSet(new long[]{0x0000000607A047B0L});
-    public static final BitSet FOLLOW_multiplicativeExpression_in_mathExpression2199 = new BitSet(new long[]{0x0000000600000002L});
-    public static final BitSet FOLLOW_relationExpression_in_logicalExpression2276 = new BitSet(new long[]{0x0000006000000002L});
-    public static final BitSet FOLLOW_37_in_logicalExpression2282 = new BitSet(new long[]{0x0000008007A047B0L});
-    public static final BitSet FOLLOW_38_in_logicalExpression2286 = new BitSet(new long[]{0x0000008007A047B0L});
-    public static final BitSet FOLLOW_relationExpression_in_logicalExpression2291 = new BitSet(new long[]{0x0000006000000002L});
-    public static final BitSet FOLLOW_14_in_relationExpression2328 = new BitSet(new long[]{0x0000008007A047B0L});
-    public static final BitSet FOLLOW_logicalExpression_in_relationExpression2330 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_15_in_relationExpression2332 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_logicalAtom_in_relationExpression2351 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_RELATIONALOP_in_relationExpression2354 = new BitSet(new long[]{0x0000008007A047B0L});
-    public static final BitSet FOLLOW_logicalAtom_in_relationExpression2358 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_intLiteral_in_logicalAtom2409 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_floatLiteral_in_logicalAtom2424 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_idLiteral_in_logicalAtom2439 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_stringLiteral_in_logicalAtom2454 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_BOOLEANLITERAL_in_logicalAtom2469 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_callClassMethod_in_logicalAtom2489 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_callInlineFunction_in_logicalAtom2504 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_nullLiteral_in_logicalAtom2519 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_39_in_nullLiteral2551 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_forInit_in_forControl1011 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_13_in_forControl1013 = new BitSet(new long[]{0x0000000007A00230L});
+    public static final BitSet FOLLOW_forLiteral_in_forControl1017 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_13_in_forControl1019 = new BitSet(new long[]{0x0000000007A00230L});
+    public static final BitSet FOLLOW_forLiteral_in_forControl1023 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_intLiteral_in_forLiteral1069 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_idLiteral_in_forLiteral1083 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_callClassMethod_in_forLiteral1098 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_callInlineFunction_in_forLiteral1113 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_idLiteral_in_forInit1138 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ID_in_callInlineFunction1176 = new BitSet(new long[]{0x0000000000004000L});
+    public static final BitSet FOLLOW_14_in_callInlineFunction1178 = new BitSet(new long[]{0x0000000007A087B0L});
+    public static final BitSet FOLLOW_argumentList_in_callInlineFunction1180 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_15_in_callInlineFunction1183 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ID_in_callClassMethod1234 = new BitSet(new long[]{0x0000000040000000L});
+    public static final BitSet FOLLOW_30_in_callClassMethod1236 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_ID_in_callClassMethod1251 = new BitSet(new long[]{0x0000000000004000L});
+    public static final BitSet FOLLOW_14_in_callClassMethod1275 = new BitSet(new long[]{0x0000000007A087B0L});
+    public static final BitSet FOLLOW_argumentList_in_callClassMethod1277 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_15_in_callClassMethod1280 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ID_in_assignmentOperation1351 = new BitSet(new long[]{0x00001F0080000000L});
+    public static final BitSet FOLLOW_assignmentOperator_in_assignmentOperation1388 = new BitSet(new long[]{0x0000000607A047B0L});
+    public static final BitSet FOLLOW_mathExpression_in_assignmentOperation1398 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ID_in_setGraphOperation1469 = new BitSet(new long[]{0x0000000080000000L});
+    public static final BitSet FOLLOW_31_in_setGraphOperation1471 = new BitSet(new long[]{0x0000000000004000L});
+    public static final BitSet FOLLOW_14_in_setGraphOperation1473 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_16_in_setGraphOperation1476 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_variableList_in_setGraphOperation1478 = new BitSet(new long[]{0x0000000000020000L});
+    public static final BitSet FOLLOW_17_in_setGraphOperation1480 = new BitSet(new long[]{0x0000000000080000L});
+    public static final BitSet FOLLOW_19_in_setGraphOperation1482 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_16_in_setGraphOperation1484 = new BitSet(new long[]{0x0000000000020020L});
+    public static final BitSet FOLLOW_setArcExpressions_in_setGraphOperation1486 = new BitSet(new long[]{0x0000000000020000L});
+    public static final BitSet FOLLOW_17_in_setGraphOperation1489 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_15_in_setGraphOperation1492 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ID_in_variableList1559 = new BitSet(new long[]{0x0000000000080002L});
+    public static final BitSet FOLLOW_19_in_variableList1564 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_ID_in_variableList1568 = new BitSet(new long[]{0x0000000000080002L});
+    public static final BitSet FOLLOW_ID_in_setArcExpressions1596 = new BitSet(new long[]{0x0000000100000000L});
+    public static final BitSet FOLLOW_32_in_setArcExpressions1598 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_ID_in_setArcExpressions1602 = new BitSet(new long[]{0x0000000000080002L});
+    public static final BitSet FOLLOW_19_in_setArcExpressions1625 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_ID_in_setArcExpressions1629 = new BitSet(new long[]{0x0000000100000000L});
+    public static final BitSet FOLLOW_32_in_setArcExpressions1631 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_ID_in_setArcExpressions1635 = new BitSet(new long[]{0x0000000000080002L});
+    public static final BitSet FOLLOW_variableDeclaration_in_variableDeclarationStatement1662 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TYPE_in_variableDeclaration1708 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_variableDeclarators_in_variableDeclaration1712 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_variableDeclarator_in_variableDeclarators1806 = new BitSet(new long[]{0x0000000000080002L});
+    public static final BitSet FOLLOW_19_in_variableDeclarators1817 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_variableDeclarator_in_variableDeclarators1821 = new BitSet(new long[]{0x0000000000080002L});
+    public static final BitSet FOLLOW_ID_in_variableDeclarator1856 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ID_in_setArcOperation1883 = new BitSet(new long[]{0x0000000080000000L});
+    public static final BitSet FOLLOW_31_in_setArcOperation1885 = new BitSet(new long[]{0x0000000000004000L});
+    public static final BitSet FOLLOW_14_in_setArcOperation1887 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_ID_in_setArcOperation1891 = new BitSet(new long[]{0x0000000100000000L});
+    public static final BitSet FOLLOW_32_in_setArcOperation1893 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_ID_in_setArcOperation1897 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_15_in_setArcOperation1898 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_literal_in_mathTerm1937 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_14_in_mathTerm1956 = new BitSet(new long[]{0x0000000607A047B0L});
+    public static final BitSet FOLLOW_mathExpression_in_mathTerm1958 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_15_in_mathTerm1960 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_33_in_unaryExpression1992 = new BitSet(new long[]{0x0000000607A047B0L});
+    public static final BitSet FOLLOW_unaryExpression_in_unaryExpression1996 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_34_in_unaryExpression2015 = new BitSet(new long[]{0x0000000607A047B0L});
+    public static final BitSet FOLLOW_unaryExpression_in_unaryExpression2019 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_mathTerm_in_unaryExpression2038 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_unaryExpression_in_multiplicativeExpression2084 = new BitSet(new long[]{0x0000001800000002L});
+    public static final BitSet FOLLOW_35_in_multiplicativeExpression2092 = new BitSet(new long[]{0x0000000607A047B0L});
+    public static final BitSet FOLLOW_36_in_multiplicativeExpression2096 = new BitSet(new long[]{0x0000000607A047B0L});
+    public static final BitSet FOLLOW_unaryExpression_in_multiplicativeExpression2101 = new BitSet(new long[]{0x0000001800000002L});
+    public static final BitSet FOLLOW_multiplicativeExpression_in_mathExpression2193 = new BitSet(new long[]{0x0000000600000002L});
+    public static final BitSet FOLLOW_34_in_mathExpression2202 = new BitSet(new long[]{0x0000000607A047B0L});
+    public static final BitSet FOLLOW_33_in_mathExpression2206 = new BitSet(new long[]{0x0000000607A047B0L});
+    public static final BitSet FOLLOW_multiplicativeExpression_in_mathExpression2211 = new BitSet(new long[]{0x0000000600000002L});
+    public static final BitSet FOLLOW_relationExpression_in_logicalExpression2288 = new BitSet(new long[]{0x0000006000000002L});
+    public static final BitSet FOLLOW_37_in_logicalExpression2294 = new BitSet(new long[]{0x0000008007A047B0L});
+    public static final BitSet FOLLOW_38_in_logicalExpression2298 = new BitSet(new long[]{0x0000008007A047B0L});
+    public static final BitSet FOLLOW_relationExpression_in_logicalExpression2303 = new BitSet(new long[]{0x0000006000000002L});
+    public static final BitSet FOLLOW_14_in_relationExpression2340 = new BitSet(new long[]{0x0000008007A047B0L});
+    public static final BitSet FOLLOW_logicalExpression_in_relationExpression2342 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_15_in_relationExpression2344 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_logicalAtom_in_relationExpression2363 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_RELATIONALOP_in_relationExpression2366 = new BitSet(new long[]{0x0000008007A047B0L});
+    public static final BitSet FOLLOW_logicalAtom_in_relationExpression2370 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_intLiteral_in_logicalAtom2421 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_floatLiteral_in_logicalAtom2436 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_idLiteral_in_logicalAtom2451 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_stringLiteral_in_logicalAtom2466 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_BOOLEANLITERAL_in_logicalAtom2481 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_callClassMethod_in_logicalAtom2501 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_callInlineFunction_in_logicalAtom2516 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_nullLiteral_in_logicalAtom2531 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_39_in_nullLiteral2563 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_set_in_assignmentOperator0 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_intLiteral_in_literal2773 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_floatLiteral_in_literal2788 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_idLiteral_in_literal2803 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_stringLiteral_in_literal2818 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_BOOLEANLITERAL_in_literal2833 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_callClassMethod_in_literal2853 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_callInlineFunction_in_literal2868 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_literal_in_argumentList2900 = new BitSet(new long[]{0x0000000000080002L});
-    public static final BitSet FOLLOW_19_in_argumentList2909 = new BitSet(new long[]{0x0000000007A007B0L});
-    public static final BitSet FOLLOW_literal_in_argumentList2913 = new BitSet(new long[]{0x0000000000080002L});
-    public static final BitSet FOLLOW_FLOAT_in_floatLiteral2943 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ID_in_idLiteral2968 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_INT_in_intLiteral3001 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_STRING_in_stringLiteral3023 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_intLiteral_in_literal2785 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_floatLiteral_in_literal2800 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_idLiteral_in_literal2815 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_stringLiteral_in_literal2830 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_BOOLEANLITERAL_in_literal2845 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_callClassMethod_in_literal2865 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_callInlineFunction_in_literal2880 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_literal_in_argumentList2912 = new BitSet(new long[]{0x0000000000080002L});
+    public static final BitSet FOLLOW_19_in_argumentList2921 = new BitSet(new long[]{0x0000000007A007B0L});
+    public static final BitSet FOLLOW_literal_in_argumentList2925 = new BitSet(new long[]{0x0000000000080002L});
+    public static final BitSet FOLLOW_FLOAT_in_floatLiteral2955 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ID_in_idLiteral2980 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_INT_in_intLiteral3013 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_STRING_in_stringLiteral3035 = new BitSet(new long[]{0x0000000000000002L});
 
 }

@@ -1,4 +1,4 @@
-void voidF(){
+void voidF1(){
 	return ;
 }
 
@@ -30,10 +30,14 @@ OArc oarcF(OArc a){
 main{
 	double f;
 	Node n;
+	n="test node";
 	Graph g;
+	g="test graph";
 	OArc a;
+	a="test arc";
 	int i;
 	bool b;
 	String s;
-	write(voidF);
+	write(s);
 }
+asfas
