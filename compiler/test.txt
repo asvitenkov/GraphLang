@@ -1,0 +1,52 @@
+
+String str;
+
+void voidF1(){
+	return ;
+}
+
+int intF(int a){
+	return a;
+}
+
+double doubleF(double a){
+	return a;
+}
+
+String stringF(String a){
+	return a;
+}
+
+Graph graphF(Graph g){
+	return g;
+}
+
+Node nodeF(Node n){
+	return n;
+}
+
+OArc oarcF(OArc a){
+	return a;
+}
+
+
+main{
+	str="global";
+	write(str);
+	String str;
+	str="local";
+	write(str);
+	double f;
+	Node n;
+	n="test node";
+	Graph g;
+	g="test graph";
+	OArc a;
+	a="test arc";
+	int i;
+	bool b;
+	String s;
+	write("hello");
+}
+
+sfsdfd

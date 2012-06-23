@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: GraphLangProgram
+Rsrc-Class-Path: ./lib/GraphLib.jar
+Class-Path: ./lib/GraphLib.jar
