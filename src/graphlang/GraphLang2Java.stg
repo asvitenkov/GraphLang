@@ -6,10 +6,6 @@ MyGlobalVariableDeclaration(list)::= <<
 
 
 
-test(type, list)::= <<
-<type> <list:{n|myVAR_<n>};separator=";">
->>
-
 print(value)::= <<
 <value>
 >>
@@ -39,8 +35,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
-import antlr.RecognitionException;
 
 import graphlib.*;
 

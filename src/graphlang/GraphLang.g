@@ -461,9 +461,7 @@ setArcExpressions
 
 
 variableDeclarationStatement returns [String tVariableType,ArrayList<String> tVariableList]
-	  : variableDeclaration -> {$variableDeclaration.st}//{System.out.println($variableDeclaration.tVariableList);}
-	    //{$variableDeclarationStatement.tVariableList = $variableDeclaration.tVariableList;}
-      //{$variableDeclarationStatement.tVariableType = $variableDeclaration.tVariableType;}
+	  : variableDeclaration -> {$variableDeclaration.st}
 	  ;
 
 variableDeclaration returns [String tVariableType,ArrayList<String> tVariableList]
